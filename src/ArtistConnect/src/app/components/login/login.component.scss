@@ -1,0 +1,110 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    .top {
+        display: flex;
+        flex-direction: row;
+        height: 70vh;
+        width: 100vw;
+        background-color: #E9EBEE;
+        .left {
+            display: flex;
+            height: 70vh;
+            width: 50vw;
+            justify-content: center;
+            align-items: center;
+            .logo-container {
+                display: flex;
+                flex-direction: column;
+                height: 30vh;
+                width: 40vw;
+                .logo {
+                    color: #4267B3;
+                }
+            }
+        }
+        .right {
+            display: flex;
+            height: 70vh;
+            width: 50vw;
+            align-items: center;
+            justify-content: center;
+            .login-signup-container {
+                display: flex;
+                flex-direction: column;
+                height: 50vh;
+                width: 40vw;
+                justify-content: center;
+                align-items: center;
+                background-color: #FFFFFF;
+                border-radius: 5px;
+                // border: 1px solid red;
+                .login-form {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 25vh;
+                    width: 30vw;
+                    border-bottom: 1px solid #E9EBEE;
+                    input {
+                        width: 20vw;
+                        height: 5vh;
+                        margin-top: 2vh;
+                    }
+                    button {
+                        border-radius: 0.4vh;
+                        margin-top: 2vh;
+                        width: 20vw;
+                        padding: 1vh 1vw;
+                        background-color: #4267B3;
+                        color: #FFFFFF;
+                    }
+                }
+                .signup {
+                    display: flex;
+                    flex-direction: column;
+                    height: 10vh;
+                    width: 30vw;
+                    // align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    .signup-button {
+                        button {
+                            background-color: #00ff7f;
+                            color: #FFFFFF;
+                            width: 10vw;
+                            height: 5vh;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+                .creator-signup {
+                    display: flex;
+                    height: 10vh;
+                    width: 30vw;
+                    // align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    p {
+                        color: #4267B3;
+                    }
+                }
+            }
+        }
+    }
+    .bottom {
+        display: flex;
+        height: 30vh;
+        width: 100vw;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        .bottom-text {
+            display: flex;
+            text-align: center;
+        }
+    }
+}
