@@ -40,6 +40,7 @@
                 align-items: center;
                 background-color: #FFFFFF;
                 border-radius: 5px;
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 // border: 1px solid red;
                 .login-form {
                     display: flex;
@@ -73,7 +74,7 @@
                     text-align: center;
                     .signup-button {
                         button {
-                            background-color: #00ff7f;
+                            background-color: #55eb34;
                             color: #FFFFFF;
                             width: 10vw;
                             height: 5vh;
@@ -105,6 +106,7 @@
         .bottom-text {
             display: flex;
             text-align: center;
+            color: #b4b5b3;
         }
     }
 }
