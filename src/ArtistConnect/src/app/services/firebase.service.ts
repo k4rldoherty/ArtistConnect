@@ -23,17 +23,17 @@ export class FirebaseService {
       localStorage.setItem('token', 'true');
     }, err => {
       alert(err.message);
-      this.router.navigate(['/login'])
+      this.router.navigate(['/register'])
     })
   }
 
   logout() {
     this.firebaseAuth.signOut().then(() => {
       localStorage.removeItem('token');
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login/'])
     }, err => {
       alert(err.message);
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login/'])
     })
   }
 }

@@ -1,4 +1,4 @@
-<div class="login-container">
+<div class="signup-container">
     <div class="top">
         <div class="left">
             <div class="logo-container">
@@ -11,17 +11,16 @@
             </div>
         </div>
         <div class="right">
-            <div class="login-signup-container">
-                <div class="login-form">
+            <div class="signup-container">
+                <div class="signup-form">
                     <form>
                         <input type="email" id="email" name="email" placeholder="Email / Username" [(ngModel)]="email"><br>
                         <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password"><br>
                     </form>
-                    <button (click)="login()">Log In</button><br>
                 </div>
                 <div class="signup">
                     <div class="signup-button">
-                        <button routerLink="/register">New User? Sign Up Here</button>
+                        <button (click)="register()">Sign Up</button>
                     </div>
                 </div>
                 <div class="creator-signup">
