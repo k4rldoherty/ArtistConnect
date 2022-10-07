@@ -1,0 +1,47 @@
+<div class="signup-container">
+    <div class="top">
+        <div class="left">
+            <div class="logo-container">
+                <div class="logo">
+                    <h1>ArtistConnect</h1>
+                </div>
+                <div class="bottom-text">
+                    <h3>A one-stop-shop for artists, event orgainzers and music fans</h3>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="signup-container">
+                <div class="signup-form">
+                    <div class="left-sdie">
+                        <form>
+                            <input type="username" id="username" name="username" placeholder="Username" [(ngModel)]="username"><br>
+                            <input type="country" id="country" name="country" placeholder="Country"><br>
+                            <input type="birthday" id="birthday" name="birthday" placeholder="Birthday (dd-mm-yyyy)" [(ngModel)]="password"><br>
+                        </form>
+                    </div>
+                    <div class="right-side">
+                        <form>
+                            <input type="email" id="email" name="email" placeholder="Email Address" [(ngModel)]="email"><br>
+                            <input type="county" id="county" name="county" placeholder="County / State"><br>
+                            <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password"><br>
+                        </form>
+                    </div>
+                </div>
+                <div class="signup">
+                    <div class="signup-button">
+                        <button (click)="register()">Sign Up</button>
+                    </div>
+                </div>
+                <div class="creator-signup">
+                    <p>Create an Artist / Events Orgainzer account</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottom-text">
+            <p>Created as part of a final year project<br>Karl Doherty, Yury Chupahin<br> 2022/2023 CA400</p>
+        </div>
+    </div>
+</div>

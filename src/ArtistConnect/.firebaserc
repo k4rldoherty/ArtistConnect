@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "artistconnect-721d1": {
+      "hosting": {
+        "ArtistConnect": [
+          "artistconnect-721d1"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "artistconnect-721d1"
+  }
+}
