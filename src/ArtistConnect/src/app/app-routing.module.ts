@@ -14,6 +14,7 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
+    // Need to add a gaurd here to not allow users who aren't signed in to access the homepage
     path: 'home',
     component: HomeComponent
   }
