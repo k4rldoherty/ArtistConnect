@@ -9,6 +9,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class RegisterComponent implements OnInit {
   email!: string;
   password!: string;
+  username!: string;
 
   constructor( private firebase: FirebaseService ) { }
 

@@ -44,15 +44,16 @@
                 // border: 1px solid red;
                 .signup-form {
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row;
                     justify-content: center;
                     align-items: center;
+                    gap: 1vw;
                     height: 25vh;
                     width: 30vw;
 
                     input {
-                        width: 20vw;
-                        height: 5vh;
+                        width: 12vw;
+                        height: 4vh;
                         margin-top: 2vh;
                     }
                     button {

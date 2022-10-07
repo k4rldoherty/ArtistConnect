@@ -13,10 +13,20 @@
         <div class="right">
             <div class="signup-container">
                 <div class="signup-form">
-                    <form>
-                        <input type="email" id="email" name="email" placeholder="Email / Username" [(ngModel)]="email"><br>
-                        <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password"><br>
-                    </form>
+                    <div class="left-sdie">
+                        <form>
+                            <input type="username" id="username" name="username" placeholder="Username" [(ngModel)]="username"><br>
+                            <input type="country" id="country" name="country" placeholder="Country"><br>
+                            <input type="birthday" id="birthday" name="birthday" placeholder="Birthday (dd-mm-yyyy)" [(ngModel)]="password"><br>
+                        </form>
+                    </div>
+                    <div class="right-side">
+                        <form>
+                            <input type="email" id="email" name="email" placeholder="Email Address" [(ngModel)]="email"><br>
+                            <input type="county" id="county" name="county" placeholder="County / State"><br>
+                            <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password"><br>
+                        </form>
+                    </div>
                 </div>
                 <div class="signup">
                     <div class="signup-button">
