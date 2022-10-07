@@ -1,0 +1,41 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 5vh;
+        padding: 0vh 0.5vw;
+        border-bottom: 1px solid #D1D1C7;
+        .logo {
+            display: flex;
+            width: 33vw;
+        }
+        .search-bar {
+            display: flex;
+            width: 33vw;
+            justify-content: center;
+            align-items: center;
+            input {
+                width: 30vw;
+                height: 2.5vh;
+                background-color: #E9EBEE;
+                border: none;
+                border-radius: 0.5vh;
+                padding: 0.1vh 0.5vw;
+            }
+        }
+        .profile {
+            display: flex;
+            width: 33vw;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    }
+    .content-container {
+        display: flex;
+        height: 95vh; // remove this just to see what it will look like
+        background-color: #E9EBEE;
+    }
+}
