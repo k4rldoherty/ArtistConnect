@@ -20,8 +20,12 @@
                 flex-direction: column;
                 height: 30vh;
                 width: 40vw;
+                padding-bottom: 20vh;
                 .logo {
-                    color: #8c52ff;
+                    img {
+                        width: 30vw;
+                        height: 50vh;
+                    }
                 }
             }
         }
