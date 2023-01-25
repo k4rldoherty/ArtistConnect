@@ -8,7 +8,7 @@
         flex-direction: row;
         height: 70vh;
         width: 100vw;
-        background-color: #E9EBEE;
+        background-color: var(--color-tertiary);
         .left {
             display: flex;
             height: 70vh;
@@ -20,8 +20,12 @@
                 flex-direction: column;
                 height: 30vh;
                 width: 40vw;
+                padding-bottom: 20vh;
                 .logo {
-                    color: #4267B3;
+                    img {
+                        width: 30vw;
+                        height: 50vh;
+                    }
                 }
             }
         }
@@ -38,7 +42,7 @@
                 width: 40vw;
                 justify-content: center;
                 align-items: center;
-                background-color: #FFFFFF;
+                background-color: var(--color-secondary);
                 border-radius: 5px;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 // border: 1px solid red;
@@ -61,8 +65,8 @@
                         margin-top: 2vh;
                         width: 20vw;
                         padding: 1vh 1vw;
-                        background-color: #4267B3;
-                        color: #FFFFFF;
+                        background-color: var(--main-color);
+                        color: var(--color-secondary);
                     }
                 }
                 .signup {
@@ -75,8 +79,8 @@
                     text-align: center;
                     .signup-button {
                         button {
-                            background-color: #55eb34;
-                            color: #FFFFFF;
+                            background-color: var(--color-sign-up-button);
+                            color: var(--color-secondary);
                             width: 10vw;
                             height: 5vh;
                             border-radius: 5px;
@@ -91,7 +95,7 @@
                     justify-content: center;
                     text-align: center;
                     p {
-                        color: #4267B3;
+                        color: var(--main-color);
                     }
                 }
             }
@@ -107,7 +111,7 @@
         .bottom-text {
             display: flex;
             text-align: center;
-            color: #b4b5b3;
+            color: var(--color-text);
         }
     }
 }

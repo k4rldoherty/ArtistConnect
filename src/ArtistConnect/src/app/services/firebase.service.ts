@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  isLoggedIn: boolean = false;
+
+  private loggedInEmail = new BehaviorSubject('');
+  currentLoggedInEmail = this.loggedInEmail.asObservable();
   constructor(public firebaseAuth: AngularFireAuth, private router: Router) { }
   
   register(email: string, password: string) {
@@ -40,4 +43,8 @@ export class FirebaseService {
       this.router.navigate(['/login/'])
     })
   }
+
+  setEmail(email: string) {
+    this.loggedInEmail.next(email)
+    }
 }

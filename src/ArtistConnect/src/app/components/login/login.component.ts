@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   constructor( private firebase: FirebaseService ) { }
 
   ngOnInit(): void {
+    this.firebase.currentLoggedInEmail.subscribe(email => this.email = email)
   }
 
   login() {
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     console.log(this.email, this.password);
     
     this.firebase.login(this.email, this.password);
+    this.firebase.setEmail(this.email)
     this.email, this.password = '';
   }
 }
