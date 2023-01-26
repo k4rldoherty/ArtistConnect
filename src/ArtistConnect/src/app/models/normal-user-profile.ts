@@ -1,6 +1,5 @@
 export interface normalUser {
-    uid: string,
-    email?: string,
+    email: string,
     username?: string,
     dob?: string,
     country?: string,

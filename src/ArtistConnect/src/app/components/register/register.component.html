@@ -12,15 +12,15 @@
                 <div class="signup-form">
                     <div class="left-sdie">
                         <form>
-                            <input type="username" id="username" name="username" placeholder="Username" [(ngModel)]="username"><br>
-                            <input type="country" id="country" name="country" placeholder="Country"><br>
-                            <input type="birthday" id="birthday" name="birthday" placeholder="Birthday (dd-mm-yyyy)" [(ngModel)]="password"><br>
+                            <input type="username" id="username" name="username" placeholder="Username" [(ngModel)]="newUserData.username"><br>
+                            <input type="country" id="country" name="country" placeholder="Country" [(ngModel)]="newUserData.country"><br>
+                            <input type="birthday" id="birthday" name="birthday" placeholder="Birthday (dd-mm-yyyy)" [(ngModel)]="newUserData.dob"><br>
                         </form>
                     </div>
                     <div class="right-side">
                         <form>
-                            <input type="email" id="email" name="email" placeholder="Email Address" [(ngModel)]="email"><br>
-                            <input type="county" id="county" name="county" placeholder="County / State"><br>
+                            <input type="email" id="email" name="email" placeholder="Email Address" [(ngModel)]="newUserData.email"><br>
+                            <input type="county" id="county" name="county" placeholder="County / State" [(ngModel)]="newUserData.county"><br>
                             <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password"><br>
                         </form>
                     </div>

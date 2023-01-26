@@ -15,10 +15,10 @@ export class FirebaseService {
   
   register(email: string, password: string) {
     this.firebaseAuth.createUserWithEmailAndPassword(email, password).then(() => {
-      this.router.navigate(['/login/'])
+      this.router.navigate(['/home'])
     }, err => {
       alert(err.message);
-      this.router.navigate(['/login'])
+      this.router.navigate(['/home'])
     })
   }
 
