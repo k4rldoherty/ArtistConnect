@@ -43,8 +43,7 @@ export class RegisterComponent implements OnInit {
       dob: this.newUserData.dob,
       county: this.newUserData.county,
       country: this.newUserData.country
-    }).then(res => {
-      console.log(res);
+    }).then(() =>{
       this.newUserData = {
         email: '',
         username: '',
