@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { normalUser } from 'src/app/models/normal-user-profile';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -7,23 +10,48 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  email!: string;
   password!: string;
-  username!: string;
+  usersCollection!: AngularFirestoreCollection<normalUser>;
 
-  constructor( private firebase: FirebaseService ) { }
-
-  ngOnInit(): void {
+  newUserData: normalUser = {
+    email: '',
+    username: '',
+    dob: '',
+    country: '',
+    county: ''
   }
 
+  constructor( private firebase: FirebaseService, private firestore: AngularFirestore) { }
+
+  ngOnInit(): void {
+    this.usersCollection = this.firestore.collection('users');
+  }
+
+
+
   register() {
-    if (this.email == '' || this.password == '') {
+    if (this.newUserData.email == '' || this.password == '') {
       alert("Please enter valid data into both fields")
       return;
     }
-    console.log(this.email, this.password);
+    console.log(this.newUserData);
     
-    this.firebase.register(this.email, this.password);
-    this.email, this.password = '';
+    this.firebase.register(this.newUserData.email, this.password);
+    this.firestore.collection('users').add({
+      email: this.newUserData.email,
+      username: this.newUserData.username,
+      dob: this.newUserData.dob,
+      county: this.newUserData.county,
+      country: this.newUserData.country
+    }).then(() =>{
+      this.newUserData = {
+        email: '',
+        username: '',
+        dob: '',
+        country: '',
+        county: ''
+      }
+      this.password = '';
+    })
   }
-}
+} 

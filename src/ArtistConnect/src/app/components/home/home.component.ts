@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
-
+  user = localStorage.getItem('user');
+  constructor(private firebase: FirebaseService) { }
+  
   ngOnInit(): void {
+  }
+
+
+  logout() {
+    this.firebase.logout()
   }
 
 }

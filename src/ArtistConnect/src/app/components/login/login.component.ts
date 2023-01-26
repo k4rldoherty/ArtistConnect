@@ -10,20 +10,29 @@ export class LoginComponent implements OnInit {
 
   email!: string;
   password!: string;
+  isSignedIn: boolean = false;
 
   constructor( private firebase: FirebaseService ) { }
 
   ngOnInit(): void {
+    this.firebase.currentLoggedInEmail.subscribe(email => this.email = email)
+    if(localStorage.getItem('user') !== null) {
+      this.isSignedIn = true;
+    } else {
+      this.isSignedIn = false;
+    }
   }
 
-  login() {
+  async login() {
     if (this.email == '' || this.password == '') {
       alert("Please enter valid data into both fields")
       return;
     }
-    console.log(this.email, this.password);
-    
-    this.firebase.login(this.email, this.password);
+    await this.firebase.login(this.email, this.password);
+    if(this.firebase.isLoggedIn) {
+      this.isSignedIn = true;
+    }
+    this.firebase.setEmail(this.email)
     this.email, this.password = '';
   }
 }

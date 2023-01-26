@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;700&family=Trispace&display=swap');
 
+:root {
+    --color-text: #000000;
+    --main-color: #8c52ff;
+    --color-secondary: #FFFFFF;
+    --color-tertiary: #E9EBEE;
+    --color-sign-up-button: #55eb34;
+}
+
+
 * {
     padding: 0;
     margin: 0;
