@@ -22,6 +22,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { FirebaseService } from './services/firebase.service';
 
 
 @NgModule({
