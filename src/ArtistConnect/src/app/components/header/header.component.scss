@@ -34,10 +34,11 @@
         align-items: center;
         justify-content: flex-end;
         .profile-bubble {
-            img {
-                border-radius: 50%;
-                height: 5vh;
-                width: 3vw;
+            ::ng-deep {
+                .profile-button {
+                    background-color: var(--color-secondary);
+                    border: none;
+                }
             }
         }
     }

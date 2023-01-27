@@ -7,8 +7,12 @@
     </div>
     <div class="profile">
         <div class="profile-bubble">
-            <img src="../../../assets/ArtistConnect Images/1.png" alt="">
+            <button class="profile-button" mat-button [matMenuTriggerFor]="profileMenu">{{ firebase.userData.email }}</button>
+            <mat-menu #profileMenu>
+                <button mat-menu-item>View Profile</button>
+                <button mat-menu-item>Settings</button>
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
         </div>
-        <p>{{ loggedInEmail }}</p>
     </div>
 </div>

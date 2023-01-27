@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule, MatMenuModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -13,6 +15,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { FirebaseService } from './services/firebase.service';
 
 
 @NgModule({
@@ -29,10 +32,14 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatButtonModule,
+    MatMenuModule,
+    BrowserAnimationsModule
   ],
   providers: [
-    {provide: FIREBASE_OPTIONS, useValue: environment.firebase}
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+    FirebaseService
   ],
   bootstrap: [AppComponent]
 })
