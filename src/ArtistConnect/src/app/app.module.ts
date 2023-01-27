@@ -16,6 +16,7 @@ import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FirebaseService } from './services/firebase.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FirebaseService } from './services/firebase.service';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
