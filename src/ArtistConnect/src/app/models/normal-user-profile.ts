@@ -1,7 +1,6 @@
 export interface normalUser {
-    uid?: string;
     email: string,
-    displayName?: string,
+    username?: string,
     dob?: string,
     country?: string,
     county?: string

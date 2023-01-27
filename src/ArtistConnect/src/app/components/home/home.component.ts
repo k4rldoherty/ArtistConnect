@@ -8,8 +8,14 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class HomeComponent implements OnInit {
   user = localStorage.getItem('user');
-  constructor(public firebase: FirebaseService) { }
+  constructor(private firebase: FirebaseService) { }
   
   ngOnInit(): void {
   }
+
+
+  logout() {
+    this.firebase.logout()
+  }
+
 }
