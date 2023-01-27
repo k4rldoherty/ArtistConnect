@@ -1,2 +1,7 @@
-<app-header></app-header>
-<p>profile works!</p>
+<div class="profile-container">
+    <app-header></app-header>
+    <div class="content-container">
+        <p>Email: {{ firebase.userData.email }}</p>
+        <p>Username: {{ firebase.signedInUserData.displayName }} </p>
+    </div>
+</div>
