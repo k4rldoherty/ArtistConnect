@@ -9,13 +9,10 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class HeaderComponent implements OnInit {
 
   loggedInEmail = '';
-  constructor(public firebase: FirebaseService) { }
+  constructor(private firebase: FirebaseService) { }
 
   ngOnInit(): void {
-  }
-
-  logout() {
-    this.firebase.logout();
+    this.firebase.currentLoggedInEmail.subscribe(email => this.loggedInEmail = email)
   }
 
 }
