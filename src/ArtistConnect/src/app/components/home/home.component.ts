@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { MatDialog } from '@angular/material/dialog'
+import { CreatePostComponent } from '../create-post/create-post.component';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +10,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class HomeComponent implements OnInit {
   user = localStorage.getItem('user');
-  constructor(private firebase: FirebaseService) { }
+  constructor(private firebase: FirebaseService, private dialog: MatDialog) { }
   
   ngOnInit(): void {
   }
@@ -16,6 +18,11 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.firebase.logout()
+  }
+
+  createPostClick(){
+    console.log('create button clicked');
+    this.dialog.open( CreatePostComponent );
   }
 
 }

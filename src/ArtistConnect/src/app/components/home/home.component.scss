@@ -7,4 +7,9 @@
         height: 91.9vh; // remove this just to see what it will look like
         background-color: var(--color-tertiary);
     }
+    #post-button{
+        position: fixed;
+        bottom: 2em;
+        right: 2em;
+    }
 }

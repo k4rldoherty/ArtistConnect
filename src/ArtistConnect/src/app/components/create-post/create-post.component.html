@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-card-title>Create Post</mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selectedOption">
+          <mat-option value="option1">Song</mat-option>
+          <mat-option value="option2">Event</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="selectedOption === 'option1'">
+        <mat-form-field>
+          <mat-label>Song Name</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Artist</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+      <div *ngIf="selectedOption === 'option2'">
+        <mat-form-field>
+          <mat-label>Event Name</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onPost()">Post</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
