@@ -10,19 +10,31 @@
       </mat-form-field>
       <div *ngIf="selectedOption === 'option1'">
         <mat-form-field>
-          <mat-label>Song Name</mat-label>
+          <mat-label>Song Name</mat-label><br>
           <input matInput>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Artist</mat-label>
+          <mat-label>Artist</mat-label><br>
           <input matInput>
         </mat-form-field>
+        <div>
+        <mat-form-field>
+          <mat-label>link to song</mat-label>
+          <input matInput>
+        </mat-form-field>
+        </div>
       </div>
       <div *ngIf="selectedOption === 'option2'">
         <mat-form-field>
-          <mat-label>Event Name</mat-label>
+          <mat-label>Event Name</mat-label><br>
           <input matInput>
         </mat-form-field>
+        <div>
+          <mat-form-field>
+            <mat-label>link to event</mat-label>
+            <input matInput>
+          </mat-form-field>
+          </div>
       </div>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onPost()">Post</button>
