@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { FirebaseService } from 'src/app/services/firebase.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { MatInput } from '@angular/material/input';
+//
+import firebase from 'firebase/compat/app';
+
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -16,7 +17,7 @@ export class CreatePostComponent implements OnInit{
   eventUrl: string;
 
   selectedOption = 'song';
-  constructor(private firestore: AngularFirestore, private afAuth: AngularFireAuth) {
+  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth) {
     this.artist = '';
     this.songName = '';
     this.songUrl = '';
@@ -29,11 +30,13 @@ export class CreatePostComponent implements OnInit{
   }
 
   onPost() {
+    let ts = firebase.firestore.FieldValue.serverTimestamp();
     this.afAuth.authState.subscribe(user => {
       if (user) {
         if (this.selectedOption == 'song'){
           console.log(user.uid, this.songName, this.artist, this.songUrl);
-          this.firestore.collection('posts').add({
+          this.fstore.collection('posts').add({
+            timestamp: ts,
             type: this.selectedOption,
             uid: user.uid,
             songName: this.songName,
@@ -43,7 +46,8 @@ export class CreatePostComponent implements OnInit{
         }
         else {
           console.log(user.uid, this.eventName, this.eventUrl);
-          this.firestore.collection('posts').add({
+          this.fstore.collection('posts').add({
+            timestamp: ts,
             type: this.selectedOption,
             uid: user.uid,
             eventName: this.eventName,
