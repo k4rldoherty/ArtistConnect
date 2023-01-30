@@ -1,8 +1,7 @@
 <div class="home-container">
     <app-header></app-header>
     <div class="content-container">
-        <p>{{ user }}</p>
-        <button (click)="logout()">Logout</button>
+        <p>{{ firebase.userData.email }}</p>
         <button mat-fab (click)="createPostClick()" id="post-button"><mat-icon>add</mat-icon></button>
     </div>
 </div>

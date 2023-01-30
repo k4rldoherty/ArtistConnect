@@ -9,7 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -22,6 +23,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { FirebaseService } from './services/firebase.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     RegisterComponent,
     HomeComponent,
     HeaderComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -40,18 +44,22 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    BrowserAnimationsModule,
     MatDialogModule,
     MatIconModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatButtonModule,
+    MatMenuModule,
+    BrowserAnimationsModule
   ],
   providers: [
-    {provide: FIREBASE_OPTIONS, useValue: environment.firebase}
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
+    FirebaseService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
