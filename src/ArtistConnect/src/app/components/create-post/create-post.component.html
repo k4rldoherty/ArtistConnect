@@ -4,35 +4,30 @@
       <mat-form-field>
         <mat-label>Select an option</mat-label>
         <mat-select [(value)]="selectedOption">
-          <mat-option value="option1">Song</mat-option>
-          <mat-option value="option2">Event</mat-option>
+          <mat-option value="song">Song</mat-option>
+          <mat-option value="event">Event</mat-option>
         </mat-select>
       </mat-form-field>
-      <div *ngIf="selectedOption === 'option1'">
+      <div *ngIf="selectedOption === 'song'">
         <mat-form-field>
-          <mat-label>Song Name</mat-label><br>
-          <input matInput>
+          <input matInput placeholder="Artist" [(ngModel)]="artist">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Artist</mat-label><br>
-          <input matInput>
-        </mat-form-field>
-        <div>
-        <mat-form-field>
-          <mat-label>link to song</mat-label>
-          <input matInput>
-        </mat-form-field>
-        </div>
-      </div>
-      <div *ngIf="selectedOption === 'option2'">
-        <mat-form-field>
-          <mat-label>Event Name</mat-label><br>
-          <input matInput>
+          <input matInput placeholder="Song Name" [(ngModel)]="songName">
         </mat-form-field>
         <div>
           <mat-form-field>
-            <mat-label>link to event</mat-label>
-            <input matInput>
+            <input matInput placeholder="Link to song"[(ngModel)]="songUrl">
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="selectedOption === 'event'">
+        <mat-form-field>
+          <input matInput placeholder="Event Name" [(ngModel)]="eventName">
+        </mat-form-field>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Link to event"[(ngModel)]="eventUrl">
           </mat-form-field>
           </div>
       </div>
