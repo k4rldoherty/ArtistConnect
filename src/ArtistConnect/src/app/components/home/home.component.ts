@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog'
 import { CreatePostComponent } from '../create-post/create-post.component';
@@ -10,7 +10,7 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 })
 export class HomeComponent implements OnInit {
   user = localStorage.getItem('user');
-  constructor(private firebase: FirebaseService, private dialog: MatDialog) { }
+  constructor(public firebase: FirebaseService, private dialog: MatDialog) { }
   
   ngOnInit(): void {
   }
