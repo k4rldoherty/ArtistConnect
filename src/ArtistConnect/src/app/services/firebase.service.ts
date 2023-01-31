@@ -26,6 +26,7 @@ export class FirebaseService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
+        
         this.getUser(this.userData.uid).subscribe(user => {
           this.userData = user;
         });

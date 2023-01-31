@@ -7,14 +7,16 @@
         justify-content: center;
         align-items: center;
         background-color: var(--color-tertiary);
-        margin: 2vh 2vw;
         .user-profile {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: 2vh 2vw;
             gap: 2vh;
+            .edit-button {
+                display: flex;
+            }
         }
         .user-posts {
             display: flex;
