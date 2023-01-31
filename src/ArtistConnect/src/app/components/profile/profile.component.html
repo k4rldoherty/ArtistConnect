@@ -1,7 +1,19 @@
 <div class="profile-container">
     <app-header></app-header>
     <div class="content-container">
-        <p>Email: {{ firebase.userData.email }}</p>
-        <p>Username: {{ firebase.signedInUserData.displayName }} </p>
+        <div class="user-profile">
+            <p>{{ firebase.userData.displayName }}</p>
+            <p>{{ firebase.userData.email }}</p>
+            <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
+            <p>{{ firebase.userData.dob }} </p>
+        </div>
+        <div class="user-posts">
+            <ul>
+                <li>Posts</li>
+                <li>Likes</li>
+                <li>Followers</li>
+                <li>Following</li>
+            </ul>
+        </div>
     </div>
 </div>

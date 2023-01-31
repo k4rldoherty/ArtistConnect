@@ -4,7 +4,28 @@
     .content-container {
         display: flex;
         flex-direction: column;
-        height: 91.9vh; // remove this just to see what it will look like
+        justify-content: center;
+        align-items: center;
         background-color: var(--color-tertiary);
+        margin: 2vh 2vw;
+        .user-profile {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 2vh 2vw;
+            gap: 2vh;
+        }
+        .user-posts {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin: 2vh 2vw;
+            li {
+                list-style: none;
+                float: left;
+                padding: 1vh 1vw;
+            }
+        }
     }
 }

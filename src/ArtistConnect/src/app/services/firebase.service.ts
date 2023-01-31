@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { normalUser } from '../models/users';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +12,30 @@ import { normalUser } from '../models/users';
 export class FirebaseService {
   isLoggedIn: boolean = false;
   userData: any;
-
-  signedInUserData: any = {
-    displayName: '',
-    email: '',
-    dob: '',
-    country: '',
-    county: ''
-  }
+  users!: any[];
+  
   
   constructor(
-    public firebaseAuth: AngularFireAuth, 
-    private firestore: AngularFirestore, 
+    public firebaseAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
     private router: Router
-    ) {
-      this.firebaseAuth.authState.subscribe((user) => {
-        if (user) {
+  ) {
+    
+    this.firebaseAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user')!);
+        this.getUser(this.userData.uid).subscribe(user => {
           this.userData = user;
-          localStorage.setItem('user', JSON.stringify(this.userData));
-          JSON.parse(localStorage.getItem('user')!);
-        } else {
-          localStorage.setItem('user', 'null');
-          JSON.parse(localStorage.getItem('user')!);
-        }
-      });
-     }
+        });
+      } else {
+        localStorage.setItem('user', 'null');
+        JSON.parse(localStorage.getItem('user')!);
+      }
+    });
+  
+  }
 
   register(email: string, password: string, displayName: any, dob: any, country: any, county: any) {
     return this.firebaseAuth
@@ -51,20 +51,19 @@ export class FirebaseService {
 
   login(email: string, password: string, displayName: any) {
     return this.firebaseAuth
-    .signInWithEmailAndPassword(email, password)
-    .then((result) => {
-      this.setUserDataLogin(result.user);
-      console.log(result);
-      this.firebaseAuth.authState.subscribe((user) => {
-        if (user) {
-          this.router.navigate(['home']);
-        }
-      });
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.setUserDataLogin(result.user);
+        this.firebaseAuth.authState.subscribe((user) => {
+          if (user) {
+            this.router.navigate(['home']);
+          }
+        });
 
-    })
-    .catch((error) => {
-      window.alert(error.message);
-    });
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
   }
 
   logout() {
@@ -95,7 +94,7 @@ export class FirebaseService {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(
       `users/${user.uid}`
     );
-    const userData: normalUser = {
+    const userData: any = {
       uid: user.uid,
       email: user.email,
     };
@@ -108,5 +107,10 @@ export class FirebaseService {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
+
+  getUser(currentUserUid: string) {
+    return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
+  }
+  
 }
 
