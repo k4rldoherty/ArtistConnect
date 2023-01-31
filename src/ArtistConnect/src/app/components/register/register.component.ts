@@ -30,4 +30,4 @@ export class RegisterComponent implements OnInit {
     }
     this.firebase.register(this.newUserData.email, this.password, this.newUserData.displayName, this.newUserData.dob, this.newUserData.country, this.newUserData.county);
   }
-} 
+}
