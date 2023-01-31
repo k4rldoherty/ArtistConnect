@@ -11,13 +11,14 @@
             <mat-tab-group>
 
                 <mat-tab label="Posts">
-                    <p class="posts-content" *ngFor="let testPost of testPosts">{{  testPost.data }}</p>
+                    <!-- <h2 class="posts-content" *ngFor="let testPost of testPosts">{{  testPost.data }}</h2> -->
+                    <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
                 </mat-tab>
                 <mat-tab label="{{ testFollowers.length }} Followers">
-                    <p class="followers-content" *ngFor="let testFollower of testFollowers">{{  testFollower.name }}</p>
+                    <h3 class="followers-content" *ngFor="let testFollower of testFollowers">{{  testFollower.name }}<button>Unfollow</button></h3>
                 </mat-tab>
                 <mat-tab label="Following {{ testFollowing.length }}">
-                    <p class="following-content" *ngFor="let testFollowings of testFollowing">{{  testFollowings.name }}</p>
+                    <h3 class="following-content" *ngFor="let testFollowings of testFollowing">{{  testFollowings.name }} <button>Friends</button></h3>
                 </mat-tab>
                 <mat-tab label="Likes">
                     Content 4
