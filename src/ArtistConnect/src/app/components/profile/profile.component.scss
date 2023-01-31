@@ -1,12 +1,17 @@
 .profile-container {
     display: flex;
     flex-direction: column;
+    background-color: var(--color-tertiary);
+    justify-content: center;
+    align-items: center;
     .content-container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        // justify-content: center;
         align-items: center;
-        background-color: var(--color-tertiary);
+        background-color: var(--color-secondary);
+        width: 60vw;
+        height: 91.9vh;
         .user-profile {
             display: flex;
             flex-direction: column;
@@ -16,6 +21,12 @@
             gap: 2vh;
             .edit-button {
                 display: flex;
+            }
+            img {
+                height: 15vh;
+                width: 9vw;
+                border-radius: 50%;
+                border: 1px solid var(--main-color);
             }
         }
         .user-posts {
