@@ -32,6 +32,7 @@ import { FirebaseService } from './services/firebase.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     CreatePostComponent,
     ProfileComponent,
     PostComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    FloatingmenuComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@
     <app-header></app-header>
     <div class="content-container">
         <div class="user-profile">
+            <img src="../../../assets/ArtistConnect Images/1.png" alt="">
             <h1>{{ firebase.userData.displayName }}</h1>
             <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
             <button mat-stroked-button color="primary" (click)="openDialog()">Edit Your Profile</button>
@@ -24,5 +25,6 @@
 
             </mat-tab-group>
         </div>
+        <app-floatingmenu></app-floatingmenu>
     </div>
 </div>

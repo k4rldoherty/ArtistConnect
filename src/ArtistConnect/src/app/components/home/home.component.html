@@ -1,9 +1,10 @@
 <div class="home-container">
     <app-header></app-header>
-    <div class="post-feed">
-        <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
-    </div>
     <div class="content-container">
+        <div class="post-feed">
+            <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
+        </div>
+        <app-floatingmenu></app-floatingmenu>
         <button mat-fab (click)="createPostClick()" id="post-button"><mat-icon>add</mat-icon></button>
     </div>
 </div>
