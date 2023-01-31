@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FirebaseService } from './services/firebase.service';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PostComponent } from './components/post/post.component';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     HomeComponent,
     HeaderComponent,
     CreatePostComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatMenuModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CommonModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
