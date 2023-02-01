@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
+import { concatMap, finalize, from, Observable, of } from 'rxjs';
 import { normalUser } from '../models/users';
 
 
@@ -13,21 +14,23 @@ export class FirebaseService {
   isLoggedIn: boolean = false;
   userData: any;
   users!: any[];
-  
-  
+  downloadURL: any;
+  imageURL!: string;
+
+
   constructor(
     public firebaseAuth: AngularFireAuth,
     private firestore: AngularFirestore,
     public storage: AngularFireStorage,
     private router: Router
   ) {
-    
+
     this.firebaseAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
-        
+
         this.getUser(this.userData.uid).subscribe(user => {
           this.userData = user;
         });
@@ -36,7 +39,7 @@ export class FirebaseService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
-  
+
   }
 
   register(email: string, password: string, displayName: any, dob: any, country: any, county: any) {
@@ -114,10 +117,26 @@ export class FirebaseService {
     return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
   }
 
-  // in progress
-  uploadProfilePicture(image: File, path: string) {
-    const storageRef = this.storage.ref(path)
-  }
-  
+
+  // uploadProfilePicture(image: File, path: string) {
+  //   const storageRef = this.storage.ref(path)
+  //   const task = this.storage.upload(path, image)
+  //   const uploadPercent = task.percentageChanges();
+  //   task.snapshotChanges().pipe(
+  //     finalize(() => this.downloadURL = storageRef.getDownloadURL())
+  //   ).subscribe();
+  // }
+
+  // getDownloadURL(path: string): Observable<string> {
+  //   let ref = this.storage.ref(path);
+  //   return new Observable<string>(observer => {
+  //     ref.getDownloadURL().then(url => {
+  //       observer.next(url);
+  //       observer.complete();
+  //     }, (error: any) => {
+  //       observer.error(error);
+  //     });
+  //   });
+  // }
 }
 

@@ -3,9 +3,9 @@
     <div class="content-container">
         <div class="user-profile">
             <div class="profile-photo">
-                <img [src]="firebase.userData.profilePic ?? '/assets/ArtistConnect Images/placeholder-user-image.png'" alt="">
+                <img [src]="imageUrl ?? '/Users/karldoherty/Documents/College/final_year_project/2023-ca400-doherk27-chupahy2/src/ArtistConnect/src/assets/ArtistConnect Images/placeholder-user-image.png'">
                 <button mat-mini-fab (click)="inputfield.click()"><mat-icon>edit</mat-icon></button>
-                <input #inputfield type="file" hidden (change)="uploadImage($event, user)">
+                <input #inputfield type="file" hidden (change)="uploadImage($event)">
             </div>
             <h1>{{ firebase.userData.displayName }}</h1>
             <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>

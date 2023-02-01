@@ -11,7 +11,7 @@
         align-items: center;
         background-color: var(--color-secondary);
         width: 60vw;
-        // height: 91.9vh;
+        min-height: 91.9vh;
         .user-profile {
             display: flex;
             flex-direction: column;
