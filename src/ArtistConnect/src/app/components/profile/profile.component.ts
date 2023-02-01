@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { PostData } from '../home/home.component';
 import { map } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-profile',
@@ -14,25 +15,7 @@ import { map } from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
 
-  testPosts = [
-    {
-      author: "your ma",
-      data: "Test Post 23874634324"
-    },
-    {
-      author: "your ma",
-      data: "Test Post 23874634324"
-    },
-    {
-      author: "your ma",
-      data: "Test Post 23874634324"
-    },
-    {
-      author: "your ma",
-      data: "Test Post 23874634324"
-    },
-  ]
-
+  user = this.auth.currentUser
   testFollowers = [
     {
       name: "Jimmy"
@@ -63,7 +46,7 @@ export class ProfileComponent implements OnInit {
     },
   ]
   feedPosts: PostData [] = []
-  constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog) { }
+  constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth) { }
 
 
   ngOnInit(): void {
@@ -92,6 +75,11 @@ export class ProfileComponent implements OnInit {
       height: '500px',
       width: '600px',
     });
+  }
+
+  uploadImage(event: any, user: any) {
+    console.log(event);
+    // this.firebase.uploadProfilePicture(event.target.files[0], `assets/userimages/${user.uid}`)
   }
 
 }

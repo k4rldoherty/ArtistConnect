@@ -9,9 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs'
@@ -26,6 +25,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FirebaseService } from './services/firebase.service';
@@ -55,6 +55,7 @@ import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.co
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     MatDialogModule,
     MatIconModule,
     MatCardModule,

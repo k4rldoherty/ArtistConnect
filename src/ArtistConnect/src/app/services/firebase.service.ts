@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map } from 'rxjs';
 import { normalUser } from '../models/users';
 
 
@@ -18,6 +18,7 @@ export class FirebaseService {
   constructor(
     public firebaseAuth: AngularFireAuth,
     private firestore: AngularFirestore,
+    public storage: AngularFireStorage,
     private router: Router
   ) {
     
@@ -104,13 +105,18 @@ export class FirebaseService {
     });
   }
 
-  get isUserLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
-  }
+  // get isUserLoggedIn(): boolean {
+  //   const user = JSON.parse(localStorage.getItem('user')!);
+  //   return user !== null && user.emailVerified !== false ? true : false;
+  // }
 
   getUser(currentUserUid: string) {
     return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
+  }
+
+  // in progress
+  uploadProfilePicture(image: File, path: string) {
+    const storageRef = this.storage.ref(path)
   }
   
 }
