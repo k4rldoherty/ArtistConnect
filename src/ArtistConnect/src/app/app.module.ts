@@ -21,10 +21,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePostComponent } from './components/create-post/create-post.component';
@@ -69,6 +71,8 @@ import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.co
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule,
+    HttpClientModule,
+    AngularFireFunctionsModule,
     MatTabsModule
   ],
   providers: [

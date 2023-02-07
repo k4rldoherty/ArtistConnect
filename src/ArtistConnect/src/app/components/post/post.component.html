@@ -1,10 +1,11 @@
-<div class="post-container">
-  <div class="title">
-    <mat-card-title>Username:{{ postProfiles[0].displayName }}</mat-card-title>
-  </div>
-  <mat-card-content>
-    <p>Song Name: {{ postData.songName }}</p>
-    <p>Artist: {{ postData.artist }}</p>
-    <p>Song URL: {{ postData.songUrl }}</p>
-  </mat-card-content>
+<div style="background-color: #f2f2f2; padding: 20px;">
+  <h3 style="margin: 0;">{{ creator.displayName }}</h3>
+  <p style="margin: 0; font-size: 14px; color: gray;">shared a song</p>
+  <p style="margin: 0; font-size: 14px; color: gray;">{{postData.timestamp}}</p>
+  <hr style="margin: 10px 0;">
+  <p style="margin: 0; font-size: 16px;">Song Name: {{ postData.songName }}</p>
+  <p style="margin: 0; font-size: 16px;">Artist: {{ postData.artist }}</p>
+  <a [href]="postData.songUrl" target="_blank">
+    <img widht="200px" height="200px" [src]="spotifyArtwork" alt="Spotify Artwork">
+  </a>
 </div>

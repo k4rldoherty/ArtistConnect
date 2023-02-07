@@ -13,6 +13,7 @@ export interface PostData {
   type: string
   eventName: string
   eventUrl: string
+  timestamp: string
 }
 
 @Component({

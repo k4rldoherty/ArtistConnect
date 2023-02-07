@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatDialogRef } from '@angular/material/dialog';
 //
 import firebase from 'firebase/compat/app';
 
@@ -17,7 +18,7 @@ export class CreatePostComponent implements OnInit{
   eventUrl: string;
 
   selectedOption = 'song';
-  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth) {
+  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>) {
     this.artist = '';
     this.songName = '';
     this.songUrl = '';
@@ -56,5 +57,7 @@ export class CreatePostComponent implements OnInit{
         }
       }
     });
+
+    this.dialogRef.close();
   }
 }
