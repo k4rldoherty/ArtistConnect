@@ -34,7 +34,6 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    consolethis.postData.timestamp
     this.getName();
     this.generateAuthToken();
   }
