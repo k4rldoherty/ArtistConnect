@@ -1,15 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PostData } from '../home/home.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { HttpClient } from '@angular/common/http';
+import axios from 'axios';
+import { AngularFireFunctions } from '@angular/fire/compat/functions'
 
 export interface UserData {
-  displayName: string
-  country: string
-  county: string
-  dob: string
-  email: string
-  uid: string
+  displayName: string;
+  country: string;
+  county: string;
+  dob: string;
+  email: string;
+  uid: string;
 }
 
 @Component({
@@ -18,31 +21,56 @@ export interface UserData {
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  @Input()
-  postData!: PostData;
-  postProfiles: UserData [] = []
-  constructor(private firestore: AngularFirestore) { }
+  @Input() postData!: PostData;
+  creator: any;
+  spotifyArtwork = '';
+  date: any;
+
+  constructor(
+    private firestore: AngularFirestore, 
+    public firebase: FirebaseService, 
+    private http: HttpClient, 
+    private functions: AngularFireFunctions
+  ) {}
 
   ngOnInit(): void {
     this.getName();
+    this.generateAuthToken();
   }
 
-  getName(){
-    let u = this.postData.uid
-    this.firestore.collection('users', ref => ref
-        .where('uid', '==', u)
-        .limit(1),
-        )
-        .snapshotChanges()
-        .pipe(
-        map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as UserData;
-        const did = a.payload.doc.id;
-        return { ...data, did };
-        }))
-        )
-        .subscribe(profiles => {
-        this.postProfiles = profiles;
-        });
+  async generateAuthToken() {
+    const base64 = (value: string) => {
+      return btoa(value);
+    }
+
+    const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
+    const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    console.log(response);
+    const token = response.data.access_token;
+    this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    }).subscribe((data: any) => {
+      this.spotifyArtwork = data.album.images[0].url;
+      console.log(this.spotifyArtwork);
+    });
+  }
+
+  getName() {
+    let userId = this.postData.uid;
+    this.firebase.getUser(userId).subscribe(user => {
+      console.log(user);
+      this.creator = user;
+    });
+  }
+
+  getTrackIdFromUrl(url: string) {
+    return url.split('/').pop();
   }
 }
