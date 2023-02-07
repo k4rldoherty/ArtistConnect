@@ -2,18 +2,33 @@
     <app-header></app-header>
     <div class="content-container">
         <div class="user-profile">
-            <p>{{ firebase.userData.displayName }}</p>
-            <p>{{ firebase.userData.email }}</p>
+            <div class="profile-photo">
+                <img [src]="imageUrl ?? 'assets/ArtistConnect Images/placeholder-user-image.png'">
+                <button mat-mini-fab (click)="inputfield.click()"><mat-icon>edit</mat-icon></button>
+                <input #inputfield type="file" hidden (change)="uploadImage($event)">
+            </div>
+            <h1>{{ firebase.userData.displayName }}</h1>
             <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
-            <p>{{ firebase.userData.dob }} </p>
+            <button mat-stroked-button color="primary" (click)="openDialog()">Edit Your Profile</button>
         </div>
         <div class="user-posts">
-            <ul>
-                <li>Posts</li>
-                <li>Likes</li>
-                <li>Followers</li>
-                <li>Following</li>
-            </ul>
+            <mat-tab-group>
+
+                <mat-tab label="Posts">
+                    <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
+                </mat-tab>
+                <mat-tab label="{{ testFollowers.length }} Followers">
+                    <h3 class="followers-content" *ngFor="let testFollower of testFollowers">{{  testFollower.name }}<button>Unfollow</button></h3>
+                </mat-tab>
+                <mat-tab label="Following {{ testFollowing.length }}">
+                    <h3 class="following-content" *ngFor="let testFollowings of testFollowing">{{  testFollowings.name }} <button>Friends</button></h3>
+                </mat-tab>
+                <mat-tab label="Likes">
+                    Content 4
+                </mat-tab>
+
+            </mat-tab-group>
         </div>
+        <app-floatingmenu></app-floatingmenu>
     </div>
 </div>

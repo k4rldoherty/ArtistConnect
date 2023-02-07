@@ -9,11 +9,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs'
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -26,11 +27,14 @@ import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FirebaseService } from './services/firebase.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.component';
 
 
 @NgModule({
@@ -43,6 +47,8 @@ import { PostComponent } from './components/post/post.component';
     CreatePostComponent,
     ProfileComponent,
     PostComponent,
+    EditProfileComponent,
+    FloatingmenuComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +57,7 @@ import { PostComponent } from './components/post/post.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     MatDialogModule,
     MatIconModule,
     MatCardModule,
@@ -65,7 +72,8 @@ import { PostComponent } from './components/post/post.component';
     MatNativeDateModule,
     CommonModule,
     HttpClientModule,
-    AngularFireFunctionsModule
+    AngularFireFunctionsModule,
+    MatTabsModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

@@ -1,0 +1,15 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 15vh;
+        width: 9vw;
+        border-radius: 50%;
+        border: 1px solid var(--main-color);
+    }
+    button {
+        width: 12vw;
+    }
+}
