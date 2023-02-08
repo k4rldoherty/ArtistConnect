@@ -14,6 +14,8 @@ export interface PostData {
   eventName: string
   eventUrl: string
   timestamp: string
+  likes: Array<string>
+  did : string
 }
 
 @Component({

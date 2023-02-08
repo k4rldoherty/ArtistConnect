@@ -42,7 +42,8 @@ export class CreatePostComponent implements OnInit{
             uid: user.uid,
             songName: this.songName,
             artist: this.artist,
-            songUrl: this.songUrl
+            songUrl: this.songUrl,
+            likes: []
           });
         }
         else {
@@ -52,7 +53,8 @@ export class CreatePostComponent implements OnInit{
             type: this.selectedOption,
             uid: user.uid,
             eventName: this.eventName,
-            eventUrl: this.eventUrl
+            eventUrl: this.eventUrl,
+            likes: []
           });
         }
       }

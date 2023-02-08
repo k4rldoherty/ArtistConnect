@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PostData } from '../home/home.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 import { AngularFireFunctions } from '@angular/fire/compat/functions'
@@ -28,7 +29,8 @@ export class PostComponent implements OnInit {
 
   constructor(
     private firestore: AngularFirestore, 
-    public firebase: FirebaseService, 
+    public firebase: FirebaseService,
+    private fauth: AngularFireAuth,
     private http: HttpClient, 
     private functions: AngularFireFunctions
   ) {}
@@ -72,5 +74,23 @@ export class PostComponent implements OnInit {
 
   getTrackIdFromUrl(url: string) {
     return url.split('/').pop();
+  }
+
+  likePost(postId: string) {
+    this.fauth.authState.subscribe(user => {
+      if (user) {
+        this.firestore.doc(`posts/${postId}`).ref.get().then(postSnapshot => {
+          let postData = postSnapshot.data();
+          let likes = this.postData.likes;
+          let likeIndex = likes.indexOf(user.uid);
+          if (likeIndex > -1) {
+            likes.splice(likeIndex, 1);
+          } else {
+            likes.push(user.uid);
+          }
+          this.firestore.doc(`posts/${postId}`).update({ likes: likes });
+        });
+      }
+    });
   }
 }
