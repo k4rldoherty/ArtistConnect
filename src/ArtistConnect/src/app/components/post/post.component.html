@@ -1,11 +1,40 @@
-<div style="background-color: #f2f2f2; padding: 20px;">
-  <h3 style="margin: 0;">{{ creator.displayName }}</h3>
-  <p style="margin: 0; font-size: 14px; color: gray;">shared a song</p>
-  <p style="margin: 0; font-size: 14px; color: gray;">{{postData.timestamp}}</p>
-  <hr style="margin: 10px 0;">
-  <p style="margin: 0; font-size: 16px;">Song Name: {{ postData.songName }}</p>
-  <p style="margin: 0; font-size: 16px;">Artist: {{ postData.artist }}</p>
-  <a [href]="postData.songUrl" target="_blank">
-    <img widht="200px" height="200px" [src]="spotifyArtwork" alt="Spotify Artwork">
-  </a>
-</div>
+<ng-container *ngIf="postData.type === 'song'">
+  <div class="post-container">
+    <div class="post-header">
+      <h3 class="post-display-name">{{ creator.displayName }}</h3>
+      <p class="post-timestamp">shared a song</p>
+    </div>
+    <hr>
+    <div class="post-body">
+      <p class="post-song-name">Song Name: {{ postData.songName }}</p>
+      <p class="post-artist">Artist: {{ postData.artist }}</p>
+      <a [href]="postData.songUrl" target="_blank" class="post-song-url">
+        <img widht="200px" height="200px" [src]="spotifyArtwork" alt="Spotify Artwork">
+      </a>
+    </div>
+    <div class="post-actions">
+      <button class="post-action-btn like-btn">Like</button>
+      <button class="post-action-btn comment-btn">Comment</button>
+      <button class="post-media-btn play-btn">Play</button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="postData.type === 'event'">
+  <div class="post-container">
+    <div class="post-header">
+      <h3 class="post-display-name">{{ creator.displayName }}</h3>
+      <p class="post-timestamp">shared an event</p>
+    </div>
+    <hr>
+    <div class="post-body">
+      <p class="post-event-name">Event Name: {{ postData.eventName }}</p>
+      <p class="post-event-url">URL: {{ postData.eventUrl }}</p>
+      <div class="post-actions">
+        <button class="post-action-btn like-btn">Like</button>
+        <button class="post-action-btn comment-btn">Comment</button>
+        <button class="post-action-btn buy-tickets-btn">Buy Tickets</button>
+      </div>
+    </div>
+  </div>
+</ng-container>

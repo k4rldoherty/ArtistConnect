@@ -1,22 +1,91 @@
 .post-container {
-    display: flex;
-    flex-direction: column;
-    // justify-content: center;
-    height: 50vh;
-    align-items: center;
-    padding: 2vh 2.5vw;
-
-    .title {
-        display: flex;
-        flex-direction: column;
-        top: 2vh;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+  
+    .post-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .post-display-name {
+        margin: 0;
+      }
+  
+      .post-timestamp {
+        font-size: 14px;
+        color: gray;
+        margin: 0;
+      }
     }
-
-    mat-card-content {
+  
+    hr {
+      margin: 10px 0;
+    }
+  
+    .post-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .post-song-name, .post-artist, .post-event-name, .post-event-url {
+        font-size: 16px;
+        margin: 0;
+      }
+  
+      .post-song-url {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 5vh;
+  
+        img {
+          width: 200px;
+          height: 200px;
+        }
+      }
     }
-}
+  }
+  
+  @media (max-width: 768px) {
+    .post-container {
+      width: 100%;
+    }
+  }
+
+  .post-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+    .post-action-btn {
+      background-color: #1DB954;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      
+      &:hover {
+        background-color: #0F9D58;
+      }
+    }
+  
+    .post-media-btn {
+      background-color: #1DB954;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      
+      &:hover {
+        background-color: #3A3A3A;
+      }
+    }
+  }
