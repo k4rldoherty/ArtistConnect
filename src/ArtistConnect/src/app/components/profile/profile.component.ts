@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { normalUser } from 'src/app/models/users';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { PostData } from '../home/home.component';
-import { concatMap, finalize, map, Observable } from 'rxjs';
+import { finalize, map, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -16,39 +16,17 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class ProfileComponent implements OnInit {
 
-  user = this.auth.currentUser
+  user = this.auth.currentUser;
   imageUrl!: string;
   downloadURL!: Observable<string>;
-  testFollowers = [{ name: "Jimmy" },
-  {
-    name: "Yury"
-  },
-  {
-    name: "Conor"
-  },
-  {
-    name: "Mark"
-  },
-  ]
-
-  testFollowing = [
-    {
-      name: "Jimmy"
-    },
-    {
-      name: "Yury"
-    },
-    {
-      name: "Conor"
-    },
-    {
-      name: "Mark"
-    },
-  ]
+  testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
+  testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   feedPosts: PostData[] = []
+  userProfileImage = 'https://firebasestorage.googleapis.com/v0/b/artistconnect-721d1.appspot.com/o/images%2F' + this.firebase.userData.uid + '.jpg?alt=media'
+
+
   constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth, public storage: AngularFireStorage) {
   }
-
 
   ngOnInit(): void {
     this.getPosts();
@@ -89,18 +67,19 @@ export class ProfileComponent implements OnInit {
     let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
     let fileRef = this.storage.ref(filePath);
     let task = fileRef.put(file);
-    
+
     task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL = fileRef.getDownloadURL();
         this.downloadURL.subscribe(url => {
           this.imageUrl = url;
+          console.log(this.imageUrl);
+
         });
       })
-      )
+    )
       .subscribe();
-      alert('Servers are busy. Upload may take a few seconds')
-    }
+  }
 }
 
 
