@@ -34,8 +34,13 @@ import { FirebaseService } from './services/firebase.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+<<<<<<< HEAD
 import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.component';
 import { IPlayerComponent } from './components/i-player/i-player.component';
+=======
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+>>>>>>> 337d37e (Added nav-bar and removed floating menu)
 
 
 @NgModule({
@@ -49,8 +54,12 @@ import { IPlayerComponent } from './components/i-player/i-player.component';
     ProfileComponent,
     PostComponent,
     EditProfileComponent,
+<<<<<<< HEAD
     FloatingmenuComponent,
     IPlayerComponent
+=======
+    NavBarComponent,
+>>>>>>> 337d37e (Added nav-bar and removed floating menu)
   ],
   imports: [
     BrowserModule,
@@ -75,7 +84,8 @@ import { IPlayerComponent } from './components/i-player/i-player.component';
     CommonModule,
     HttpClientModule,
     AngularFireFunctionsModule,
-    MatTabsModule
+    MatTabsModule,
+    FontAwesomeModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
@@ -83,5 +93,6 @@ import { IPlayerComponent } from './components/i-player/i-player.component';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
 

@@ -7,7 +7,6 @@
     .content-container {
         display: flex;
         flex-direction: column;
-        // justify-content: center;
         align-items: center;
         background-color: var(--color-secondary);
         width: 60vw;
@@ -39,11 +38,12 @@
                 display: flex;
             }
         }
-        .user-posts {
+        .user-data {
             display: flex;
             flex-direction: row;
+            max-width: 60vw;
             justify-content: center;
-            margin: 2vh 2vw;
+            // margin: 2vh 2vw;
         }
     }
 }
