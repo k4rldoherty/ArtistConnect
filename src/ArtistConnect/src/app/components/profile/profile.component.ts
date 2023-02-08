@@ -58,7 +58,9 @@ export class ProfileComponent implements OnInit {
   }
 
   getPosts() {
+    let id = this.firebase.userData.uid
     this.firestore.collection('posts', ref => ref
+      .where('uid', '==', id)
       .limit(10),
     )
       .snapshotChanges()

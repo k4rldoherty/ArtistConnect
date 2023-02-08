@@ -42,8 +42,9 @@ export class HomeComponent implements OnInit {
 
 
   getPosts(){
+    let id = this.firebase.userData.uid
     this.firestore.collection('posts', ref => ref
-    .limit(10),
+    .where('uid', '!=', id)
     )
     .snapshotChanges()
     .pipe(
