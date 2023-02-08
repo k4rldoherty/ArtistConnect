@@ -13,7 +13,7 @@
       </a>
     </div>
     <div class="post-actions">
-      <button class="post-action-btn like-btn">Like</button>
+      <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{postData.likes.length}} </button>
       <button class="post-action-btn comment-btn">Comment</button>
       <button class="post-media-btn play-btn">Play</button>
     </div>
@@ -31,7 +31,7 @@
       <p class="post-event-name">Event Name: {{ postData.eventName }}</p>
       <p class="post-event-url">URL: {{ postData.eventUrl }}</p>
       <div class="post-actions">
-        <button class="post-action-btn like-btn">Like</button>
+        <button class="post-action-btn like-btn">Like {{postData.likes.length}}</button>
         <button class="post-action-btn comment-btn">Comment</button>
         <button class="post-action-btn buy-tickets-btn">Buy Tickets</button>
       </div>
