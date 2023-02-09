@@ -15,12 +15,11 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class ProfileComponent implements OnInit {
 
-  user = this.auth.currentUser;
   imageUrl!: string;
   downloadURL!: Observable<string>;
   testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
-  feedPosts: PostData[] = []
+  feedPosts: PostData[] = [];
   userProfileImage: string = 'https://firebasestorage.googleapis.com/v0/b/artistconnect-721d1.appspot.com/o/images%2F' + this.firebase.userData.uid + '.jpg?alt=media';
 
 
@@ -29,9 +28,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPosts();
-    this.downloadURL.subscribe(url => {
-      this.firebase.imageURL = url;
-    });
+    // this.downloadURL.subscribe(url => {
+    //   this.firebase.imageURL = url;
+    // });
   }
 
   getPosts() {
@@ -61,22 +60,22 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  uploadImage(event: any) {
-    let file = event.target.files[0];
-    let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
-    let fileRef = this.storage.ref(filePath);
-    let task = fileRef.put(file);
+  // uploadImage(event: any) {
+  //   let file = event.target.files[0];
+  //   let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
+  //   let fileRef = this.storage.ref(filePath);
+  //   let task = fileRef.put(file);
 
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
-        this.downloadURL.subscribe(url => {
-          this.imageUrl = url;
-          console.log(this.imageUrl);
-        });
-      })
-    ).subscribe();
-  }
+  //   task.snapshotChanges().pipe(
+  //     finalize(() => {
+  //       this.downloadURL = fileRef.getDownloadURL();
+  //       this.downloadURL.subscribe(url => {
+  //         this.imageUrl = url;
+  //         console.log(this.imageUrl);
+  //       });
+  //     })
+  //   ).subscribe();
+  // }
 }
 
 

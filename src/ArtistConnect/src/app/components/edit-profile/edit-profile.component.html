@@ -7,7 +7,7 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Display Name</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newDisplayName" name="Display Name">
                     </mat-form-field>
                 </td>
             </tr>
@@ -15,7 +15,7 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>County</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newCounty" name="County">
                     </mat-form-field>
                 </td>
             </tr>
@@ -23,7 +23,7 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Country</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newCountry" name="Country">
                     </mat-form-field>
                 </td>
             </tr>
@@ -31,12 +31,12 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Date Of Birth</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newDob" name="Date of birth">
                     </mat-form-field>
                 </td>
             </tr>
         </table>
     </form>
-    <button mat-raised-button color="warn">Save</button>
+    <button mat-raised-button color="warn" (click)="editUserProfile()">Save</button>
 
 </div>

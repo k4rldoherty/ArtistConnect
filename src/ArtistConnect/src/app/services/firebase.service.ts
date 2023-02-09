@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { concatMap, finalize, from, Observable, of } from 'rxjs';
 import { normalUser } from '../models/users';
 
 
@@ -108,35 +107,8 @@ export class FirebaseService {
     });
   }
 
-  // get isUserLoggedIn(): boolean {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   return user !== null && user.emailVerified !== false ? true : false;
-  // }
-
   getUser(currentUserUid: string) {
     return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
   }
-
-
-  // uploadProfilePicture(image: File, path: string) {
-  //   const storageRef = this.storage.ref(path)
-  //   const task = this.storage.upload(path, image)
-  //   const uploadPercent = task.percentageChanges();
-  //   task.snapshotChanges().pipe(
-  //     finalize(() => this.downloadURL = storageRef.getDownloadURL())
-  //   ).subscribe();
-  // }
-
-  // getDownloadURL(path: string): Observable<string> {
-  //   let ref = this.storage.ref(path);
-  //   return new Observable<string>(observer => {
-  //     ref.getDownloadURL().then(url => {
-  //       observer.next(url);
-  //       observer.complete();
-  //     }, (error: any) => {
-  //       observer.error(error);
-  //     });
-  //   });
-  // }
 }
 
