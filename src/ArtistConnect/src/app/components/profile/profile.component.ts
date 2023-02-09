@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +7,6 @@ import { PostData } from '../home/home.component';
 import { finalize, map, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +21,7 @@ export class ProfileComponent implements OnInit {
   testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   feedPosts: PostData[] = []
-  userProfileImage = 'https://firebasestorage.googleapis.com/v0/b/artistconnect-721d1.appspot.com/o/images%2F' + this.firebase.userData.uid + '.jpg?alt=media'
+  userProfileImage: string = 'https://firebasestorage.googleapis.com/v0/b/artistconnect-721d1.appspot.com/o/images%2F' + this.firebase.userData.uid + '.jpg?alt=media';
 
 
   constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth, public storage: AngularFireStorage) {
@@ -56,8 +55,8 @@ export class ProfileComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(EditProfileComponent, {
-      height: '500px',
-      width: '600px',
+      height: '600px',
+      width: '550px',
     });
   }
 
@@ -74,11 +73,9 @@ export class ProfileComponent implements OnInit {
         this.downloadURL.subscribe(url => {
           this.imageUrl = url;
           console.log(this.imageUrl);
-
         });
       })
-    )
-      .subscribe();
+    ).subscribe();
   }
 }
 
