@@ -43,7 +43,6 @@ export class CreatePostComponent implements OnInit{
             songName: this.songName,
             artist: this.artist,
             songUrl: this.songUrl,
-            likes: []
           });
         }
         else {
@@ -54,7 +53,6 @@ export class CreatePostComponent implements OnInit{
             uid: user.uid,
             eventName: this.eventName,
             eventUrl: this.eventUrl,
-            likes: []
           });
         }
       }

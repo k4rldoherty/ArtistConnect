@@ -5,7 +5,8 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
-import { AngularFireFunctions } from '@angular/fire/compat/functions'
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { map,take } from 'rxjs/operators';
 
 export interface UserData {
   displayName: string;
@@ -24,8 +25,9 @@ export interface UserData {
 export class PostComponent implements OnInit {
   @Input() postData!: PostData;
   creator: any;
-  spotifyArtwork = '';
+  artwork = '';
   date: any;
+  count: any;
 
   constructor(
     private firestore: AngularFirestore, 
@@ -33,36 +35,48 @@ export class PostComponent implements OnInit {
     private fauth: AngularFireAuth,
     private http: HttpClient, 
     private functions: AngularFireFunctions
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getName();
-    this.generateAuthToken();
+    this.getLikeCount();
+    //this.soundcloud_client();
+    //this.generateAuthToken();
+    //this.getTrackId
   }
 
-  async generateAuthToken() {
-    const base64 = (value: string) => {
-      return btoa(value);
-    }
+  // async soundcloud_client(){
+  //   const response = await axios.get(`https://api.soundcloud.com/tracks/323195515/stream?client_id=95f22ed54a5c297b1c41f72d713623ef`);
+  //     this.artwork = response.data.artwork_url;
+  //     console.log(this.artwork);
+  // }
 
-    const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
-    const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
-      headers: {
-        Authorization: `Basic ${auth}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
-    console.log(response);
-    const token = response.data.access_token;
-    this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    }).subscribe((data: any) => {
-      this.spotifyArtwork = data.album.images[0].url;
-      console.log(this.spotifyArtwork);
-    });
-  }
+
+
+  // async generateAuthToken() {
+  //   const base64 = (value: string) => {
+  //     return btoa(value);
+  //   }
+
+  //   const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
+  //   const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
+  //     headers: {
+  //       Authorization: `Basic ${auth}`,
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //     },
+  //   });
+  //   console.log(response);
+  //   const token = response.data.access_token;
+  //   this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
+  //     headers: {
+  //       'Authorization': `Bearer ${token}`,
+  //     }
+  //   }).subscribe((data: any) => {
+  //     this.spotifyArtwork = data.album.images[0].url;
+  //     console.log(this.spotifyArtwork);
+  //   });
+  // }
 
   getName() {
     let userId = this.postData.uid;
@@ -79,18 +93,28 @@ export class PostComponent implements OnInit {
   likePost(postId: string) {
     this.fauth.authState.subscribe(user => {
       if (user) {
-        this.firestore.doc(`posts/${postId}`).ref.get().then(postSnapshot => {
-          let postData = postSnapshot.data();
-          let likes = this.postData.likes;
-          let likeIndex = likes.indexOf(user.uid);
-          if (likeIndex > -1) {
-            likes.splice(likeIndex, 1);
-          } else {
-            likes.push(user.uid);
-          }
-          this.firestore.doc(`posts/${postId}`).update({ likes: likes });
-        });
+        let likeRef = this.firestore.collection(`posts/${postId}/likes`).doc(user.uid);
+        likeRef.snapshotChanges().pipe(
+          take(1),
+          map(action => {
+            if (action.payload.exists) {
+              likeRef.delete();
+            } else {
+              likeRef.set({});
+            }
+          })
+        ).subscribe();
+        this.getLikeCount;
       }
+    });
+  }
+  getLikeCount(){
+    const postId = this.postData.did
+    this.firestore
+    .collection(`posts/${postId}/likes`)
+    .valueChanges()
+    .subscribe((querySnapshot) => {
+    this.count = querySnapshot.length;
     });
   }
 }
