@@ -40,7 +40,11 @@ import { IPlayerComponent } from './components/i-player/i-player.component';
 =======
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+<<<<<<< HEAD
 >>>>>>> 337d37e (Added nav-bar and removed floating menu)
+=======
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+>>>>>>> 83d4762 (Added user-profile component, button beside posts to view profile of author and route for each users profile template)
 
 
 @NgModule({
@@ -59,7 +63,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     IPlayerComponent
 =======
     NavBarComponent,
+<<<<<<< HEAD
 >>>>>>> 337d37e (Added nav-bar and removed floating menu)
+=======
+    UserProfileComponent,
+>>>>>>> 83d4762 (Added user-profile component, button beside posts to view profile of author and route for each users profile template)
   ],
   imports: [
     BrowserModule,

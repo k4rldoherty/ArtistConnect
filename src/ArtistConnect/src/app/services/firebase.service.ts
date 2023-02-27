@@ -109,6 +109,7 @@ export class FirebaseService {
   }
 
   getUser(currentUserUid: string) {
+    console.log(this.firestore.doc(`users/${currentUserUid}`).valueChanges());
     return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
   }
 

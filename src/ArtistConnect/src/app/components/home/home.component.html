@@ -3,7 +3,7 @@
     <div class="content-container">
         <app-nav-bar></app-nav-bar>
         <div class="post-feed">
-            <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
+            <app-post *ngFor="let post of feedPosts" [postData]="post"></app-post>
         </div>
         <button mat-fab (click)="createPostClick()" id="post-button"><mat-icon>add</mat-icon></button>
     </div>
