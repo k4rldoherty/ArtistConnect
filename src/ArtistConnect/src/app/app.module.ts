@@ -35,6 +35,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.component';
+import { IPlayerComponent } from './components/i-player/i-player.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.co
     ProfileComponent,
     PostComponent,
     EditProfileComponent,
-    FloatingmenuComponent
+    FloatingmenuComponent,
+    IPlayerComponent
   ],
   imports: [
     BrowserModule,

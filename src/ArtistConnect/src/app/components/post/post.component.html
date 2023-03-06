@@ -19,7 +19,7 @@
     <div class="post-actions">
       <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }}</button>
       <button class="post-action-btn comment-btn">Comment</button>
-      <button class="post-media-btn play-btn">Play</button>
+      <button class="post-media-btn play-btn" (click)="onPlayClick()">Play</button>
     </div>
   </div>
 </ng-container>

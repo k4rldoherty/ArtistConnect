@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { map,take } from 'rxjs/operators';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { IPlayerComponent } from '../i-player/i-player.component';
 
 export interface UserData {
   displayName: string;
@@ -16,6 +18,7 @@ export interface UserData {
   email: string;
   uid: string;
 }
+
 
 @Component({
   selector: 'app-post',
@@ -28,55 +31,67 @@ export class PostComponent implements OnInit {
   artwork = '';
   date: any;
   count: any;
+  authtoken: any;
+  trackId: any;
+
 
   constructor(
     private firestore: AngularFirestore, 
     public firebase: FirebaseService,
     private fauth: AngularFireAuth,
     private http: HttpClient, 
-    private functions: AngularFireFunctions
-  ) {
+    private functions: AngularFireFunctions,
+    private dialog: MatDialog
+  ) { }
+
+
+  onPlayClick(){
+    let songUrl = this.postData.songUrl;
+    if (songUrl.includes("soundcloud.com")) {
+      window.open(songUrl, "_blank");
+    } 
+    else if (songUrl.includes("spotify.com")) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        songUrl: songUrl,
+        token: this.authtoken,
+        trackId: this.getTrackIdFromUrl(songUrl)
+
+      };
+    
+      this.dialog.open(IPlayerComponent, dialogConfig);
+    }
   }
 
   ngOnInit(): void {
     this.getName();
     this.getLikeCount();
-    //this.soundcloud_client();
-    //this.generateAuthToken();
-    //this.getTrackId
+    this.generateAuthToken();
   }
 
-  // async soundcloud_client(){
-  //   const response = await axios.get(`https://api.soundcloud.com/tracks/323195515/stream?client_id=95f22ed54a5c297b1c41f72d713623ef`);
-  //     this.artwork = response.data.artwork_url;
-  //     console.log(this.artwork);
-  // }
+  async generateAuthToken() {
+    const base64 = (value: string) => {
+      return btoa(value);
+    }
 
-
-
-  // async generateAuthToken() {
-  //   const base64 = (value: string) => {
-  //     return btoa(value);
-  //   }
-
-  //   const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
-  //   const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
-  //     headers: {
-  //       Authorization: `Basic ${auth}`,
-  //       "Content-Type": "application/x-www-form-urlencoded",
-  //     },
-  //   });
-  //   console.log(response);
-  //   const token = response.data.access_token;
-  //   this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`,
-  //     }
-  //   }).subscribe((data: any) => {
-  //     this.spotifyArtwork = data.album.images[0].url;
-  //     console.log(this.spotifyArtwork);
-  //   });
-  // }
+    const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
+    const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    console.log(response);
+    this.authtoken = response.data.access_token;
+    this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
+      headers: {
+        'Authorization': `Bearer ${this.authtoken}`,
+      }
+    }).subscribe((data: any) => {
+      this.artwork = data.album.images[0].url;
+      console.log(this.artwork);
+    });
+  }
 
   getName() {
     let userId = this.postData.uid;
@@ -87,7 +102,8 @@ export class PostComponent implements OnInit {
   }
 
   getTrackIdFromUrl(url: string) {
-    return url.split('/').pop();
+    this.trackId = url.split('/').pop();
+    return this.trackId;
   }
 
   likePost(postId: string) {
@@ -117,4 +133,5 @@ export class PostComponent implements OnInit {
     this.count = querySnapshot.length;
     });
   }
+
 }
