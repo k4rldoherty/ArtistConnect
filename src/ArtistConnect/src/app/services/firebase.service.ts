@@ -14,8 +14,6 @@ export class FirebaseService {
   isLoggedIn: boolean = false;
   userData: any;
   users!: any[];
-  downloadURL: any;
-  imageURL!: string;
 
 
   constructor(
@@ -39,7 +37,11 @@ export class FirebaseService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+  }
 
+  getUser(currentUserUid: string) {
+    console.log(this.firestore.doc(`users/${currentUserUid}`).valueChanges());
+    return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
   }
 
   register(email: string, password: string, displayName: any, dob: any, country: any, county: any) {
@@ -108,27 +110,5 @@ export class FirebaseService {
     });
   }
 
-  getUser(currentUserUid: string) {
-    console.log(this.firestore.doc(`users/${currentUserUid}`).valueChanges());
-    return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
-  }
-
-  getFollowers(userID: string) {
-    return this.firestore.doc(`followers/${userID}`).valueChanges();
-  }
-
-  getFollowing(followerId:string, followedId:string) {
-    return this.firestore.doc(`following/${followerId}/${followedId}`).valueChanges();  
-  }
-
-  follow(followerId: string, followedId: string) {
-    this.firestore.doc(`followers/${followedId}`).update({ [followerId]: true } )
-    this.firestore.doc(`following/${followerId}`).update({ [followedId]: true } )
-  }
-
-  unfollow(followerId: string, followedId: string) {
-    this.firestore.doc(`followers/${followedId}/${followerId}`).delete()
-    this.firestore.doc(`following/${followerId}/${followedId}`).delete()
-  }
 }
 

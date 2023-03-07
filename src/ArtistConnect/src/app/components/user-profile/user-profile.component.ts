@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { finalize, map, Observable } from 'rxjs';
-import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { map, Observable } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { PostData } from '../../components/home/home.component';
 
@@ -25,11 +24,12 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.uid = this.route.snapshot.paramMap.get('uid');
     this.user$ = this.firestore.doc(`users/${this.uid}`).valueChanges();
-    this.getPosts();
+    this.getPosts(this.uid);
   }
 
-  getPosts() {
+  getPosts(uid: string) {
     this.firestore.collection('posts', ref => ref
+      .where('uid', '==', uid)
       .limit(10),
     )
       .snapshotChanges()

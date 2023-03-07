@@ -27,16 +27,19 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPosts();
-    // this.downloadURL.subscribe(url => {
-    //   this.firebase.imageURL = url;
-    // });
+    this.getPosts(this.firebase.userData.uid);
   }
 
+<<<<<<< HEAD
   getPosts() {
     let id = this.firebase.userData.uid
     this.firestore.collection('posts', ref => ref
       .where('uid', '==', id)
+=======
+  getPosts(uid: string) {
+    this.firestore.collection('posts', ref => ref
+      .where('uid', '==', uid)
+>>>>>>> 10e0679 (Fixed filtering on posts profile page and some refactoring)
       .limit(10),
     )
       .snapshotChanges()
