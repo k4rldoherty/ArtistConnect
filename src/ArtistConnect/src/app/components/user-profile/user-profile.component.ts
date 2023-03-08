@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
   uid: any = '';
   user$!: Observable<any>;
   feedPosts: PostData[] = [];
-
+  isFollowing!: boolean;
   testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private firebase: FirebaseService) { }
@@ -43,6 +43,10 @@ export class UserProfileComponent implements OnInit {
       .subscribe(postsData => {
         this.feedPosts = postsData;
       });
+  }
+
+  follow() {
+    this.firebase.follow(this.firebase.userData.uid, this.uid);
   }
 
 }

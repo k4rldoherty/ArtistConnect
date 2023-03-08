@@ -20,7 +20,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   editUserProfile() {
-    console.log(this.newCountry, this.newCounty, this.newDob, this.newDisplayName);
     this.firebase.setUserDataRegister(this.firebase.userData, this.newDisplayName, this.newDob, this.newCountry, this.newCounty);
     this.dialogRef.close();
   }

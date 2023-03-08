@@ -51,12 +51,30 @@ export class PostComponent implements OnInit {
     if (this.postData.source == 'Spotify'){
     this.getSpotifyArt();
     }
+<<<<<<< HEAD
+=======
+
+    const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
+    const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    const token = response.data.access_token;
+    this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    }).subscribe((data: any) => {
+      this.spotifyArtwork = data.album.images[0].url;
+    });
+>>>>>>> 34d3c72 (Following / Follower working)
   }
 
   getName() {
     let userId = this.postData.uid;
     this.firebase.getUser(userId).subscribe(user => {
-      console.log(user);
       this.creator = user;
     });
   }

@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     if(this.firebase.isLoggedIn) {
       this.isSignedIn = true;
     }
-    this.email, this.password = '';
+    this.email = '';
+    this.password = '';
   }
 }

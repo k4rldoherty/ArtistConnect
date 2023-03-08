@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   createPostClick(){
-    console.log('create button clicked');
     this.dialog.open( CreatePostComponent );
   }
 

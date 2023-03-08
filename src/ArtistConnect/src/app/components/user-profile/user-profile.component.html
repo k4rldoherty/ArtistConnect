@@ -11,7 +11,7 @@
                 <h1>{{ user.displayName }}</h1>
                 <p>{{ user.county }}, {{ user.country }}</p>
                 <div class="action-buttons">
-                    <button mat-raised-button color="primary">Follow</button>
+                    <button mat-raised-button color="primary" (click)="follow()">Follow</button>
                     <button mat-stroked-button color="primary">Message</button>
                 </div>
             </div>

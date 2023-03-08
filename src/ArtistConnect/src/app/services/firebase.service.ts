@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { normalUser } from '../models/users';
 
 
@@ -40,7 +41,6 @@ export class FirebaseService {
   }
 
   getUser(currentUserUid: string) {
-    console.log(this.firestore.doc(`users/${currentUserUid}`).valueChanges());
     return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
   }
 
@@ -64,6 +64,7 @@ export class FirebaseService {
         this.firebaseAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['home']);
+            this.isLoggedIn = true;
           }
         });
 
@@ -77,6 +78,7 @@ export class FirebaseService {
     return this.firebaseAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['']);
+      this.isLoggedIn = false;
     });
   }
 
@@ -110,5 +112,34 @@ export class FirebaseService {
     });
   }
 
+  getFollowersCount(userId: string) {
+    // Used to build the follower count
+    return this.firestore.collection(`users`).doc(userId).collection('followers').valueChanges().pipe(
+      map((followers: any) => followers.length)
+    );
+  }
+
+  getFollowingCount(userId: string) {
+    // Used to build the follower count
+    return this.firestore.collection(`users`).doc(userId).collection('following').valueChanges().pipe(
+      map((following: any) => following.length)
+    );
+  }
+
+  follow(followerId: string, followedId: string) {
+    const followerRef = this.firestore.collection(`users`).doc(followerId);
+    const followedRef = this.firestore.collection(`users`).doc(followedId);
+
+    followerRef.collection('following').doc(followedId).set({ followed: true });
+    followedRef.collection('followers').doc(followerId).set({ follower: true });
+  }
+
+  unfollow(followerId: string, followedId: string) {
+    const followerRef = this.firestore.collection(`users`).doc(followerId);
+    const followedRef = this.firestore.collection(`users`).doc(followedId);
+
+    followerRef.collection('following').doc(followedId).delete();
+    followedRef.collection('followers').doc(followerId).delete();
+  }
 }
 
