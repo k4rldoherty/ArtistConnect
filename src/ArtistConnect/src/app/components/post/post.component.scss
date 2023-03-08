@@ -1,125 +1,113 @@
 .post-container {
   display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-  background-color: #FFFFFF;
+  height: 50vh;
+  width: 75vw;
+  margin-bottom: 15px;
+  // border: 3px solid pink;
+  align-items: center;
+  justify-content: center;
 
-  .post-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-
-    .post-display-name {
-      font-size: 18px;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-
-    .post-timestamp {
-      font-size: 14px;
-      color: #666;
-    }
-  }
-
-  .post-body {
+  .post {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    height: 45vh;
+    width: 50vw;
+    border: 1px solid black;
+    border-radius: 5px;
 
-    .post-description {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .post-song-info {
+    .post-header {
       display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+      flex-direction: row;
+      align-items: center;
+      gap: 5px;
+      height: 5vh;
+      padding-left: 5px;
+      background-color: var(--main-color);
+      color: var(--color-secondary);
 
-      .post-song-name {
-        font-size: 16px;
-        margin-right: 10px;
+      .shared {
+        color: lightgray;
       }
 
-      .post-artist {
-        font-size: 16px;
+      border-bottom: 1px solid black;
+    }
+
+    .post-body {
+      display: flex;
+      flex-direction: row;
+      height: 37vh;
+      padding: 1vh 1vw;
+      justify-content: center;
+      align-items: center;
+
+      .post-info {
+        display: flex;
+        flex-direction: column;
+        width: 13.5vw;
+        gap: 5vh;
+      }
+
+      .song-art {
+        width: 13.5vw;
       }
     }
 
-    .post-song-artwork {
-      width: 200px;
-      height: 200px;
-      margin-left: auto;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-  }
-
-  .post-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .post-action-btn {
+    .description {
+      height: 4vh;
       display: flex;
       align-items: center;
+      padding: 1vh 1vw;
       justify-content: center;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 5px 10px;
-      margin-right: 10px;
-      cursor: pointer;
-      font-size: 14px;
-      color: #666;
-      transition: all 0.3s ease;
-
-      &:hover {
-        background-color: #f2f2f2;
-      }
     }
 
-    .like-btn {
-      color: #dc3545;
+    .post-actions {
+      display: flex;
+      flex-direction: row;
+      height: 5vh;
+      justify-content: space-evenly;
+      padding: 5px 5px;
 
-      &:hover {
-        color: #c82333;
-      }
-    }
-
-    .comment-btn {
-      color: #007bff;
-
-      &:hover {
-        color: #0062cc;
-      }
-    }
-
-    .play-btn {
-      background-color: #007bff;
-      color: #fff;
-      font-size: 14px;
-      border-color: #007bff;
-
-      &:hover {
-        background-color: #0069d9;
-        border-color: #0062cc;
-      }
-
-      span {
-        font-size: 12px;
+      button {
+        width: 15vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        font-size: 14px;
         color: #666;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #f2f2f2;
+        }
+      }
+
+      .like-btn {
+        background-color: #40ecfc;
+        color: black;
+      }
+
+      .comment-btn {
+        background-color: #856efa;
+        color: #fff;
+      }
+
+      .play-btn {
+        background: hsla(175, 79%, 63%, 1);
+
+        background: linear-gradient(90deg, hsla(175, 79%, 63%, 1) 0%, hsla(82, 96%, 57%, 1) 100%);
+
+        background: -moz-linear-gradient(90deg, hsla(175, 79%, 63%, 1) 0%, hsla(82, 96%, 57%, 1) 100%);
+
+        background: -webkit-linear-gradient(90deg, hsla(175, 79%, 63%, 1) 0%, hsla(82, 96%, 57%, 1) 100%);
+        
+        color: black;
+
       }
     }
   }

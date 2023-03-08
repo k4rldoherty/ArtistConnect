@@ -44,6 +44,10 @@
             max-width: 60vw;
             justify-content: center;
             // margin: 2vh 2vw;
+            .tab-group {
+                display: flex;
+                justify-content: space-evenly;
+            }
         }
     }
 }
