@@ -1,17 +1,18 @@
+<app-header></app-header>
+<app-nav-bar></app-nav-bar>
 <div class="profile-container">
-    <app-header></app-header>
     <div class="content-container">
         <div class="user-profile">
             <div class="profile-photo">
-                <img [src]="imageUrl ?? 'assets/ArtistConnect Images/placeholder-user-image.png'">
+                <img src="../../../assets/ArtistConnect Images/placeholder-user-image.png" alt="">
                 <button mat-mini-fab (click)="inputfield.click()"><mat-icon>edit</mat-icon></button>
-                <input #inputfield type="file" hidden (change)="uploadImage($event)">
+                <input #inputfield type="file" hidden>
             </div>
             <h1>{{ firebase.userData.displayName }}</h1>
             <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
             <button mat-stroked-button color="primary" (click)="openDialog()">Edit Your Profile</button>
         </div>
-        <div class="user-posts">
+        <div class="user-data">
             <mat-tab-group>
 
                 <mat-tab label="Posts">
@@ -29,6 +30,9 @@
 
             </mat-tab-group>
         </div>
-        <app-floatingmenu></app-floatingmenu>
     </div>
 </div>
+
+
+
+<!-- (change)="uploadImage($event)" IN INPUT ABOVE -->

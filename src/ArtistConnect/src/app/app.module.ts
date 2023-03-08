@@ -34,7 +34,10 @@ import { FirebaseService } from './services/firebase.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.component';
+import { IPlayerComponent } from './components/i-player/i-player.component';
+import { NavBarComponent } from '../app/components/nav-bar/nav-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -48,7 +51,9 @@ import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.co
     ProfileComponent,
     PostComponent,
     EditProfileComponent,
-    FloatingmenuComponent
+    IPlayerComponent,
+    NavBarComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,8 @@ import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.co
     CommonModule,
     HttpClientModule,
     AngularFireFunctionsModule,
-    MatTabsModule
+    MatTabsModule,
+    FontAwesomeModule,
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
@@ -81,5 +87,6 @@ import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.co
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
 

@@ -14,6 +14,9 @@ export interface PostData {
   eventName: string
   eventUrl: string
   timestamp: string
+  did : string
+  desc: string
+  source: string
 }
 
 @Component({
@@ -36,14 +39,14 @@ export class HomeComponent implements OnInit {
   }
 
   createPostClick(){
-    console.log('create button clicked');
     this.dialog.open( CreatePostComponent );
   }
 
 
   getPosts(){
+    let id = this.firebase.userData.uid
     this.firestore.collection('posts', ref => ref
-    .limit(10),
+    .where('uid', '!=', id)
     )
     .snapshotChanges()
     .pipe(

@@ -16,6 +16,8 @@ export class CreatePostComponent implements OnInit{
   songUrl: string;
   eventName: string;
   eventUrl: string;
+  desc: string;
+  source: string;
 
   selectedOption = 'song';
   constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>) {
@@ -24,6 +26,8 @@ export class CreatePostComponent implements OnInit{
     this.songUrl = '';
     this.eventName = '';
     this.eventUrl = '';
+    this.desc = '';
+    this.source = '';
     }
 
   ngOnInit(): void {
@@ -35,6 +39,15 @@ export class CreatePostComponent implements OnInit{
     this.afAuth.authState.subscribe(user => {
       if (user) {
         if (this.selectedOption == 'song'){
+          if (this.songUrl.includes('spotify.com')){
+            var source =  "Spotify"
+          }
+          else if (this.songUrl.includes('soundcloud.com')) {
+            source = "Soundcloud"
+          }
+          else{
+            source = 'unknown'
+          }
           console.log(user.uid, this.songName, this.artist, this.songUrl);
           this.fstore.collection('posts').add({
             timestamp: ts,
@@ -42,17 +55,18 @@ export class CreatePostComponent implements OnInit{
             uid: user.uid,
             songName: this.songName,
             artist: this.artist,
-            songUrl: this.songUrl
+            songUrl: this.songUrl,
+            desc: this.desc,
+            source: source
           });
         }
         else {
-          console.log(user.uid, this.eventName, this.eventUrl);
           this.fstore.collection('posts').add({
             timestamp: ts,
             type: this.selectedOption,
             uid: user.uid,
             eventName: this.eventName,
-            eventUrl: this.eventUrl
+            eventUrl: this.eventUrl,
           });
         }
       }

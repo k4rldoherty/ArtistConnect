@@ -1,20 +1,13 @@
 <div class="content">
     <h1>Edit Your Profile</h1><br>
-    <img [src]="firebase.imageURL ?? 'assets/ArtistConnect Images/placeholder-user-image.png'">
+    <img [src]="userProfileImage ?? 'assets/ArtistConnect Images/placeholder-user-image.png'" alt="Profile Photo">
     <form action="edit-form">
         <table class="edit-profile-table">
             <tr>
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Display Name</mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </td>
-    
-                <td>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Email Address</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newDisplayName" name="Display Name">
                     </mat-form-field>
                 </td>
             </tr>
@@ -22,14 +15,15 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>County</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newCounty" name="County">
                     </mat-form-field>
                 </td>
-    
+            </tr>
+            <tr>
                 <td>
                     <mat-form-field class="example-full-width">
-                        <mat-label>County</mat-label>
-                        <input matInput>
+                        <mat-label>Country</mat-label>
+                        <input matInput [(ngModel)]="newCountry" name="Country">
                     </mat-form-field>
                 </td>
             </tr>
@@ -37,12 +31,11 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Date Of Birth</mat-label>
-                        <input matInput>
+                        <input matInput [(ngModel)]="newDob" name="Date of birth">
                     </mat-form-field>
                 </td>
             </tr>
         </table>
     </form>
-    <button mat-raised-button color="warn">Save</button>
-
+    <button mat-raised-button color="warn" (click)="editUserProfile()">Save</button>
 </div>

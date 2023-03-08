@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { normalUser } from 'src/app/models/users';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { PostData } from '../home/home.component';
-import { concatMap, finalize, map, Observable } from 'rxjs';
+import { finalize, map, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -16,49 +15,24 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class ProfileComponent implements OnInit {
 
-  user = this.auth.currentUser
   imageUrl!: string;
   downloadURL!: Observable<string>;
-  testFollowers = [{ name: "Jimmy" },
-  {
-    name: "Yury"
-  },
-  {
-    name: "Conor"
-  },
-  {
-    name: "Mark"
-  },
-  ]
+  testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
+  testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
+  feedPosts: PostData[] = [];
+  userProfileImage: string = 'https://firebasestorage.googleapis.com/v0/b/artistconnect-721d1.appspot.com/o/images%2F' + this.firebase.userData.uid + '.jpg?alt=media';
 
-  testFollowing = [
-    {
-      name: "Jimmy"
-    },
-    {
-      name: "Yury"
-    },
-    {
-      name: "Conor"
-    },
-    {
-      name: "Mark"
-    },
-  ]
-  feedPosts: PostData[] = []
+
   constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth, public storage: AngularFireStorage) {
   }
 
-
   ngOnInit(): void {
-    this.getPosts();
-    this.downloadURL.subscribe(url => {
-      this.firebase.imageURL = url;
-    });
+    this.getPosts(this.firebase.userData.uid);
   }
 
-  getPosts() {
+  getPosts(uid: string) {
     this.firestore.collection('posts', ref => ref
+      .where('uid', '==', uid)
       .limit(10),
     )
       .snapshotChanges()
@@ -76,29 +50,28 @@ export class ProfileComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(EditProfileComponent, {
-      height: '500px',
-      width: '600px',
+      height: '600px',
+      width: '550px',
     });
   }
 
 
-  uploadImage(event: any) {
-    let file = event.target.files[0];
-    let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
-    let fileRef = this.storage.ref(filePath);
-    let task = fileRef.put(file);
-    
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
-        this.downloadURL.subscribe(url => {
-          this.imageUrl = url;
-        });
-      })
-      )
-      .subscribe();
-      alert('Servers are busy. Upload may take a few seconds')
-    }
+  // uploadImage(event: any) {
+  //   let file = event.target.files[0];
+  //   let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
+  //   let fileRef = this.storage.ref(filePath);
+  //   let task = fileRef.put(file);
+
+  //   task.snapshotChanges().pipe(
+  //     finalize(() => {
+  //       this.downloadURL = fileRef.getDownloadURL();
+  //       this.downloadURL.subscribe(url => {
+  //         this.imageUrl = url;
+  //         console.log(this.imageUrl);
+  //       });
+  //     })
+  //   ).subscribe();
+  // }
 }
 
 

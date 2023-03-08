@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { concatMap, finalize, from, Observable, of } from 'rxjs';
+import { map } from 'rxjs';
 import { normalUser } from '../models/users';
 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FirebaseService {
   isLoggedIn: boolean = false;
   userData: any;
   users!: any[];
-  downloadURL: any;
-  imageURL!: string;
 
 
   constructor(
@@ -39,7 +38,10 @@ export class FirebaseService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+  }
 
+  getUser(currentUserUid: string) {
+    return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
   }
 
   register(email: string, password: string, displayName: any, dob: any, country: any, county: any) {
@@ -62,6 +64,7 @@ export class FirebaseService {
         this.firebaseAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['home']);
+            this.isLoggedIn = true;
           }
         });
 
@@ -75,6 +78,7 @@ export class FirebaseService {
     return this.firebaseAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['']);
+      this.isLoggedIn = false;
     });
   }
 
@@ -108,35 +112,34 @@ export class FirebaseService {
     });
   }
 
-  // get isUserLoggedIn(): boolean {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   return user !== null && user.emailVerified !== false ? true : false;
-  // }
-
-  getUser(currentUserUid: string) {
-    return this.firestore.doc(`users/${currentUserUid}`).valueChanges();
+  getFollowersCount(userId: string) {
+    // Used to build the follower count
+    return this.firestore.collection(`users`).doc(userId).collection('followers').valueChanges().pipe(
+      map((followers: any) => followers.length)
+    );
   }
 
+  getFollowingCount(userId: string) {
+    // Used to build the follower count
+    return this.firestore.collection(`users`).doc(userId).collection('following').valueChanges().pipe(
+      map((following: any) => following.length)
+    );
+  }
 
-  // uploadProfilePicture(image: File, path: string) {
-  //   const storageRef = this.storage.ref(path)
-  //   const task = this.storage.upload(path, image)
-  //   const uploadPercent = task.percentageChanges();
-  //   task.snapshotChanges().pipe(
-  //     finalize(() => this.downloadURL = storageRef.getDownloadURL())
-  //   ).subscribe();
-  // }
+  follow(followerId: string, followedId: string) {
+    const followerRef = this.firestore.collection(`users`).doc(followerId);
+    const followedRef = this.firestore.collection(`users`).doc(followedId);
 
-  // getDownloadURL(path: string): Observable<string> {
-  //   let ref = this.storage.ref(path);
-  //   return new Observable<string>(observer => {
-  //     ref.getDownloadURL().then(url => {
-  //       observer.next(url);
-  //       observer.complete();
-  //     }, (error: any) => {
-  //       observer.error(error);
-  //     });
-  //   });
-  // }
+    followerRef.collection('following').doc(followedId).set({ followed: true });
+    followedRef.collection('followers').doc(followerId).set({ follower: true });
+  }
+
+  unfollow(followerId: string, followedId: string) {
+    const followerRef = this.firestore.collection(`users`).doc(followerId);
+    const followedRef = this.firestore.collection(`users`).doc(followedId);
+
+    followerRef.collection('following').doc(followedId).delete();
+    followedRef.collection('followers').doc(followerId).delete();
+  }
 }
 
