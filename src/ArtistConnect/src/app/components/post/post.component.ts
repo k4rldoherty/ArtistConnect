@@ -33,6 +33,7 @@ export class PostComponent implements OnInit {
   count: any;
   authtoken: any;
   trackId: any;
+  source: any;
 
 
   constructor(
@@ -44,36 +45,42 @@ export class PostComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-
-  onPlayClick(){
-    let songUrl = this.postData.songUrl;
-    if (songUrl.includes("soundcloud.com")) {
-      window.open(songUrl, "_blank");
-    } 
-    else if (songUrl.includes("spotify.com")) {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = {
-        songUrl: songUrl,
-        token: this.authtoken,
-        trackId: this.getTrackIdFromUrl(songUrl)
-
-      };
-    
-      this.dialog.open(IPlayerComponent, dialogConfig);
-    }
-  }
-
   ngOnInit(): void {
     this.getName();
     this.getLikeCount();
-    this.generateAuthToken();
+    if (this.postData.source == 'Spotify'){
+    this.getSpotifyArt();
+    }
   }
 
-  async generateAuthToken() {
+  getName() {
+    let userId = this.postData.uid;
+    this.firebase.getUser(userId).subscribe(user => {
+      console.log(user);
+      this.creator = user;
+    });
+  }
+
+  getLikeCount(){
+    const postId = this.postData.did
+    this.firestore
+    .collection(`posts/${postId}/likes`)
+    .valueChanges()
+    .subscribe((querySnapshot) => {
+    this.count = querySnapshot.length;
+    });
+  }
+
+  getUrlSource(){
+
+  }
+
+  //Function pulls Track artwork from Spotify Api
+  async getSpotifyArt() {
     const base64 = (value: string) => {
       return btoa(value);
     }
-
+    //Generates OAuth token for api
     const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
     const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
       headers: {
@@ -82,6 +89,7 @@ export class PostComponent implements OnInit {
       },
     });
     console.log(response);
+
     this.authtoken = response.data.access_token;
     this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
       headers: {
@@ -93,19 +101,12 @@ export class PostComponent implements OnInit {
     });
   }
 
-  getName() {
-    let userId = this.postData.uid;
-    this.firebase.getUser(userId).subscribe(user => {
-      console.log(user);
-      this.creator = user;
-    });
-  }
-
   getTrackIdFromUrl(url: string) {
     this.trackId = url.split('/').pop();
     return this.trackId;
   }
 
+  //Function for when like button is clicked
   likePost(postId: string) {
     this.fauth.authState.subscribe(user => {
       if (user) {
@@ -124,14 +125,24 @@ export class PostComponent implements OnInit {
       }
     });
   }
-  getLikeCount(){
-    const postId = this.postData.did
-    this.firestore
-    .collection(`posts/${postId}/likes`)
-    .valueChanges()
-    .subscribe((querySnapshot) => {
-    this.count = querySnapshot.length;
-    });
+
+  //Function for 
+  onPlayClick(){
+    let source = this.postData.source;
+    if (source == "Soundcloud") {
+      window.open(this.postData.songUrl, "_blank");
+    } 
+    else if (source == "Spotify") {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {
+        songUrl: this.postData.songUrl,
+        token: this.authtoken,
+        trackId: this.getTrackIdFromUrl(this.postData.songUrl)
+
+      };
+    
+      this.dialog.open(IPlayerComponent, dialogConfig);
+    }
   }
 
 }

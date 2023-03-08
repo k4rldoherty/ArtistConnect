@@ -15,6 +15,8 @@ export interface PostData {
   eventUrl: string
   timestamp: string
   did : string
+  desc: string
+  source: string
 }
 
 @Component({

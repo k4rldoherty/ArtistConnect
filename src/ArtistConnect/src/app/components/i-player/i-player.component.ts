@@ -1,8 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import axios from 'axios';
-import { PostComponent } from '../post/post.component';
-import cheerio from 'cheerio';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({

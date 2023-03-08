@@ -6,8 +6,13 @@
         <mat-select [(value)]="selectedOption">
           <mat-option value="song">Song</mat-option>
           <mat-option value="event">Event</mat-option>
-        </mat-select>
+        </mat-select>  
       </mat-form-field>
+      <div>
+      <mat-form-field>
+        <textarea matInput placeholder="Description" [(ngModel)]="desc"></textarea>
+      </mat-form-field>
+      </div>
       <div *ngIf="selectedOption === 'song'">
         <mat-form-field>
           <input matInput placeholder="Artist" [(ngModel)]="artist">
