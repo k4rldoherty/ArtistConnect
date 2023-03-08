@@ -30,16 +30,9 @@ export class ProfileComponent implements OnInit {
     this.getPosts(this.firebase.userData.uid);
   }
 
-<<<<<<< HEAD
-  getPosts() {
-    let id = this.firebase.userData.uid
-    this.firestore.collection('posts', ref => ref
-      .where('uid', '==', id)
-=======
   getPosts(uid: string) {
     this.firestore.collection('posts', ref => ref
       .where('uid', '==', uid)
->>>>>>> 10e0679 (Fixed filtering on posts profile page and some refactoring)
       .limit(10),
     )
       .snapshotChanges()
@@ -61,6 +54,24 @@ export class ProfileComponent implements OnInit {
       width: '550px',
     });
   }
+
+
+  // uploadImage(event: any) {
+  //   let file = event.target.files[0];
+  //   let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
+  //   let fileRef = this.storage.ref(filePath);
+  //   let task = fileRef.put(file);
+
+  //   task.snapshotChanges().pipe(
+  //     finalize(() => {
+  //       this.downloadURL = fileRef.getDownloadURL();
+  //       this.downloadURL.subscribe(url => {
+  //         this.imageUrl = url;
+  //         console.log(this.imageUrl);
+  //       });
+  //     })
+  //   ).subscribe();
+  // }
 }
 
 

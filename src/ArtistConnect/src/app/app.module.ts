@@ -34,17 +34,10 @@ import { FirebaseService } from './services/firebase.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-<<<<<<< HEAD
-import { FloatingmenuComponent } from './components/floatingmenu/floatingmenu.component';
 import { IPlayerComponent } from './components/i-player/i-player.component';
-=======
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { NavBarComponent } from '../app/components/nav-bar/nav-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-<<<<<<< HEAD
->>>>>>> 337d37e (Added nav-bar and removed floating menu)
-=======
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
->>>>>>> 83d4762 (Added user-profile component, button beside posts to view profile of author and route for each users profile template)
 
 
 @NgModule({
@@ -58,16 +51,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     ProfileComponent,
     PostComponent,
     EditProfileComponent,
-<<<<<<< HEAD
-    FloatingmenuComponent,
-    IPlayerComponent
-=======
+    IPlayerComponent,
     NavBarComponent,
-<<<<<<< HEAD
->>>>>>> 337d37e (Added nav-bar and removed floating menu)
-=======
-    UserProfileComponent,
->>>>>>> 83d4762 (Added user-profile component, button beside posts to view profile of author and route for each users profile template)
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +79,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     HttpClientModule,
     AngularFireFunctionsModule,
     MatTabsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
