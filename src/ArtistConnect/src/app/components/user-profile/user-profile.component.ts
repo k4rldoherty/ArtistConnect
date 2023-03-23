@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
     this.uid = this.route.snapshot.paramMap.get('uid');
     this.user$ = this.firestore.doc(`users/${this.uid}`).valueChanges();
     this.getPosts(this.uid);
+    this.isUserFollowing();
   }
 
   getPosts(uid: string) {
@@ -47,6 +48,10 @@ export class UserProfileComponent implements OnInit {
 
   follow() {
     this.firebase.follow(this.firebase.userData.uid, this.uid);
+  }
+
+  isUserFollowing() {
+      console.log(this.firestore.collection('users').doc(this.uid).collection('following').doc(this.firebase.userData.uid).get());
   }
 
 }

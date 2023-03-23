@@ -15,7 +15,7 @@
                     <button mat-stroked-button color="primary">Message</button>
                 </div>
             </div>
-            <div class="user-data">
+            <!-- <div class="user-data">
                 <mat-tab-group>
 
                     <mat-tab label="Posts">
@@ -34,7 +34,8 @@
                     </mat-tab>
 
                 </mat-tab-group>
-            </div>
+            </div> -->
+            <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
         </div>
     </div>
 </div>

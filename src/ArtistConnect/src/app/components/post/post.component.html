@@ -5,6 +5,7 @@
       <div class="post-header">
         <h3 class="display-name">{{ creator.displayName }}</h3>
         <p class="shared">shared a song</p>
+        <button routerLink="user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>"{{ postData.desc }}"</p>
@@ -40,6 +41,7 @@
       <div class="post-header">
         <h3 class="display-name">{{ creator.displayName }}</h3>
         <p class="shared">shared a song</p>
+        <button routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>
