@@ -17,7 +17,7 @@
         </div>
         <div class="song-art">
           <a [href]="postData.songUrl" target="_blank" class="post-song-url">
-            <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
+            <img width="150px" height="150px" [src]="artwork" alt="Spotify Artwork">
           </a>
         </div>
       </div>
@@ -60,10 +60,7 @@
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
         <button class="post-action-btn comment-btn">Comment</button>
-        <button class="post-media-btn play-btn" (click)="onPlayClick()">
-          Play <br>
-          <!-- <small>Source: {{postData.source}}</small> -->
-        </button>
+        <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
       </div>
     </div>
   </div>
