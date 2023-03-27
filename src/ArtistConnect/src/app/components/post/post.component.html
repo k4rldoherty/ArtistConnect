@@ -27,7 +27,6 @@
         <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
         <button class="play-btn" (click)="onPlayClick()">
           Play <br>
-          <!-- <small>Source: {{postData.source}}</small> -->
         </button>
       </div>
     </div>
@@ -51,11 +50,6 @@
           <p>Song:{{ postData.songName }}</p>
           <p>Artist: {{ postData.artist }}</p>
         </div>
-        <!-- <div class="song-art">
-          <a [href]="postData.songUrl" target="_blank" class="post-song-url">
-            <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
-          </a>
-        </div> -->
       </div>
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
