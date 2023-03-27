@@ -1,0 +1,20 @@
+<div>
+  <div>
+    <ul>
+      <li *ngFor="let comment of comments | async">
+        <!-- <strong>{{ comment.userId }}</strong> - {{ comment.timestamp | date }}<br> -->
+        {{ comment.input }}
+      </li>
+    </ul>
+  </div>
+  
+  <hr>
+  
+  <div>
+      <mat-form-field>
+        <input matInput placeholder="Add Comment" [(ngModel)]="commentInput">
+      </mat-form-field>
+      <mat-card-actions>
+        <button type="button" (click)="addComment()">Send</button>
+      </mat-card-actions>
+  </div>

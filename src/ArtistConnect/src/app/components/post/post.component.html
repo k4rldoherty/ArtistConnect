@@ -11,13 +11,15 @@
         <p class="post-song-name">Song Name: {{ postData.songName }}</p>
         <p class="post-artist">Artist: {{ postData.artist }}</p>
       </div>
-      <a *ngIf="postData.source === 'Spotify'" [href]="postData.songUrl" target="_blank" class="post-song-url">
-        <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
-      </a>
+      <div class="image">
+        <a *ngIf="postData.source === 'Spotify'" [href]="postData.songUrl" target="_blank" class="post-song-url">
+          <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
+        </a>
+      </div>
     </div>
     <div class="post-actions">
       <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-      <button class="post-action-btn comment-btn">Comment</button>
+      <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
       <button class="post-media-btn play-btn" (click)="onPlayClick()">
         Play <br>
         <small>Source: {{postData.source}}</small>

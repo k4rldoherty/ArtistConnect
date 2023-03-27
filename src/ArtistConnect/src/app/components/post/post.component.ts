@@ -9,6 +9,7 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { map,take } from 'rxjs/operators';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { IPlayerComponent } from '../i-player/i-player.component';
+import { CommentsViewComponent } from '../comments-view/comments-view.component';
 
 export interface UserData {
   displayName: string;
@@ -142,6 +143,15 @@ export class PostComponent implements OnInit {
     
       this.dialog.open(IPlayerComponent, dialogConfig);
     }
+  }
+
+  onCommentClick(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      postID: this.postData.did
+    };
+  
+    this.dialog.open(CommentsViewComponent, dialogConfig);
   }
 
 }

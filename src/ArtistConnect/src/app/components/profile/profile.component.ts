@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
   testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   feedPosts: PostData[] = [];
-  userProfileImage: string = 'https://firebasestorage.googleapis.com/v0/b/artistconnect-721d1.appspot.com/o/images%2F' + this.firebase.userData.uid + '.jpg?alt=media';
 
 
   constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth, public storage: AngularFireStorage) {
