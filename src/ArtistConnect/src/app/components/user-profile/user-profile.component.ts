@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map, Observable } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { PostData } from '../../components/home/home.component';
@@ -13,19 +14,19 @@ import { PostData } from '../../components/home/home.component';
 })
 export class UserProfileComponent implements OnInit {
 
-  uid: any = '';
+  uid: any;
+  isUserFollowed!: boolean;
   user$!: Observable<any>;
   feedPosts: PostData[] = [];
-  isFollowing!: boolean;
   testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private firebase: FirebaseService) { }
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private firebase: FirebaseService, private auth: AngularFireAuth) { }
 
   ngOnInit(): void {
     this.uid = this.route.snapshot.paramMap.get('uid');
     this.user$ = this.firestore.doc(`users/${this.uid}`).valueChanges();
     this.getPosts(this.uid);
-    this.isUserFollowing();
+    this.isFollowing();
   }
 
   getPosts(uid: string) {
@@ -48,10 +49,22 @@ export class UserProfileComponent implements OnInit {
 
   follow() {
     this.firebase.follow(this.firebase.userData.uid, this.uid);
+    this.isUserFollowed = true;
   }
 
-  isUserFollowing() {
-      console.log(this.firestore.collection('users').doc(this.uid).collection('following').doc(this.firebase.userData.uid).get());
+  unFollow() {
+    this.firebase.unfollow(this.firebase.userData.uid, this.uid);
+    this.isUserFollowed = false;
+  }
+
+  isFollowing() {
+    let user = this.firebase.userData.uid;
+    let followingRef = this.firestore.doc(`users/${user.uid}/following/${this.uid}`);
+
+    if(followingRef) {
+      this.isUserFollowed = true;
+    }
+    this.isUserFollowed = false;
   }
 
 }

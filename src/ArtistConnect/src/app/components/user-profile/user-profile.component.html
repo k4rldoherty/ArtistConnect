@@ -11,30 +11,11 @@
                 <h1>{{ user.displayName }}</h1>
                 <p>{{ user.county }}, {{ user.country }}</p>
                 <div class="action-buttons">
-                    <button mat-raised-button color="primary" (click)="follow()">Follow</button>
+                    <button mat-raised-button color="primary" *ngIf="!isUserFollowed" (click)="follow()">Follow</button>
+                    <button mat-raised-button color="primary" *ngIf="isUserFollowed" (click)="unFollow()">Unfollow</button>
                     <button mat-stroked-button color="primary">Message</button>
                 </div>
             </div>
-            <!-- <div class="user-data">
-                <mat-tab-group>
-
-                    <mat-tab label="Posts">
-                        <app-post *ngFor="let post of feedPosts" [postData]="post"></app-post>
-                    </mat-tab>
-                    <mat-tab label="{{ testFollowers.length }} Followers">
-                        <h3 class="followers-content" *ngFor="let testFollower of testFollowers">{{ testFollower.name
-                            }}<button>Unfollow</button></h3>
-                    </mat-tab>
-                    <mat-tab label="Following {{ testFollowing.length }}">
-                        <h3 class="following-content" *ngFor="let testFollowings of testFollowing">{{
-                            testFollowings.name }} <button>Friends</button></h3>
-                    </mat-tab>
-                    <mat-tab label="Likes">
-                        Content 4
-                    </mat-tab>
-
-                </mat-tab-group>
-            </div> -->
             <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
         </div>
     </div>
