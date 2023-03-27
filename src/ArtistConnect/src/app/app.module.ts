@@ -38,6 +38,7 @@ import { IPlayerComponent } from './components/i-player/i-player.component';
 import { NavBarComponent } from '../app/components/nav-bar/nav-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CommentsViewComponent } from './components/comments-view/comments-view.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     EditProfileComponent,
     IPlayerComponent,
     NavBarComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    CommentsViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,46 +1,71 @@
-<ng-container *ngIf="postData.type === 'song'">
+<ng-container *ngIf="postData.type === 'song' && postData.source === 'Spotify'">
+
   <div class="post-container">
-    <div class="post-header">
-      <h3 class="post-display-name">{{ creator.displayName }}</h3>
-      <p class="post-timestamp">shared a song</p>
-    </div>
-    <hr>
-    <div class="post-body">
-      <div class="post-text">
-        <p class="post-description">{{ postData.desc}}</p>
-        <p class="post-song-name">Song Name: {{ postData.songName }}</p>
-        <p class="post-artist">Artist: {{ postData.artist }}</p>
+    <div class="post">
+      <div class="post-header">
+        <h3 class="display-name">{{ creator.displayName }}</h3>
+        <p class="shared">shared a song</p>
+        <button routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
-      <a *ngIf="postData.source === 'Spotify'" [href]="postData.songUrl" target="_blank" class="post-song-url">
-        <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
-      </a>
+      <div class="description">
+        <p>"{{ postData.desc }}"</p>
+      </div>
+      <div class="post-body">
+        <div class="post-info">
+          <p>{{ postData.songName }}</p>
+          <p>{{ postData.artist }}</p>
+        </div>
+        <div class="song-art">
+          <a [href]="postData.songUrl" target="_blank" class="post-song-url">
+            <img width="150px" height="150px" [src]="artwork" alt="Spotify Artwork">
+          </a>
+        </div>
+      </div>
+
+      <div class="post-actions">
+        <button class="like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
+        <button class="play-btn" (click)="onPlayClick()">
+          Play <br>
+          <!-- <small>Source: {{postData.source}}</small> -->
+        </button>
+      </div>
     </div>
-    <div class="post-actions">
-      <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-      <button class="post-action-btn comment-btn">Comment</button>
-      <button class="post-media-btn play-btn" (click)="onPlayClick()">
-        Play <br>
-        <small>Source: {{postData.source}}</small>
-      </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="postData.type === 'song' && postData.source === 'Soundcloud'">
+
+  <div class="post-container">
+    <div class="post">
+      <div class="post-header">
+        <h3 class="display-name">{{ creator.displayName }}</h3>
+        <p class="shared">shared a song</p>
+        <button routerLink="/user/{{ postData.uid }}">View Profile</button>
+      </div>
+      <div class="description">
+        <p>{{ postData.desc }}</p>
+      </div>
+      <div class="post-body">
+        <div class="post-info">
+          <p>Song:{{ postData.songName }}</p>
+          <p>Artist: {{ postData.artist }}</p>
+        </div>
+        <!-- <div class="song-art">
+          <a [href]="postData.songUrl" target="_blank" class="post-song-url">
+            <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
+          </a>
+        </div> -->
+      </div>
+      <div class="post-actions">
+        <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
+        <button class="post-action-btn comment-btn">Comment</button>
+        <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
+      </div>
     </div>
   </div>
 </ng-container>
 
 <ng-container *ngIf="postData.type === 'event'">
-  <div class="post-container">
-    <div class="post-header">
-      <h3 class="post-display-name">{{ creator.displayName }}</h3>
-      <p class="post-timestamp">shared an event</p>
-    </div>
-    <hr>
-    <div class="post-body">
-      <p class="post-event-name">Event Name: {{ postData.eventName }}</p>
-      <p class="post-event-url">URL: {{ postData.eventUrl }}</p>
-      <div class="post-actions">
-        <button class="post-action-btn like-btn">Like</button>
-        <button class="post-action-btn comment-btn">Comment</button>
-        <button class="post-action-btn buy-tickets-btn">Buy Tickets</button>
-      </div>
-    </div>
-  </div>
+
 </ng-container>

@@ -9,12 +9,17 @@
         flex-direction: row;
         background-color: var(--color-tertiary);
         margin-top: 8vh;
+        min-height: 91.9vh;
 
         .post-feed {
             width: 75vw;
             background-color: var(--color-secondary);
             margin-left: auto;
             margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         #post-button {
