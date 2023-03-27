@@ -15,7 +15,7 @@ import { PostData } from '../../components/home/home.component';
 export class UserProfileComponent implements OnInit {
 
   uid: any;
-  isUserFollowed!: boolean;
+  isUserFollowed: boolean = false;
   user$!: Observable<any>;
   feedPosts: PostData[] = [];
   testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
@@ -25,8 +25,8 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.uid = this.route.snapshot.paramMap.get('uid');
     this.user$ = this.firestore.doc(`users/${this.uid}`).valueChanges();
-    this.getPosts(this.uid);
     this.isFollowing();
+    this.getPosts(this.uid);
   }
 
   getPosts(uid: string) {
@@ -58,13 +58,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   isFollowing() {
-    let user = this.firebase.userData.uid;
+    const user = this.firebase.userData.uid;
     let followingRef = this.firestore.doc(`users/${user.uid}/following/${this.uid}`);
 
     if(followingRef) {
-      this.isUserFollowed = true;
+      return this.isUserFollowed = true;
     }
-    this.isUserFollowed = false;
+    return this.isUserFollowed = false;
   }
 
 }
