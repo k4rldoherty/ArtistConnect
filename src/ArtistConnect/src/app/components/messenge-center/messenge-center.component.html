@@ -1,0 +1,26 @@
+<div class="message-centre-container">
+    <app-header></app-header>
+    <div class="content-container">
+        <app-nav-bar></app-nav-bar>
+        <div class="message-centre">
+            <div class="title">
+                <h1>{{ firebase.userData.displayName.split(' ')[0] }}, here are your recent conversations:</h1>
+            </div>
+            <div class="conversations">
+                <div class="conversation">
+                    <div class="header">
+                        <div class="name">
+                            <h3>John smith</h3>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="last-message">
+                            <p>Alright thats enough ...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-fab id="new-message-button"><mat-icon>add</mat-icon></button>
+    </div>
+</div>
