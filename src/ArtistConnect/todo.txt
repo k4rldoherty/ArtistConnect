@@ -1,10 +1,5 @@
 If user does not follow anyone, show 50 posts from random users
 
-FIX FOLLOW
-    Get list of all followers
-    Check if list contains UID of user that you want to check
-    when a user follows / unfollows a user -> add to / remove from list as required
-
 Research on messenger how to set up etc
     conversations (collection)
         |- asdjhjashda (document with random id)

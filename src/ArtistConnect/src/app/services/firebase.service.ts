@@ -163,7 +163,7 @@ export class FirebaseService {
     };
     return this.firestore.collection('conversations').add(conversation)
       .then((docRef) => {
-        this.router.navigate([`/message-centre/${docRef.id}`]);        
+        this.router.navigate([`/message-centre/${docRef.id}`]);
       });
   }
 
@@ -173,10 +173,9 @@ export class FirebaseService {
         if (user) {
           const uid = user.uid;
           const followingRef = this.firestore.collection(`users/${uid}/following`).doc(followingUid).ref;
-          followingRef.get()
-            .then(followingData => {
-              observer.next(followingData.exists); // return true if followingData exists
-            })
+          followingRef.get().then(followingData => {
+            observer.next(followingData.exists); // return true if followingData exists
+          })
             .catch(error => {
               console.log('Error getting following data:', error);
               observer.next(false);
