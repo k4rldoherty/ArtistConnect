@@ -53,24 +53,6 @@ export class ProfileComponent implements OnInit {
       width: '550px',
     });
   }
-
-
-  // uploadImage(event: any) {
-  //   let file = event.target.files[0];
-  //   let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
-  //   let fileRef = this.storage.ref(filePath);
-  //   let task = fileRef.put(file);
-
-  //   task.snapshotChanges().pipe(
-  //     finalize(() => {
-  //       this.downloadURL = fileRef.getDownloadURL();
-  //       this.downloadURL.subscribe(url => {
-  //         this.imageUrl = url;
-  //         console.log(this.imageUrl);
-  //       });
-  //     })
-  //   ).subscribe();
-  // }
 }
 
 

@@ -2,7 +2,6 @@
     <div>
       <ul>
         <li *ngFor="let comment of comments | async">
-          <!-- <strong>{{ comment.userId }}</strong> - {{ comment.timestamp | date }}<br> -->
           {{ comment.input }}
         </li>
       </ul>
