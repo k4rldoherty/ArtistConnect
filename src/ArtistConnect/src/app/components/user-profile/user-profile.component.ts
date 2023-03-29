@@ -16,16 +16,32 @@ export class UserProfileComponent implements OnInit {
   user$!: Observable<any>;
   feedPosts: PostData[] = [];
   isFollowing!: boolean;
+  following: number = 0;
+  followers: number = 0;
+  posts: number = 0;
 
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private firebase: FirebaseService, private auth: AngularFireAuth, private router: Router) { }
 
   ngOnInit(): void {
     this.uid = this.route.snapshot.paramMap.get('uid');
+    
     this.user$ = this.firestore.doc(`users/${this.uid}`).valueChanges();
+    
     this.getPosts(this.uid);
+    
     this.firebase.isFollowingUser(this.uid)
     .subscribe(isFollowing => {
       this.isFollowing = isFollowing;
+    });
+
+    this.firebase.getFollowersCount(this.uid).subscribe((followers) => {
+      this.followers = followers;
+      console.log(this.followers);
+    });
+    
+    this.firebase.getFollowingCount(this.uid).subscribe((following) => {
+      this.following = following;
+      console.log(this.following);
     });
   }
 
@@ -44,17 +60,20 @@ export class UserProfileComponent implements OnInit {
       )
       .subscribe(postsData => {
         this.feedPosts = postsData;
+        this.posts = this.feedPosts.length
       });
   }
 
   follow() {
     this.firebase.follow(this.firebase.userData.uid, this.uid);
     this.isFollowing = true;
+    this.followers++;
   }
 
   unFollow() {
     this.firebase.unfollow(this.firebase.userData.uid, this.uid);
     this.isFollowing = false;
+    this.followers--;
   }
   
   messageUser() {

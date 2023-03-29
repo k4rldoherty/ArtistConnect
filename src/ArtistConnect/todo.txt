@@ -24,6 +24,13 @@ Research on messenger how to set up etc
             Check if conversation already exists before creading new one
             Style
 
+        PLAN FOR MESSAGES:
+            User clicks on message in User-Profile Component
+            If:
+                Conversation already exists -> open conversation
+            else:
+                Create new conversation and navigate to the route of the conversation
+
 Profile Picture
 
 Styling - NAVBAR - HEADER

@@ -15,6 +15,20 @@
                     <button mat-raised-button color="primary" *ngIf="isFollowing" (click)="unFollow()">Unfollow</button>
                     <button mat-stroked-button color="primary" (click)="messageUser()">Message</button>
                 </div>
+                <div class="followers-following">
+                    <div class="posts">
+                        <h4>{{ posts }}</h4>
+                        <h4>Posts</h4>
+                    </div>
+                    <div class="following">
+                        <h4>{{following}}</h4>
+                        <h4>Following</h4>
+                    </div>
+                    <div class="followers">
+                        <h4>{{ followers }}</h4>
+                        <h4>Followers</h4>
+                    </div>
+                </div>
             </div>
             <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
         </div>

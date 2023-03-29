@@ -78,7 +78,6 @@ export class CreatePostComponent implements OnInit{
           else{
             source = 'unknown'
           }
-          console.log(user.uid, this.songName, this.artist, this.songUrl);
           this.fstore.collection('posts').add({
             timestamp: ts,
             type: this.selectedOption,

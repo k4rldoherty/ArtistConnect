@@ -10,6 +10,7 @@ import { map,take } from 'rxjs/operators';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { IPlayerComponent } from '../i-player/i-player.component';
 import { CommentsViewComponent } from '../comments-view/comments-view.component';
+import { Router } from '@angular/router';
 
 
 
@@ -45,7 +46,8 @@ export class PostComponent implements OnInit {
     private fauth: AngularFireAuth,
     private http: HttpClient, 
     private functions: AngularFireFunctions,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public router: Router
   ) { }
 
   ngOnInit(): void {

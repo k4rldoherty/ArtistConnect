@@ -16,8 +16,7 @@ export class MessengeCenterComponent implements OnInit {
   constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, public firebase: FirebaseService) { }
 
   ngOnInit(): void {
-    const userId = this.firebase.userData.uid; // replace with the logged-in user's ID
-    console.log('user id:', userId);
+    const userId = this.firebase.userData.uid;
     this.conversations$ = this.firestore.collection<Conversation>('conversations', ref => {
       return ref.where('user1', '==', userId);
     }).valueChanges();

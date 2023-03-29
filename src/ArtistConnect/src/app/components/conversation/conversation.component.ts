@@ -14,10 +14,6 @@ export class ConversationComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe(params => {
-    //   const conversationId = params.get('conversationId');
-    //   // Do something with the conversation ID...
-    // });
   }
-
+  
 }
