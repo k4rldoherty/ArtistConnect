@@ -11,25 +11,21 @@
             <h1>{{ firebase.userData.displayName }}</h1>
             <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
             <button mat-stroked-button color="primary" (click)="openDialog()">Edit Your Profile</button>
+            <div class="followers-following">
+                <div class="posts">
+                    <h4>{{ posts }}</h4>
+                    <h4>Posts</h4>
+                </div>
+                <div class="following">
+                    <h4>{{following}}</h4>
+                    <h4>Following</h4>
+                </div>
+                <div class="followers">
+                    <h4>{{ followers }}</h4>
+                    <h4>Followers</h4>
+                </div>
+            </div>
         </div>
-        <!-- <div class="user-data">
-            <mat-tab-group class="mat-tab-group">
-
-                <mat-tab label="Posts">
-                    <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
-                </mat-tab>
-                <mat-tab label="{{ testFollowers.length }} Followers">
-                    <h3 class="followers-content" *ngFor="let testFollower of testFollowers">{{  testFollower.name }}<button>Unfollow</button></h3>
-                </mat-tab>
-                <mat-tab label="Following {{ testFollowing.length }}">
-                    <h3 class="following-content" *ngFor="let testFollowings of testFollowing">{{  testFollowings.name }} <button>Friends</button></h3>
-                </mat-tab>
-                <mat-tab label="Likes">
-                    Content 4
-                </mat-tab>
-
-            </mat-tab-group>
-        </div> -->
         <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
     </div>
 </div>
