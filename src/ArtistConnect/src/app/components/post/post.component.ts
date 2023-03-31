@@ -92,7 +92,7 @@ export class PostComponent implements OnInit {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-    console.log(response);
+    // console.log(response);
 
     this.authtoken = response.data.access_token;
     this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
@@ -101,7 +101,7 @@ export class PostComponent implements OnInit {
       }
     }).subscribe((data: any) => {
       this.artwork = data.album.images[0].url;
-      console.log(this.artwork);
+      // console.log(this.artwork);
     });
   }
 

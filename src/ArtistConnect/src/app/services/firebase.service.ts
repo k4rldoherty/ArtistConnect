@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
@@ -144,28 +144,72 @@ export class FirebaseService {
     followedRef.collection('followers').doc(followerId).delete();
   }
 
-  // createConversation(currentUser:string, user2:string) {
-
-  //   // check if conversation exists currently for the 2 users.
-
-  //   // if not, create a conversation and redirect to the conversation
-
-  //   // if it does, redirect them to the conversation and load all previous messages
-  // }
+  async doesConversationExist(user1: string, user2: string): Promise<boolean> {
+    const conversationId = `${user1}_${user2}`;
+    const conversationIdReversed = `${user2}_${user1}`;
+    const conversationRef = this.firestore.collection('conversations').doc(conversationId);
+    const conversationRefReversed = this.firestore.collection('conversations').doc(conversationIdReversed);
+  
+    const doc = await conversationRef.get().toPromise();
+  
+    if (doc && doc.exists) {
+      return true;
+    } else {
+      const reversedDoc = await conversationRefReversed.get().toPromise();
+      if (reversedDoc && reversedDoc.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 
   createConversation(user1: string, user2: string) {
+    const conversationId = `${user1}_${user2}`;
+    const conversationRef = this.firestore.collection('conversations').doc(conversationId);
+    const messagesRef = conversationRef.collection('messages');
+  
+    const firstMessage = {
+      senderID: user1,
+      content: `Conversation Created by ${user1}, say hi`
+    }
+  
     const conversation = {
       user1: user1,
       user2: user2,
       lastMessage: "",
-      // lastMessageTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
       unreadCount: 0
     };
-    return this.firestore.collection('conversations').add(conversation)
-      .then((docRef) => {
-        this.router.navigate([`/message-centre/${docRef.id}`]);
+  
+    return conversationRef.get().toPromise()
+      .then((doc: any) => {
+        if (doc.exists) {
+          // conversation already exists, navigate to existing conversation
+          this.router.navigate([`/message-centre/${conversationId}`]);
+          return;
+        } else {
+          // check the other conversation reference as well
+          const conversationIdReversed = `${user2}_${user1}`;
+          const conversationRefReversed = this.firestore.collection('conversations').doc(conversationIdReversed);
+          return conversationRefReversed.get().toPromise()
+            .then((doc: any) => {
+              if (doc.exists) {
+                // conversation already exists, navigate to existing conversation
+                this.router.navigate([`/message-centre/${conversationIdReversed}`]);
+                return;
+              } else {
+                // create new conversation
+                return conversationRef.set(conversation)
+                  .then(() => {
+                    messagesRef.add(firstMessage);
+                    this.router.navigate([`/message-centre/${conversationId}`]);
+                  });
+              }
+            });
+        }
       });
   }
+
 
   isFollowingUser(followingUid: string): Observable<boolean> {
     return new Observable<boolean>(observer => {
@@ -185,6 +229,19 @@ export class FirebaseService {
         }
       });
     });
+  }
+
+  getMessages(conversationID: string) {
+    const messageRef = this.firestore.collection(`conversations/${conversationID}/messages`);
+    return messageRef.get().pipe(
+      map(snapshot => {
+        return snapshot.docs.map(doc => {
+          const data = doc.data() as Message;
+          const id = doc.id;
+          return { id, ...data };
+        })
+      })
+    )
   }
 }
 

@@ -1,7 +1,7 @@
-<app-header></app-header>
-<app-nav-bar></app-nav-bar>
 <div class="profile-container">
+    <app-header></app-header>
     <div class="content-container">
+        <app-nav-bar></app-nav-bar>
         <div class="user-profile">
             <div class="profile-photo">
                 <img src="../../../assets/ArtistConnect Images/placeholder-user-image.png" alt="">
@@ -25,8 +25,8 @@
                     <h4>Followers</h4>
                 </div>
             </div>
+            <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
         </div>
-        <app-post *ngFor="let post of feedPosts" [postData]="post" ></app-post>
     </div>
 </div>
 

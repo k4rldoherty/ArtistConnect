@@ -1,20 +1,21 @@
 .nav-bar {
     display: flex;
     flex-direction: column;
-    min-height: 91.9vh;
-    width: 6vw;
+    width: 10vw;
     justify-content: space-evenly;
     align-items: center;
     position: fixed;
     height: 100%;
     background-color: var(--color-secondary);
+    border-right: 1px solid var(--color-text);
     .nav-bar-item {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         color: var(--main-color);
         cursor: pointer;
+        gap: 5px;
         p {
             font-size: 10px;
         }

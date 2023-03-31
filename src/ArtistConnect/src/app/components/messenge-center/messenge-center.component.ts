@@ -18,7 +18,7 @@ export class MessengeCenterComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.firebase.userData.uid;
     this.conversations$ = this.firestore.collection<Conversation>('conversations', ref => {
-      return ref.where('user1', '==', userId);
+      return ref.where('user1', '==', userId)
     }).valueChanges();
   }
 
