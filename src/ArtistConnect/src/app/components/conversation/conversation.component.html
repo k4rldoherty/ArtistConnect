@@ -1,1 +1,31 @@
-conversation works
+<div class="conversation-container">
+    <app-header></app-header>
+    <div class="content-container">
+        <app-nav-bar></app-nav-bar>
+        <div class="conversation-container">
+            <div class="coversation">
+                <div class="left" *ngFor="let message of messages$">
+                    <div class="content">
+                        {{ message.content }}
+                    </div>
+                </div>
+                <!-- <div class="right" *ngFor="let message of messages$">
+                    <div class="content">
+                        {{ message.content }}
+                    </div>
+                </div> -->
+            </div>
+            <div class="send-message">
+                <div class="text-box">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Send a message</mat-label>
+                        <input matInput type="text" [(ngModel)]="value">
+                    </mat-form-field>
+                </div>
+                <div class="send-btn">
+                    <button (click)="sendMessage()" mat-raised-button color="primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

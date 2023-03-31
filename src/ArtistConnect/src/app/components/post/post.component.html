@@ -7,7 +7,7 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared a song</p>
-        <button *ngIf="creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>"{{ postData.desc }}"</p>
@@ -44,7 +44,7 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared a song</p>
-        <button *ngIf="creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>

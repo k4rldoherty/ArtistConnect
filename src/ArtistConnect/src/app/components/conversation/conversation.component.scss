@@ -1,0 +1,40 @@
+.conversation-container {
+    display: flex;
+    flex-direction: column;
+    app-header {
+        position: fixed;
+    }
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-tertiary);
+    margin-top: 8vh;
+    min-height: 91.9vh;
+
+    .conversation-container {
+      display: flex;
+      background-color: var(--color-secondary);
+      width: 65vw;
+      flex-direction: column;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+      align-items: center;
+      gap: 2vh;
+      .send-message {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vw;
+        position: fixed;
+        bottom: 0;
+        .text-box {
+          .example-form-field {
+            width: 45vw;
+          }
+        }
+      }
+    }
+  }
+}

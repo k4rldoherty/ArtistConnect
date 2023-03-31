@@ -1,25 +1,26 @@
 .profile-container {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-tertiary);
-    justify-content: center;
-    align-items: center;
-
+    app-header {
+        position: fixed;
+    }
     .content-container {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: var(--color-secondary);
-        width: 60vw;
+        flex-direction: row;
+        background-color: var(--color-tertiary);
+        margin-top: 8vh;
         min-height: 91.9vh;
-        margin-top: 7.9vh;
+
 
         .user-profile {
             display: flex;
+            background-color: var(--color-secondary);
+            width: 65vw;
             flex-direction: column;
+            margin-left: auto;
+            margin-right: auto;
             justify-content: center;
             align-items: center;
-            margin: 2vh 2vw;
             gap: 2vh;
 
             .profile-photo {

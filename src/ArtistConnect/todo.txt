@@ -1,38 +1,20 @@
 If user does not follow anyone, show 50 posts from random users
 
-Research on messenger how to set up etc
-    conversations (collection)
-        |- asdjhjashda (document with random id)
-        |- user1: "abc"
-        |- user2: "def"
-        |- lastMessage: "Hello, how are you?"
-        |- lastMessageTimestamp: <timestamp>
-        |- unreadCount: 0
-        |- messages (subcollection)
-            |- message1_id (document)
-                |- content: "Hello, how are you?"
-                |- senderId: "abc"
-                |- timestamp: <timestamp>
-            |- message2_id (document)
-                |- content: "I'm good, thanks! How are you?"
-                |- senderId: "def"
-                |- timestamp: <timestamp>
-    Progress:
-        Message centre template created
-        Navigating to new route with conversation ID 
-        TODO:
-            Check if conversation already exists before creading new one
-            Style
+Profile Picture Not working
 
-        PLAN FOR MESSAGES:
-            User clicks on message in User-Profile Component
-            If:
-                Conversation already exists -> open conversation
-            else:
-                Create new conversation and navigate to the route of the conversation
+Messenge-Centre: 
+    In message-centre only conversations you have started shows 
+    eg if Yury starts convo with Derry it will only show up on Yury's message centre.
 
-Profile Picture
+    UID displaying instead of displayName
 
-Styling - NAVBAR - HEADER
+Conversation-Page:
+    Messages are not in order 
+    Timestamps will probably need to be added to the messages to order then
 
-Follower / Following count on profile page 
+    Need to split messages into 2 lists based on senderID to display them.
+
+    Need to implement a way that allows the new messages to show up straight away (observable)
+    
+    Styling 
+
