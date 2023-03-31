@@ -5,7 +5,7 @@
         <div class="conversation-container">
             <div class="conversation">
                 <div *ngFor="let message of messages$">
-                  <div [class.left]="message.senderID !== firebase.userData.uid" [class.right]="message.senderID === firebase.userData.uid" class="content">
+                  <div [class.left]="message.senderId !== firebase.userData.uid" [class.right]="message.senderId === firebase.userData.uid" class="content">
                     {{ message.content }}
                   </div>
                 </div>
