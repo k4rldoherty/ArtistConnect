@@ -17,24 +17,23 @@ export class ConversationComponent implements OnInit {
   messages$: any;
   value = '';
   conversationID = this.router.url.split('/')[2];
-  loggedInuserMessages!: any[];
-  otherUserMessages!: any[];
+  user1: string = this.router.url.split('/')[2].split('_')[0]
+  user2: string = this.router.url.split('/')[2].split('_')[1]
 
-  constructor(private route: ActivatedRoute, private router: Router, private firestore: AngularFirestore, public firebase: FirebaseService) { }
+  constructor(private route: ActivatedRoute, public router: Router, private firestore: AngularFirestore, public firebase: FirebaseService) { }
 
   ngOnInit(): void {
     this.firebase.getMessages(this.conversationID).subscribe((messages) => {
       this.messages$ = messages;
       console.log(this.messages$);
     });
-    
   }
 
   sendMessage() {
     console.log(this.value);
     const newMessage = {
       content: this.value,
-      senderID: this.firebase.userData.uid
+      senderId: this.firebase.userData.uid
     }
     this.firestore.collection(`conversations/${this.conversationID}/messages`).add(newMessage);
     const conversationRef = this.firestore.collection(`conversations`).doc(this.conversationID);
@@ -42,5 +41,9 @@ export class ConversationComponent implements OnInit {
       lastMessage: this.value
     })
     this.value = '';
+    this.firebase.getMessages(this.conversationID).subscribe((messages) => {
+      this.messages$ = messages;
+      console.log(this.messages$);
+    });
   }
 }
