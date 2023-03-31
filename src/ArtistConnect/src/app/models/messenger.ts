@@ -1,3 +1,5 @@
+import firebase from 'firebase/compat/app';
+
 export interface Conversation {
     user1: string;
     user2: string;
@@ -9,4 +11,5 @@ export interface Conversation {
   export interface Message {
     content: string;
     senderId: string;
+    timeStamp?: any;
   }

@@ -149,9 +149,9 @@ export class FirebaseService {
     const conversationIdReversed = `${user2}_${user1}`;
     const conversationRef = this.firestore.collection('conversations').doc(conversationId);
     const conversationRefReversed = this.firestore.collection('conversations').doc(conversationIdReversed);
-  
+
     const doc = await conversationRef.get().toPromise();
-  
+
     if (doc && doc.exists) {
       return true;
     } else {
@@ -168,19 +168,19 @@ export class FirebaseService {
     const conversationId = `${user1}_${user2}`;
     const conversationRef = this.firestore.collection('conversations').doc(conversationId);
     const messagesRef = conversationRef.collection('messages');
-  
-    const firstMessage = {
-      senderID: user1,
-      content: `Conversation Created by ${user1}, say hi`
-    }
-  
+
+    // const firstMessage = {
+    //   senderID: user1,
+    //   content: `Conversation Created by ${user1}, say hi`
+    // }
+
     const conversation = {
       user1: user1,
       user2: user2,
       lastMessage: "",
       unreadCount: 0
     };
-  
+
     return conversationRef.get().toPromise()
       .then((doc: any) => {
         if (doc.exists) {
@@ -201,7 +201,7 @@ export class FirebaseService {
                 // create new conversation
                 return conversationRef.set(conversation)
                   .then(() => {
-                    messagesRef.add(firstMessage);
+                    // messagesRef.add(firstMessage);
                     this.router.navigate([`/message-centre/${conversationId}`]);
                   });
               }

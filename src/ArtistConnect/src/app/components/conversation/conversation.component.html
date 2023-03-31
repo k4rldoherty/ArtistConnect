@@ -3,18 +3,13 @@
     <div class="content-container">
         <app-nav-bar></app-nav-bar>
         <div class="conversation-container">
-            <div class="coversation">
-                <div class="left" *ngFor="let message of messages$">
-                    <div class="content">
-                        {{ message.content }}
-                    </div>
+            <div class="conversation">
+                <div *ngFor="let message of messages$">
+                  <div [class.left]="message.senderID !== firebase.userData.uid" [class.right]="message.senderID === firebase.userData.uid" class="content">
+                    {{ message.content }}
+                  </div>
                 </div>
-                <!-- <div class="right" *ngFor="let message of messages$">
-                    <div class="content">
-                        {{ message.content }}
-                    </div>
-                </div> -->
-            </div>
+              </div>
             <div class="send-message">
                 <div class="text-box">
                     <mat-form-field class="example-form-field">

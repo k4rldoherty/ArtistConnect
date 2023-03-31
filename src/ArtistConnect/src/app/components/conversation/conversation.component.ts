@@ -20,7 +20,7 @@ export class ConversationComponent implements OnInit {
   loggedInuserMessages!: any[];
   otherUserMessages!: any[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private firestore: AngularFirestore, private firebase: FirebaseService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private firestore: AngularFirestore, public firebase: FirebaseService) { }
 
   ngOnInit(): void {
     this.firebase.getMessages(this.conversationID).subscribe((messages) => {
