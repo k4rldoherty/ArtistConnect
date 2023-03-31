@@ -231,17 +231,24 @@ export class FirebaseService {
     });
   }
 
+  // getMessages(conversationID: string) {
+  //   const messageRef = this.firestore.collection(`conversations/${conversationID}/messages`);
+  //   return messageRef.get().pipe(
+  //     map(snapshot => {
+  //       return snapshot.docs.map(doc => {
+  //         const data = doc.data() as Message;
+  //         const id = doc.id;
+  //         return { id, ...data };
+  //       })
+  //     })
+  //   )
+  // }
+
   getMessages(conversationID: string) {
-    const messageRef = this.firestore.collection(`conversations/${conversationID}/messages`);
-    return messageRef.get().pipe(
-      map(snapshot => {
-        return snapshot.docs.map(doc => {
-          const data = doc.data() as Message;
-          const id = doc.id;
-          return { id, ...data };
-        })
-      })
-    )
+    const messageRef: AngularFirestoreCollection<Message> = this.firestore
+      .collection(`conversations/${conversationID}/messages`, ref => ref.orderBy('timeStamp'));
+    return messageRef.valueChanges({ idField: 'id' });
   }
+
 }
 
