@@ -1,9 +1,11 @@
 .profile-container {
     display: flex;
     flex-direction: column;
+
     app-header {
         position: fixed;
     }
+
     .content-container {
         display: flex;
         flex-direction: row;
@@ -27,7 +29,7 @@
                 position: relative;
 
                 img {
-                    height: 15vh;
+                    height: 14vh;
                     width: 8vw;
                     border-radius: 100%;
                     border: 1px solid var(--main-color);
@@ -56,7 +58,11 @@
                 align-items: center;
                 border: 1px solid black;
                 border-radius: 5px;
-                background-color: var(--main-color);
+                // background-color: var(--main-color);
+                background: #8000ff;
+                background: linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
+                background: -webkit-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
+                background: -moz-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
                 color: var(--color-secondary);
 
                 .followers {
