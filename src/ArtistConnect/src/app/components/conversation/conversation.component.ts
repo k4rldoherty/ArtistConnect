@@ -8,13 +8,13 @@ import firebase from 'firebase/compat/app';
 
 
 
+
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss']
 })
 export class ConversationComponent implements OnInit {
-
   messages$: any;
   value = '';
   conversationID = this.router.url.split('/')[2];
