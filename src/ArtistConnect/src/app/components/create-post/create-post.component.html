@@ -20,21 +20,42 @@
         <mat-form-field>
           <input matInput placeholder="Song Name" [(ngModel)]="songName">
         </mat-form-field>
-        <div>
-          <mat-form-field>
-            <input matInput placeholder="Link to song"[(ngModel)]="songUrl">
-          </mat-form-field>
-        </div>
+        <mat-form-field>
+          <input matInput placeholder="Link to song"[(ngModel)]="songUrl">
+        </mat-form-field>
       </div>
       <div *ngIf="selectedOption === 'event'">
         <mat-form-field>
-          <input matInput placeholder="Event Name" [(ngModel)]="eventName">
-        </mat-form-field>
-        <div>
+          <mat-label>Select organiser</mat-label>
+          <mat-select [(value)]="organiser">
+            <mat-option value="tm">Ticketmaster</mat-option>
+            <mat-option value="eb">Eventbrite</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field> 
+        <div *ngIf="organiser === 'tm'">
+          <mat-form-field>
+            <input matInput placeholder="Search Event" [(ngModel)]="tmSearch">
+          </mat-form-field>
+          <div *ngIf="tmResults">
+            <mat-selection-list style="max-height: 150px; overflow-y: auto;">
+              <mat-list-option *ngFor="let result of tmResults" [value]="result">
+                {{ result.name }}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <mat-card-actions>
+            <button mat-raised-button color="secondary" (click)="onTmSearch()">Search</button>
+          </mat-card-actions><br><br>
+        </div>
+        <div *ngIf="organiser === 'other'">
+          <mat-form-field>
+            <input matInput placeholder="Event Name" [(ngModel)]="eventName">
+          </mat-form-field><br>
           <mat-form-field>
             <input matInput placeholder="Link to event"[(ngModel)]="eventUrl">
           </mat-form-field>
-          </div>
+        </div>
       </div>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="onPost()">Post</button>
