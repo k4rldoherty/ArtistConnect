@@ -2,8 +2,19 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 //
 import firebase from 'firebase/compat/app';
+import { MatOptionSelectionChange } from '@angular/material/core';
+
+interface tmEvent{
+  id : string,
+  name : string
+}
+
 
 @Component({
   selector: 'app-create-post',
@@ -18,9 +29,14 @@ export class CreatePostComponent implements OnInit{
   eventUrl: string;
   desc: string;
   source: string;
+  tmSearch!: string;
+  tmResults!: tmEvent[];
+  
 
   selectedOption = 'song';
-  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>) {
+  organiser = '';
+  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>, 
+    private http: HttpClient) {
     this.artist = '';
     this.songName = '';
     this.songUrl = '';
@@ -28,10 +44,24 @@ export class CreatePostComponent implements OnInit{
     this.eventUrl = '';
     this.desc = '';
     this.source = '';
+    this.tmSearch = '';
     }
+  //npm install @agm/core --legacy-peer-deps 
+  //AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM
+  ngOnInit(){}
 
-  ngOnInit(): void {
-
+  onTmSearch(){
+    const keyword = this.tmSearch.replace(/\s/g, "%20");
+    this.http.get(`https://app.ticketmaster.com/discovery/v2/events?apikey=qtjQbp4GkppxptLA4y1LUmBG0tRAE4IH&keyword=${keyword}&locale=*`)
+    .subscribe((data: any) => {
+      this.tmResults = [];
+      for (const event of data._embedded.events){
+        const item: tmEvent = {id : event.id, name :  event.name};
+      this.tmResults.push(item)
+        }
+      console.log(this.tmResults);
+    })
+    
   }
 
   onPost() {
