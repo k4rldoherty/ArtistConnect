@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -91,7 +92,8 @@ import { ConversationComponent } from './components/conversation/conversation.co
     FontAwesomeModule,
     MatListModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatRadioModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

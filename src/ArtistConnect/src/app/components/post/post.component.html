@@ -15,8 +15,8 @@
       </div>
       <div class="post-body">
         <div class="post-info">
-          <p>{{ postData.songName }}</p>
-          <p>{{ postData.artist }}</p>
+          <p>Song: {{ postData.songName }}</p>
+          <p>Artist: {{ postData.artist }}</p>
         </div>
         <div class="song-art">
           <a [href]="postData.songUrl" target="_blank" class="post-song-url">
@@ -70,6 +70,35 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="postData.type === 'event'">
-
+<ng-container *ngIf="postData.type === 'event' && postData.organiser === 'Ticketmaster'">
+  <div class="post-container">
+    <div class="post">
+      <div class="post-header">
+        <span *ngIf="creator">
+          {{ creator?.displayName }}
+        </span>
+        <p class="shared">shared an event</p>
+        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+      </div>
+      <div class="description">
+        <p>{{ postData.desc }}</p>
+      </div>
+      <div class="post-body">
+        <div class="post-info">
+          <p>Event:{{ postData.eventDetails.name }}</p>
+          <p>Venue: {{ postData.eventDetails.venue }}</p>
+        </div>
+        <div class="song-art">
+          <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
+            <img width="150px" height="150px" [src]="postData.eventDetails.image" alt="Ticketmaster Artwork">
+          </a>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
+        <button class="post-action-btn comment-btn">Comment</button>
+        <button class="post-media-btn play-btn">Buy Tickets <br></button>
+      </div>
+    </div>
+  </div>
 </ng-container>

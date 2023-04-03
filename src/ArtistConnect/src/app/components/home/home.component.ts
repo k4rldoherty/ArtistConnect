@@ -17,6 +17,8 @@ export interface PostData {
   did : string
   desc: string
   source: string
+  eventDetails: any
+  organiser: string
 }
 
 @Component({

@@ -38,15 +38,16 @@
             <input matInput placeholder="Search Event" [(ngModel)]="tmSearch">
           </mat-form-field>
           <div *ngIf="tmResults">
-            <mat-selection-list style="max-height:  9.375em; overflow-y: auto;">
-              <mat-list-option *ngFor="let result of tmResults" [value]="result">
-                {{ result.name }}
-              </mat-list-option>
-            </mat-selection-list>
+            <mat-list style="max-height: 9.375em; overflow-y: auto; background-color: lightgrey;">
+        <mat-list-item *ngFor="let event of tmResults">
+          <!-- (change)="onEventSelection($event)" -->
+          <mat-radio-button (change)="onTmEventSelection(event)" [value]="event">{{event.name}} - {{event.date}} - {{event.city}}</mat-radio-button>
+        </mat-list-item>
+      </mat-list>
           </div>
           <mat-card-actions>
             <button mat-raised-button color="secondary" (click)="onTmSearch()">Search</button>
-          </mat-card-actions><br><br>
+          </mat-card-actions>
         </div>
         <div *ngIf="organiser === 'other'">
           <mat-form-field>

@@ -10,10 +10,19 @@ import { of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { MatOptionSelectionChange } from '@angular/material/core';
 
-interface tmEvent{
-  id : string,
-  name : string
-}
+  interface tmEvent{
+    id : string,
+    name : string,
+    venue : string,
+    city : string,
+    country : string,
+    lat : string,
+    long : string,
+    time : string,
+    date : string,
+    url : string,
+    image: string
+  }
 
 
 @Component({
@@ -31,6 +40,7 @@ export class CreatePostComponent implements OnInit{
   source: string;
   tmSearch!: string;
   tmResults!: tmEvent[];
+  tmSelection!: tmEvent;
   
 
   selectedOption = 'song';
@@ -44,7 +54,6 @@ export class CreatePostComponent implements OnInit{
     this.eventUrl = '';
     this.desc = '';
     this.source = '';
-    this.tmSearch = '';
     }
   //npm install @agm/core --legacy-peer-deps 
   //AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM
@@ -56,12 +65,27 @@ export class CreatePostComponent implements OnInit{
     .subscribe((data: any) => {
       this.tmResults = [];
       for (const event of data._embedded.events){
-        const item: tmEvent = {id : event.id, name :  event.name};
-      this.tmResults.push(item)
+        const item: tmEvent = {
+          id : event.id,
+          name :  event.name,
+          url : event.url,
+          venue : event._embedded.venues[0].name,
+          city : event._embedded.venues[0].city.name,
+          country : event._embedded.venues[0].country.name,
+          lat : event._embedded.venues[0].location.latitude,
+          long : event._embedded.venues[0].location.longitude,
+          time : event.dates.start.localTime,
+          date : event.dates.start.localDate,
+          image : event.images[6].url
+          };
+        this.tmResults.push(item)
         }
       console.log(this.tmResults);
     })
-    
+  }
+
+  onTmEventSelection(selection: tmEvent){
+    this.tmSelection = selection;
   }
 
   onPost() {
@@ -89,14 +113,18 @@ export class CreatePostComponent implements OnInit{
             source: source
           });
         }
-        else {
-          this.fstore.collection('posts').add({
-            timestamp: ts,
-            type: this.selectedOption,
-            uid: user.uid,
-            eventName: this.eventName,
-            eventUrl: this.eventUrl,
-          });
+        else if (this.selectedOption == 'event') {
+          if (this.organiser = 'tm'){
+            this.fstore.collection('posts').add({
+              timestamp: ts,
+              type: this.selectedOption,
+              uid: user.uid,
+              organiser : 'Ticketmaster',
+              desc: this.desc,
+              eventDetails : this.tmSelection
+              //When option is selected on search, I would like to add the entire object 
+            });
+          }
         }
       }
     });
