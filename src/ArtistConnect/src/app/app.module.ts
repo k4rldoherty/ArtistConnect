@@ -13,7 +13,9 @@ import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTabsModule } from '@angular/material/tabs'
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
@@ -55,7 +58,7 @@ import { CommentsViewComponent } from './components/comments-view/comments-view.
     IPlayerComponent,
     NavBarComponent,
     UserProfileComponent,
-    CommentsViewComponent
+    CommentsViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,9 @@ import { CommentsViewComponent } from './components/comments-view/comments-view.
     AngularFireFunctionsModule,
     MatTabsModule,
     FontAwesomeModule,
+    MatListModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

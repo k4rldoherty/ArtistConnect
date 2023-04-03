@@ -9,6 +9,7 @@ interface Comment {
   userId: string;
   timestamp: any;
   input: string;
+  name: any;
 }
 
 @Component({
@@ -20,7 +21,6 @@ export class CommentsViewComponent implements OnInit {
   commentInput: string;
   commentsCollection: AngularFirestoreCollection<Comment>;
   comments: Observable<Comment[]>;
-  userID: any;
 
   constructor(private firestore: AngularFirestore, @Inject(MAT_DIALOG_DATA) public data: any, private afAuth: AngularFireAuth) {
     this.commentInput = '';
@@ -37,11 +37,13 @@ export class CommentsViewComponent implements OnInit {
       if (user) {
         const comment: Comment = {
           userId: user.uid, 
+          name: this.data.username,
           timestamp: ts,
           input: this.commentInput
         };
         this.commentsCollection.add(comment);
         this.commentInput = '';
+        this.comments = this.commentsCollection.valueChanges({ idField: 'id' });
       }
     });
   }

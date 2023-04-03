@@ -1,15 +1,12 @@
 <div>
-    <div>
-      <ul>
-        <li *ngFor="let comment of comments | async">
-          <!-- <strong>{{ comment.userId }}</strong> - {{ comment.timestamp | date }}<br> -->
-          {{ comment.input }}
-        </li>
-      </ul>
+<mat-list>
+  <mat-list-item *ngFor="let comment of comments | async">
+    <h3 matLine><strong>{{ comment.name }}</strong></h3>
+    <p matLine>{{ comment.input }}</p>
+  </mat-list-item>
+</mat-list>
     </div>
-    
     <hr>
-    
     <div>
         <mat-form-field>
           <input matInput placeholder="Add Comment" [(ngModel)]="commentInput">

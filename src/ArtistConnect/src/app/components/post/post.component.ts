@@ -150,7 +150,8 @@ export class PostComponent implements OnInit {
   onCommentClick(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      postID: this.postData.did
+      postID: this.postData.did,
+      username: this.creator.displayName
     };
   
     this.dialog.open(CommentsViewComponent, dialogConfig);
