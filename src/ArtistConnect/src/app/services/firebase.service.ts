@@ -169,11 +169,6 @@ export class FirebaseService {
     const conversationRef = this.firestore.collection('conversations').doc(conversationId);
     const messagesRef = conversationRef.collection('messages');
 
-    // const firstMessage = {
-    //   senderID: user1,
-    //   content: `Conversation Created by ${user1}, say hi`
-    // }
-
     const conversation = {
       user1: user1,
       user2: user2,
@@ -230,19 +225,6 @@ export class FirebaseService {
       });
     });
   }
-
-  // getMessages(conversationID: string) {
-  //   const messageRef = this.firestore.collection(`conversations/${conversationID}/messages`);
-  //   return messageRef.get().pipe(
-  //     map(snapshot => {
-  //       return snapshot.docs.map(doc => {
-  //         const data = doc.data() as Message;
-  //         const id = doc.id;
-  //         return { id, ...data };
-  //       })
-  //     })
-  //   )
-  // }
 
   getMessages(conversationID: string) {
     const messageRef: AngularFirestoreCollection<Message> = this.firestore

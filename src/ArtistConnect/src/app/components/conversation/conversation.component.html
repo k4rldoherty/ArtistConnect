@@ -3,7 +3,7 @@
     <div class="content-container">
         <app-nav-bar></app-nav-bar>
         <div class="conversation-container">
-            <div class="conversation">
+            <div class="conversation" #scrollMe>
                 <div *ngFor="let message of messages$">
                   <div [class.left]="message.senderId !== firebase.userData.uid" [class.right]="message.senderId === firebase.userData.uid" class="content">
                     {{ message.content }}
@@ -12,7 +12,7 @@
               </div>
             <div class="send-message">
                 <div class="text-box">
-                    <mat-form-field class="example-form-field">
+                    <mat-form-field class="send-field">
                         <mat-label>Send a message</mat-label>
                         <input matInput type="text" [(ngModel)]="value">
                     </mat-form-field>
