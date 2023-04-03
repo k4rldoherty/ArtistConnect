@@ -1,0 +1,73 @@
+.conversation-container {
+  display: flex;
+  flex-direction: column;
+
+  app-header {
+    position: fixed;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-tertiary);
+    margin-top: 8vh;
+    min-height: 91.9vh;
+
+    .conversation-container {
+      display: flex;
+      width: 65vw;
+      flex-direction: column;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 10vh;
+      margin-top: 2vh;
+      justify-content: center;
+      align-items: center;
+      gap: 2vh;
+
+      .conversation {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .left {
+          align-self: flex-start;
+          margin-right: auto;
+          background-color: var(--main-color);
+          color: var(--color-tertiary);
+          border-radius: 0.5rem;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          width: 50%;
+        }
+
+        .right {
+          align-self: flex-end;
+          margin-left: auto;
+          background-color: var(--color-secondary);
+          color: var(--main-color);
+          border-radius: 0.5rem;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          width: 50%;
+        }
+      }
+
+      .send-message {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vw;
+        position: fixed;
+        bottom: 0;
+
+        .text-box {
+          .send-field {
+            width: 45vw;
+          }
+        }
+      }
+    }
+  }
+}

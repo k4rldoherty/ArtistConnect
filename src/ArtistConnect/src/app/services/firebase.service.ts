@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { normalUser } from '../models/users';
+import { Conversation, Message } from '../models/messenger';
+import { query } from 'firebase/firestore';
 
 
 @Injectable({
@@ -141,5 +143,94 @@ export class FirebaseService {
     followerRef.collection('following').doc(followedId).delete();
     followedRef.collection('followers').doc(followerId).delete();
   }
+
+  async doesConversationExist(user1: string, user2: string): Promise<boolean> {
+    const conversationId = `${user1}_${user2}`;
+    const conversationIdReversed = `${user2}_${user1}`;
+    const conversationRef = this.firestore.collection('conversations').doc(conversationId);
+    const conversationRefReversed = this.firestore.collection('conversations').doc(conversationIdReversed);
+
+    const doc = await conversationRef.get().toPromise();
+
+    if (doc && doc.exists) {
+      return true;
+    } else {
+      const reversedDoc = await conversationRefReversed.get().toPromise();
+      if (reversedDoc && reversedDoc.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  createConversation(user1: string, user2: string) {
+    const conversationId = `${user1}_${user2}`;
+    const conversationRef = this.firestore.collection('conversations').doc(conversationId);
+    const messagesRef = conversationRef.collection('messages');
+
+    const conversation = {
+      user1: user1,
+      user2: user2,
+      lastMessage: "",
+      unreadCount: 0
+    };
+
+    return conversationRef.get().toPromise()
+      .then((doc: any) => {
+        if (doc.exists) {
+          // conversation already exists, navigate to existing conversation
+          this.router.navigate([`/message-centre/${conversationId}`]);
+          return;
+        } else {
+          // check the other conversation reference as well
+          const conversationIdReversed = `${user2}_${user1}`;
+          const conversationRefReversed = this.firestore.collection('conversations').doc(conversationIdReversed);
+          return conversationRefReversed.get().toPromise()
+            .then((doc: any) => {
+              if (doc.exists) {
+                // conversation already exists, navigate to existing conversation
+                this.router.navigate([`/message-centre/${conversationIdReversed}`]);
+                return;
+              } else {
+                // create new conversation
+                return conversationRef.set(conversation)
+                  .then(() => {
+                    // messagesRef.add(firstMessage);
+                    this.router.navigate([`/message-centre/${conversationId}`]);
+                  });
+              }
+            });
+        }
+      });
+  }
+
+
+  isFollowingUser(followingUid: string): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.firebaseAuth.authState.subscribe(user => {
+        if (user) {
+          const uid = user.uid;
+          const followingRef = this.firestore.collection(`users/${uid}/following`).doc(followingUid).ref;
+          followingRef.get().then(followingData => {
+            observer.next(followingData.exists); // return true if followingData exists
+          })
+            .catch(error => {
+              console.log('Error getting following data:', error);
+              observer.next(false);
+            });
+        } else {
+          observer.next(false);
+        }
+      });
+    });
+  }
+
+  getMessages(conversationID: string) {
+    const messageRef: AngularFirestoreCollection<Message> = this.firestore
+      .collection(`conversations/${conversationID}/messages`, ref => ref.orderBy('timeStamp'));
+    return messageRef.valueChanges({ idField: 'id' });
+  }
+
 }
 

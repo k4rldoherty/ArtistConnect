@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { FirebaseService } from '../../services/firebase.service'
 import { map, Observable } from 'rxjs';
 import { Message } from 'src/app/models/messenger';
 import firebase from 'firebase/compat/app';
+
 
 
 
@@ -14,37 +15,25 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./conversation.component.scss']
 })
 export class ConversationComponent implements OnInit {
-
   messages$: any;
   value = '';
   conversationID = this.router.url.split('/')[2];
-  loggedInuserMessages!: any[];
-  otherUserMessages!: any[];
+  user1: string = this.router.url.split('/')[2].split('_')[0]
+  user2: string = this.router.url.split('/')[2].split('_')[1]
 
-  constructor(private route: ActivatedRoute, private router: Router, private firestore: AngularFirestore, private firebase: FirebaseService) { }
+  constructor(private route: ActivatedRoute, public router: Router, private firestore: AngularFirestore, public firebase: FirebaseService) { }
 
   ngOnInit(): void {
-    // this.firebase.getMessages(this.conversationID).subscribe((messages) => {
-    //   this.messages$ = messages;
-    //   console.log(this.messages$);
-    // });
-
-    this.firestore.collection(`conversations/${this.conversationID}/messages`, ref => ref.orderBy('timeStamp')).onSnapshot((querySnapshot) => {
-      let messages: Message[] = [];
-      querySnapshot.forEach((doc: any) => {
-        messages.push({ id: doc.id, ...doc.data() });
-      });
+    this.firebase.getMessages(this.conversationID).subscribe((messages: Message[]) => {
       this.messages$ = messages;
-      console.log(this.messages$);
     });
-    
   }
 
   sendMessage() {
     console.log(this.value);
     const newMessage = {
       content: this.value,
-      senderID: this.firebase.userData.uid,
+      senderId: this.firebase.userData.uid,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp()
     }
     this.firestore.collection(`conversations/${this.conversationID}/messages`).add(newMessage);
@@ -53,5 +42,8 @@ export class ConversationComponent implements OnInit {
       lastMessage: this.value
     })
     this.value = '';
+    this.firebase.getMessages(this.conversationID).subscribe((messages: Message[]) => {
+      this.messages$ = messages;
+    });
   }
 }

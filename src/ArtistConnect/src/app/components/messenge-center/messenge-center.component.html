@@ -1,0 +1,30 @@
+<div class="message-centre-container">
+    <app-header></app-header>
+    <div class="content-container">
+        <app-nav-bar></app-nav-bar>
+        <div class="message-centre">
+            <div class="title">
+                <h1 *ngIf="firebase.userData">{{ firebase.userData.displayName.split(' ')[0] }}, here are conversations you have started recently:</h1>
+            </div>
+            <div class="conversations">
+                <ul>
+                    <li *ngFor="let conversation of conversations$ | async">
+                        <div class="conversation" routerLink="/message-centre/{{conversation.user1}}_{{conversation.user2}}">
+                            <div class="header">
+                                <div class="name">
+                                    <h3>Should be actual name will fix: {{ conversation.user2 }}</h3>
+                                </div>
+                            </div>
+                            <div class="body">
+                                <div class="last-message">
+                                    <p>{{ conversation.lastMessage }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button mat-fab id="new-message-button"><mat-icon>add</mat-icon></button>
+    </div>
+</div>

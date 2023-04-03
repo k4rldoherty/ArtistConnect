@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map, Observable } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { PostData } from '../../components/home/home.component';
-
 
 @Component({
   selector: 'app-user-profile',
@@ -12,20 +12,37 @@ import { PostData } from '../../components/home/home.component';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
-  uid: any = '';
+  uid: any;
   user$!: Observable<any>;
   feedPosts: PostData[] = [];
   isFollowing!: boolean;
-  testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
-  testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private firebase: FirebaseService) { }
+  following: number = 0;
+  followers: number = 0;
+  posts: number = 0;
+
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private firebase: FirebaseService, private auth: AngularFireAuth, private router: Router) { }
 
   ngOnInit(): void {
     this.uid = this.route.snapshot.paramMap.get('uid');
+    
     this.user$ = this.firestore.doc(`users/${this.uid}`).valueChanges();
+    
     this.getPosts(this.uid);
-    this.isUserFollowing();
+    
+    this.firebase.isFollowingUser(this.uid)
+    .subscribe(isFollowing => {
+      this.isFollowing = isFollowing;
+    });
+
+    this.firebase.getFollowersCount(this.uid).subscribe((followers) => {
+      this.followers = followers;
+      console.log(this.followers);
+    });
+    
+    this.firebase.getFollowingCount(this.uid).subscribe((following) => {
+      this.following = following;
+      console.log(this.following);
+    });
   }
 
   getPosts(uid: string) {
@@ -43,15 +60,24 @@ export class UserProfileComponent implements OnInit {
       )
       .subscribe(postsData => {
         this.feedPosts = postsData;
+        this.posts = this.feedPosts.length
       });
   }
 
   follow() {
     this.firebase.follow(this.firebase.userData.uid, this.uid);
+    this.isFollowing = true;
+    this.followers++;
   }
 
-  isUserFollowing() {
-      console.log(this.firestore.collection('users').doc(this.uid).collection('following').doc(this.firebase.userData.uid).get());
+  unFollow() {
+    this.firebase.unfollow(this.firebase.userData.uid, this.uid);
+    this.isFollowing = false;
+    this.followers--;
+  }
+  
+  messageUser() {
+    this.firebase.createConversation(this.firebase.userData.uid, this.uid);
   }
 
 }

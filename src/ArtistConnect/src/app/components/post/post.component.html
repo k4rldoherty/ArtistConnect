@@ -3,9 +3,11 @@
   <div class="post-container">
     <div class="post">
       <div class="post-header">
-        <h3 class="display-name">{{ creator.displayName }}</h3>
+        <span *ngIf="creator">
+          {{ creator?.displayName }}
+        </span>
         <p class="shared">shared a song</p>
-        <button routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>"{{ postData.desc }}"</p>
@@ -27,7 +29,6 @@
         <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
         <button class="play-btn" (click)="onPlayClick()">
           Play <br>
-          <!-- <small>Source: {{postData.source}}</small> -->
         </button>
       </div>
     </div>
@@ -39,9 +40,11 @@
   <div class="post-container">
     <div class="post">
       <div class="post-header">
-        <h3 class="display-name">{{ creator.displayName }}</h3>
+        <span *ngIf="creator">
+          {{ creator?.displayName }}
+        </span>
         <p class="shared">shared a song</p>
-        <button routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>
@@ -51,11 +54,6 @@
           <p>Song:{{ postData.songName }}</p>
           <p>Artist: {{ postData.artist }}</p>
         </div>
-        <!-- <div class="song-art">
-          <a [href]="postData.songUrl" target="_blank" class="post-song-url">
-            <img widht="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
-          </a>
-        </div> -->
       </div>
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>

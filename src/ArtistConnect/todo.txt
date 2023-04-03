@@ -1,0 +1,20 @@
+If user does not follow anyone, show 50 posts from random users
+
+Profile Picture Not working
+
+Messenge-Centre: 
+    In message-centre only conversations you have started shows 
+    eg if Yury starts convo with Derry it will only show up on Yury's message centre.
+
+    UID displaying instead of displayName
+
+Conversation-Page:
+    Messages are not in order 
+    Timestamps will probably need to be added to the messages to order then
+
+    Need to split messages into 2 lists based on senderID to display them.
+
+    Need to implement a way that allows the new messages to show up straight away (observable)
+    
+    Styling 
+

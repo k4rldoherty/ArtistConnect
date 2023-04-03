@@ -23,7 +23,6 @@ link:any
     this.songUrl = this.data.songUrl;
     this.trackId = this.data.trackId;
     let url = 'https://open.spotify.com/embed/track/' + this.trackId  + '?utm_source=generator&theme=0'
-    console.log(url)
     this.link = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 

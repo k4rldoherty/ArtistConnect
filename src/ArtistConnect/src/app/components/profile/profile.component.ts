@@ -17,9 +17,10 @@ export class ProfileComponent implements OnInit {
 
   imageUrl!: string;
   downloadURL!: Observable<string>;
-  testFollowers = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
-  testFollowing = [{ name: "Jimmy" }, { name: "Yury" }, { name: "Conor" }, { name: "Mark" }]
   feedPosts: PostData[] = [];
+  posts: number = 0;
+  followers: number = 0;
+  following: number = 0;
 
 
   constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth, public storage: AngularFireStorage) {
@@ -27,6 +28,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPosts(this.firebase.userData.uid);
+    this.firebase.getFollowersCount(this.firebase.userData.uid).subscribe((followers) => {
+      this.followers = followers;
+    });
+    this.firebase.getFollowingCount(this.firebase.userData.uid).subscribe((following) => {
+      this.following = following;
+    });
   }
 
   getPosts(uid: string) {
@@ -44,6 +51,7 @@ export class ProfileComponent implements OnInit {
       )
       .subscribe(postsData => {
         this.feedPosts = postsData;
+        this.posts = this.feedPosts.length;
       });
   }
 
@@ -53,24 +61,6 @@ export class ProfileComponent implements OnInit {
       width: '550px',
     });
   }
-
-
-  // uploadImage(event: any) {
-  //   let file = event.target.files[0];
-  //   let filePath = `images/${this.firebase.userData.uid}.jpg`; // replace this.userId with actual user ID
-  //   let fileRef = this.storage.ref(filePath);
-  //   let task = fileRef.put(file);
-
-  //   task.snapshotChanges().pipe(
-  //     finalize(() => {
-  //       this.downloadURL = fileRef.getDownloadURL();
-  //       this.downloadURL.subscribe(url => {
-  //         this.imageUrl = url;
-  //         console.log(this.imageUrl);
-  //       });
-  //     })
-  //   ).subscribe();
-  // }
 }
 
 
