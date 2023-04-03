@@ -4,13 +4,11 @@
     justify-content: space-between;
     height: 8vh;
     padding: 0vh 0.5vw;
-    // background-color: var(--main-color);
     background: #8000ff;
     background: linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
     background: -webkit-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
     background: -moz-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
     position: fixed;
-    // z-index: 1;
 
     .logo {
         display: flex;
