@@ -63,7 +63,7 @@
       </div>
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn">Comment</button>
+        <button class="post-action-btn comment-btn"(click)="onCommentClick()">Comment</button>
         <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
       </div>
     </div>
@@ -86,7 +86,7 @@
       <div class="post-body">
         <div class="post-info">
           <p>Event:{{ postData.eventDetails.name }}</p>
-          <p>Venue: {{ postData.eventDetails.venue }}</p>
+          <p>Venue: <button (click)="openMap()">{{ postData.eventDetails.venue }}</button></p>
         </div>
         <div class="song-art">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
@@ -96,8 +96,8 @@
       </div>
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn">Comment</button>
-        <button class="post-media-btn play-btn">Buy Tickets <br></button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
+        <button class="post-media-btn play-btn"(click)="buyTickets()" >Buy Tickets <br></button>
       </div>
     </div>
   </div>
