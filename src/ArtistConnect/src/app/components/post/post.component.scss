@@ -24,7 +24,7 @@
       border-top-right-radius: 0.3125em;
       border-top-left-radius: 0.3125em;      
       gap: 0.3125em;
-      height: 5vh;
+      height: 6vh;
       padding-left: 0.3125em;
       background-color: var(--main-color);
       color: var(--color-secondary);
@@ -34,6 +34,8 @@
       }
 
       .view-profile {
+        height: 1.5em;
+        width: 7em;
         border: none;
         border-radius: 0.3125em;
         padding: 0.125em 0.125em;

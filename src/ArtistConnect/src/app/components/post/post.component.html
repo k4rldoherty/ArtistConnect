@@ -78,7 +78,7 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared an event</p>
-        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>
@@ -90,7 +90,7 @@
         </div>
         <div class="song-art">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
-            <img width="200px" height="150px" [src]="postData.eventDetails.image" alt="Ticketmaster Artwork">
+            <img [src]="postData.eventDetails.image" alt="Ticketmaster Artwork">
           </a>
         </div>
       </div>
