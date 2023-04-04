@@ -20,6 +20,7 @@ export class MessengeCenterComponent implements OnInit {
     this.conversations$ = this.firestore.collection<Conversation>('conversations', ref => {
       return ref.where('user1', '==', userId)
     }).valueChanges();
+
   }
 
   enterConversation(conversation: any) {

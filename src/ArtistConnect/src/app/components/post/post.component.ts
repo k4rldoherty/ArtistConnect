@@ -11,8 +11,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { IPlayerComponent } from '../i-player/i-player.component';
 import { CommentsViewComponent } from '../comments-view/comments-view.component';
 import { Router } from '@angular/router';
-
-
+import { EventMapComponent } from '../event-map/event-map.component';
 
 export interface UserData {
   displayName: string;
@@ -157,6 +156,21 @@ export class PostComponent implements OnInit {
     };
   
     this.dialog.open(CommentsViewComponent, dialogConfig);
+  }
+
+
+  openMap() {
+    const dialogRef = this.dialog.open(EventMapComponent, {
+      data: {
+        venue: this.postData.eventDetails.venue,
+        city: this.postData.eventDetails.city,
+        name: this.postData.eventDetails.name
+      }
+    });
+  }
+
+  buyTickets(){
+    window.open(this.postData.eventDetails.url, "_blank")
   }
 
 }

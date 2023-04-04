@@ -10,10 +10,19 @@ import { of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { MatOptionSelectionChange } from '@angular/material/core';
 
-interface tmEvent{
-  id : string,
-  name : string
-}
+  interface acEvent{
+    id : string,
+    name : string,
+    venue : string,
+    city : string,
+    country : string,
+    lat : string,
+    long : string,
+    time : string,
+    date : string,
+    url : string,
+    image: string
+  }
 
 
 @Component({
@@ -30,11 +39,15 @@ export class CreatePostComponent implements OnInit{
   desc: string;
   source: string;
   tmSearch!: string;
-  tmResults!: tmEvent[];
+  tmResults!: acEvent[];
+  tmSelection!: acEvent;
+  ebSearch!: string;
+  ebId!: string;
+  ebEvent!: acEvent;
   
-
   selectedOption = 'song';
   organiser = '';
+
   constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>, 
     private http: HttpClient) {
     this.artist = '';
@@ -44,10 +57,8 @@ export class CreatePostComponent implements OnInit{
     this.eventUrl = '';
     this.desc = '';
     this.source = '';
-    this.tmSearch = '';
     }
-  //npm install @agm/core --legacy-peer-deps 
-  //AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM
+
   ngOnInit(){}
 
   onTmSearch(){
@@ -56,12 +67,72 @@ export class CreatePostComponent implements OnInit{
     .subscribe((data: any) => {
       this.tmResults = [];
       for (const event of data._embedded.events){
-        const item: tmEvent = {id : event.id, name :  event.name};
-      this.tmResults.push(item)
+        const date = event.dates.start.localDate;
+        const dateParts = date.split("-");
+        const dateFormatted = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+        const time = event.dates.start.localTime; 
+        const timeParts = time.split(":");
+        const timeFormatted = `${timeParts[0]}:${timeParts[1]}`
+        console.log(dateFormatted, timeFormatted);
+        const item: acEvent = {
+          id : event.id,
+          name :  event.name,
+          url : event.url,
+          venue : event._embedded.venues[0].name,
+          city : event._embedded.venues[0].city.name,
+          country : event._embedded.venues[0].country.name,
+          lat : event._embedded.venues[0].location.latitude,
+          long : event._embedded.venues[0].location.longitude,
+          time : timeFormatted,
+          date : dateFormatted,
+          image : event.images[6].url
+          };
+        this.tmResults.push(item)
         }
       console.log(this.tmResults);
     })
+  }
+  //MKAX6LVE5RUGQTXLYORX
+  getEbEvent(){
+    let url = this.ebSearch;
+    const regex = /tickets-(\d+)/;
+    const match = url.match(regex);
+
+    if (match) {
+      const longNumberString = match[1];
+      console.log(longNumberString);
+      this.ebId = longNumberString
+      this.ebSearch = '';
+    } else {
+      console.log('URL not recognised or does not contain ID');
+    }
     
+    this.http.get(`https://www.eventbriteapi.com/v3/events/${this.ebId}/?expand=venue`, {
+      headers: {
+        'Authorization': 'Bearer MKAX6LVE5RUGQTXLYORX',
+      }
+    }).subscribe((data: any) => {
+      let start = data.start.local.split('T');
+      let date = start[0];
+      let time = start[1];
+      this.ebEvent = {
+        id : this.ebId,
+        name : data.name.text,
+        url : data.url,
+        venue : data.venue.name,
+        city : data.venue.address.city,
+        country : data.venue.address.country,
+        lat : data.venue.address.latitude,
+        long : data.venue.address.longitude,
+        time : time,
+        date : date,
+        image : data.logo.url
+      }
+    });
+  }
+
+  onTmEventSelection(selection: acEvent){
+    this.tmSelection = selection;
   }
 
   onPost() {
@@ -89,14 +160,27 @@ export class CreatePostComponent implements OnInit{
             source: source
           });
         }
-        else {
-          this.fstore.collection('posts').add({
-            timestamp: ts,
-            type: this.selectedOption,
-            uid: user.uid,
-            eventName: this.eventName,
-            eventUrl: this.eventUrl,
-          });
+        else if (this.selectedOption == 'event') {
+          if (this.organiser == 'tm'){
+            this.fstore.collection('posts').add({
+              timestamp: ts,
+              type: this.selectedOption,
+              uid: user.uid,
+              organiser : 'Ticketmaster',
+              desc: this.desc,
+              eventDetails : this.tmSelection
+            });
+          }
+          else if (this.organiser == 'eb') {
+            this.fstore.collection('posts').add({
+              timestamp: ts,
+              type: this.selectedOption,
+              uid: user.uid,
+              organiser : 'Eventbrite',
+              desc: this.desc,
+              eventDetails : this.ebEvent
+            });            
+          }
         }
       }
     });

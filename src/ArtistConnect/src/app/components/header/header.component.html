@@ -1,17 +1,22 @@
 <div class="header">
     <div class="logo">
-        <img routerLink="/home" src="../../../assets/ArtistConnect Images/2.png" alt="ArtistConnect Logo">
+        <img routerLink="/home" src="../../../assets/ArtistConnect Images/1-removebg-preview.png" alt="ArtistConnect Logo">
     </div>
     <div class="search-bar">
         <input type="text" placeholder="Search..">
     </div>
     <div class="profile">
         <div class="profile-bubble">
-            <button class="profile-button" mat-button [matMenuTriggerFor]="profileMenu">Hi, <span *ngIf="firebase.userData">{{ firebase.userData?.displayName }}</span></button>
+            <button class="profile-button" mat-button [matMenuTriggerFor]="profileMenu">
+                <span *ngIf="firebase.userData">
+                    <fa-icon class="icon" [icon]="faUser"></fa-icon>
+                    <p class="text">{{ firebase.userData?.displayName }}</p>
+                </span>
+            </button>
             <mat-menu #profileMenu>
-                <button routerLink="/profile" mat-menu-item>View Profile</button>
-                <button mat-menu-item>Settings</button>
-                <button mat-menu-item (click)="logout()">Logout</button>
+                <button routerLink="/profile" mat-menu-item><fa-icon [icon]="faIdBadge"></fa-icon>  View Profile</button>
+                <button mat-menu-item><fa-icon [icon]="faCog"></fa-icon> Settings</button>
+                <button mat-menu-item (click)="logout()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
             </mat-menu>
         </div>
     </div>

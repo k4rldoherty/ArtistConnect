@@ -13,13 +13,13 @@
 
         .post-feed {
             width: 65vw;
-            background-color: var(--color-secondary);
             margin-left: auto;
             margin-right: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background-color: var(--color-secondary);
         }
 
         #post-button {

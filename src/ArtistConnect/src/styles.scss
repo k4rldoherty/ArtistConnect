@@ -5,10 +5,11 @@
 
 :root {
     --color-text: #000000;
-    --main-color: #8c52ff;
+    --main-color: #8000ff;
     --color-secondary: #FFFFFF;
     --color-tertiary: #E9EBEE;
     --color-sign-up-button: #55eb34;
+    font-size: calc(0.02vw + 1rem);
 }
 
 
@@ -16,7 +17,266 @@
     padding: 0;
     margin: 0;
     font-family: 'Quicksand', sans-serif;
+    // overflow: hidden;
+    font-size-adjust: 0.5;
+
     ::-webkit-scrollbar {
         display: none;
     }
+}
+
+@media only screen and (max-width: 399px) {
+  :root {
+    font-size: 8px;
+  }
+  
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+  }
+  
+  h5 {
+    font-size: 1rem;
+  }
+  
+  h6 {
+    font-size: 0.875rem;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+  
+  a {
+    font-size: 1.2rem;
+  }
+  
+  small {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 576px) {
+    :root {
+      font-size: 10px;
+    }
+    
+    h1 {
+      font-size: 2.25rem;
+    }
+    
+    h2 {
+      font-size: 2rem;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+    }
+    
+    h4 {
+      font-size: 1.25rem;
+    }
+    
+    h5 {
+      font-size: 1rem;
+    }
+    
+    h6 {
+      font-size: 0.875rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+    
+    a {
+      font-size: 1.2rem;
+    }
+    
+    small {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    :root {
+      font-size: 12px;
+    }
+    
+    h1 {
+      font-size: 3rem;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+    }
+    
+    h3 {
+      font-size: 2rem;
+    }
+    
+    h4 {
+      font-size: 1.5rem;
+    }
+    
+    h5 {
+      font-size: 1.25rem;
+    }
+    
+    h6 {
+      font-size: 1rem;
+    }
+    
+    p {
+      font-size: 1.2rem;
+    }
+    
+    a {
+      font-size: 1.4rem;
+    }
+    
+    small {
+      font-size: 1rem;
+    }
+  }
+  
+  @media only screen and (min-width: 769px) and (max-width: 992px) {
+    :root {
+      font-size: 14px;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+    }
+    
+    h2 {
+      font-size: 3rem;
+    }
+    
+    h3 {
+      font-size: 2.5rem;
+    }
+    
+    h4 {
+      font-size: 2rem;
+    }
+    
+    h5 {
+      font-size: 1.5rem;
+    }
+    
+    h6 {
+      font-size: 1.25rem;
+    }
+    
+    p {
+      font-size: 1.4rem;
+    }
+    
+    a {
+      font-size: 1.6rem;
+    }
+    
+    small {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media only screen and (min-width: 993px) {
+    :root {
+      font-size: 16px;
+    }
+    
+    h1 {
+      font-size: 4rem;
+    }
+    
+    h2 {
+      font-size: 3.5rem;
+    }
+    
+    h3 {
+      font-size: 3rem;
+    }
+    
+    h4 {
+      font-size: 2.5rem;
+    }
+    
+    h5 {
+      font-size: 2rem;
+    }
+    
+    h6 {
+      font-size: 1.5rem;
+    }
+    
+    p {
+      font-size: 1.6rem;
+    }
+    
+    a {
+      font-size: 1.8rem;
+    }
+    
+    small {
+      font-size: 1.4rem;
+    }
+  }
+
+html {
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    /* 40px if base font size is 16px */
+}
+
+h2 {
+    font-size: 2rem;
+    /* 32px if base font size is 16px */
+}
+
+h3 {
+    font-size: 1.5rem;
+    /* 24px if base font size is 16px */
+}
+
+h4 {
+    font-size: 1.25rem;
+    /* 20px if base font size is 16px */
+}
+
+h5 {
+    font-size: 1rem;
+    /* 16px if base font size is 16px */
+}
+
+h6 {
+    font-size: 0.875rem;
+    /* 14px if base font size is 16px */
+}
+
+p {
+    font-size: 1rem;
+}
+
+a {
+    font-size: 1.2rem;
+}
+
+small {
+    font-size: 0.8rem;
 }

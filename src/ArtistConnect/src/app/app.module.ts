@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -44,6 +45,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { CommentsViewComponent } from './components/comments-view/comments-view.component';
 import { MessengeCenterComponent } from './components/messenge-center/messenge-center.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
+import { EventMapComponent } from './components/event-map/event-map.component';
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { ConversationComponent } from './components/conversation/conversation.co
     UserProfileComponent,
     CommentsViewComponent,
     MessengeCenterComponent,
-    ConversationComponent
+    ConversationComponent,
+    EventMapComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,8 @@ import { ConversationComponent } from './components/conversation/conversation.co
     FontAwesomeModule,
     MatListModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatRadioModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

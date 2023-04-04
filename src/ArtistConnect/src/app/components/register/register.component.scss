@@ -18,9 +18,10 @@
             .logo-container {
                 display: flex;
                 flex-direction: column;
-                height: 30vh;
+                align-items: center;
+                justify-content: center;
+                height: 40vh;
                 width: 40vw;
-                padding-bottom: 20vh;
                 .logo {
                     img {
                         width: 30vw;
@@ -43,9 +44,9 @@
                 justify-content: center;
                 align-items: center;
                 background-color: var(--color-secondary);
-                border-radius: 5px;
+                border-radius: 0.3125em;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                // border: 1px solid red;
+                // border: 0.0625em solid red;
                 .signup-form {
                     display: flex;
                     flex-direction: row;
@@ -83,7 +84,7 @@
                             color: var(--color-secondary);
                             width: 10vw;
                             height: 5vh;
-                            border-radius: 5px;
+                            border-radius: 0.3125em;
                         }
                     }
                 }

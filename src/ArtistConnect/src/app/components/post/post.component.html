@@ -7,28 +7,33 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared a song</p>
-        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName"
+          routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>"{{ postData.desc }}"</p>
       </div>
       <div class="post-body">
         <div class="post-info">
-          <p>{{ postData.songName }}</p>
-          <p>{{ postData.artist }}</p>
+          <p>Song: {{ postData.songName }}</p>
+          <p>Artist: {{ postData.artist }}</p>
         </div>
         <div class="song-art">
           <a [href]="postData.songUrl" target="_blank" class="post-song-url">
-            <img width="150px" height="150px" [src]="artwork" alt="Spotify Artwork">
+            <img [src]="artwork" alt="Spotify Artwork">
           </a>
         </div>
       </div>
 
       <div class="post-actions">
-        <button class="like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
+        <button class="like-btn" (click)="likePost(postData.did)">
+          <p>Like {{ count }}</p>
+        </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">
+          <p>Comment</p>
+        </button>
         <button class="play-btn" (click)="onPlayClick()">
-          Play <br>
+          <p>Play</p>
         </button>
       </div>
     </div>
@@ -44,7 +49,8 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared a song</p>
-        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName"
+          routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>
@@ -57,7 +63,7 @@
       </div>
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn">Comment</button>
+        <button class="post-action-btn comment-btn"(click)="onCommentClick()">Comment</button>
         <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
       </div>
     </div>
@@ -65,5 +71,34 @@
 </ng-container>
 
 <ng-container *ngIf="postData.type === 'event'">
-
+  <div class="post-container">
+    <div class="post">
+      <div class="post-header">
+        <span *ngIf="creator">
+          {{ creator?.displayName }}
+        </span>
+        <p class="shared">shared an event</p>
+        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+      </div>
+      <div class="description">
+        <p>{{ postData.desc }}</p>
+      </div>
+      <div class="post-body">
+        <div class="post-info">
+          <p>Event:{{ postData.eventDetails.name }}</p>
+          <p>Venue: <button (click)="openMap()">{{ postData.eventDetails.venue }}</button></p>
+        </div>
+        <div class="song-art">
+          <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
+            <img [src]="postData.eventDetails.image" alt="Ticketmaster Artwork">
+          </a>
+        </div>
+      </div>
+      <div class="post-actions">
+        <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
+        <button class="post-media-btn play-btn"(click)="buyTickets()" >Buy Tickets</button>
+      </div>
+    </div>
+  </div>
 </ng-container>

@@ -18,9 +18,10 @@
             .logo-container {
                 display: flex;
                 flex-direction: column;
-                height: 30vh;
+                align-items: center;
+                justify-content: center;
+                height: 40vh;
                 width: 40vw;
-                padding-bottom: 20vh;
                 .logo {
                     img {
                         width: 30vw;
@@ -43,7 +44,7 @@
                 justify-content: center;
                 align-items: center;
                 background-color: var(--color-secondary);
-                border-radius: 5px;
+                border-radius: 0.3125em;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 .login-form {
                     display: flex;
@@ -52,14 +53,14 @@
                     align-items: center;
                     height: 25vh;
                     width: 30vw;
-                    border-bottom: 1px solid var(--color-tertiary);
+                    border-bottom: 0.0625em solid var(--color-tertiary);
                     input {
                         width: 20vw;
                         height: 5vh;
                         margin-top: 2vh;
                     }
                     button {
-                        border-radius: 0.4vh;
+                        border-radius: 0.3125em;
                         margin-top: 2vh;
                         width: 20vw;
                         padding: 1vh 1vw;
@@ -81,7 +82,9 @@
                             color: var(--color-secondary);
                             width: 10vw;
                             height: 5vh;
-                            border-radius: 5px;
+                            border-radius: 0.3125em;
+                            border: none;
+                            cursor: pointer;
                         }
                     }
                 }

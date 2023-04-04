@@ -1,18 +1,22 @@
 <div class="nav-bar">
     <div class="nav-bar-item" routerLink="/home">
         <h4><fa-icon [icon]="faHome"></fa-icon></h4>
-        <h4>Home</h4>
+        <p class="nav-bar-text">Home</p>
     </div>
     <div class="nav-bar-item" routerLink="/message-centre">
         <h4><fa-icon [icon]="faEnvelope"></fa-icon></h4>
-        <h4>Messages</h4>
+        <p class="nav-bar-text">Messages</p>
     </div>
     <div class="nav-bar-item">
         <h4><fa-icon [icon]="faMusic"></fa-icon></h4>
-        <h4>Reccomender</h4>
+        <p class="nav-bar-text">Reccomender</p>
     </div>
     <div class="nav-bar-item" routerLink="/profile">
         <h4><fa-icon [icon]="faUser"></fa-icon></h4>
-        <h4>Profile</h4>
+        <p class="nav-bar-text">Profile</p>
+    </div>
+    <div class="nav-bar-item-bottom" routerLink="/" (click)="firebase.logout()">
+        <h4><fa-icon [icon]="faSignOutAlt"></fa-icon></h4>
+        <p class="nav-bar-text"> Logout</p>
     </div>
 </div>
