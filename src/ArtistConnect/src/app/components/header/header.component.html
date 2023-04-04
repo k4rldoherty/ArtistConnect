@@ -7,7 +7,12 @@
     </div>
     <div class="profile">
         <div class="profile-bubble">
-            <button class="profile-button" mat-button [matMenuTriggerFor]="profileMenu">Hi, <span *ngIf="firebase.userData">{{ firebase.userData?.displayName }}</span></button>
+            <button class="profile-button" mat-button [matMenuTriggerFor]="profileMenu">
+                <span *ngIf="firebase.userData">
+                    <fa-icon class="icon" [icon]="faUser"></fa-icon>
+                    <p class="text">{{ firebase.userData?.displayName }}</p>
+                </span>
+            </button>
             <mat-menu #profileMenu>
                 <button routerLink="/profile" mat-menu-item>View Profile</button>
                 <button mat-menu-item>Settings</button>

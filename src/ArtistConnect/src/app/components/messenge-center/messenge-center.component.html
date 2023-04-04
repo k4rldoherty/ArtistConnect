@@ -4,7 +4,7 @@
         <app-nav-bar></app-nav-bar>
         <div class="message-centre">
             <div class="title">
-                <h1 *ngIf="firebase.userData">{{ firebase.userData.displayName.split(' ')[0] }}, here are conversations you have started recently:</h1>
+                <h3 *ngIf="firebase.userData">{{ firebase.userData.displayName.split(' ')[0] }}, here are chats you have started:</h3>
             </div>
             <div class="conversations">
                 <ul>
@@ -12,7 +12,7 @@
                         <div class="conversation" routerLink="/message-centre/{{conversation.user1}}_{{conversation.user2}}">
                             <div class="header">
                                 <div class="name">
-                                    <h3>Should be actual name will fix: {{ conversation.user2 }}</h3>
+                                    {{ conversation.user2 }}
                                 </div>
                             </div>
                             <div class="body">

@@ -38,7 +38,7 @@
             <input matInput placeholder="Search Event" [(ngModel)]="tmSearch">
           </mat-form-field>
           <div *ngIf="tmResults">
-            <mat-selection-list style="max-height: 150px; overflow-y: auto;">
+            <mat-selection-list style="max-height:  9.375em; overflow-y: auto;">
               <mat-list-option *ngFor="let result of tmResults" [value]="result">
                 {{ result.name }}
               </mat-list-option>

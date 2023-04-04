@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class HeaderComponent implements OnInit {
 
+  faUser = faUser;
   loggedInEmail = '';
   constructor(public firebase: FirebaseService) { }
 

@@ -7,7 +7,8 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared a song</p>
-        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName"
+          routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>"{{ postData.desc }}"</p>
@@ -19,16 +20,20 @@
         </div>
         <div class="song-art">
           <a [href]="postData.songUrl" target="_blank" class="post-song-url">
-            <img width="200px" height="200px" [src]="artwork" alt="Spotify Artwork">
+            <img [src]="artwork" alt="Spotify Artwork">
           </a>
         </div>
       </div>
 
       <div class="post-actions">
-        <button class="like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
+        <button class="like-btn" (click)="likePost(postData.did)">
+          <p>Like {{ count }}</p>
+        </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">
+          <p>Comment</p>
+        </button>
         <button class="play-btn" (click)="onPlayClick()">
-          Play <br>
+          <p>Play</p>
         </button>
       </div>
     </div>
@@ -44,7 +49,8 @@
           {{ creator?.displayName }}
         </span>
         <p class="shared">shared a song</p>
-        <button *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName"
+          routerLink="/user/{{ postData.uid }}">View Profile</button>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>

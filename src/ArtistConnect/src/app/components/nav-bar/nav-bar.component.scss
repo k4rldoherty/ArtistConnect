@@ -9,6 +9,7 @@
     position: fixed;
     height: 100%;
     background-color: var(--color-secondary);
+
     .nav-bar-item {
         display: flex;
         flex-direction: row;
@@ -16,9 +17,12 @@
         align-items: center;
         color: var(--color-text);
         cursor: pointer;
-        gap: 5px;
-        p {
-            font-size: 12px;
+        gap: 0.3125em;
+
+        @media only screen and (max-width: 1300px) {
+            .nav-bar-text {
+                display: none;
+            }
         }
     }
 
@@ -26,14 +30,16 @@
         display: flex;
         position: absolute;
         bottom: 15vh;
-        border-top: 1px solid black;
-        padding-top: 10px;
+        border-top: 0.0625em solid black;
+        padding-top: 0.625em;
         flex-direction: row;
         align-items: center;
         color: var(--color-text);
         cursor: pointer;
-        p {
-            font-size: 12px;
-        }
+        @media only screen and (max-width: 1300px) {
+            .nav-bar-text {
+              display: none;
+            }
+          }
     }
 }
