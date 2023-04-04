@@ -18,9 +18,10 @@
             .logo-container {
                 display: flex;
                 flex-direction: column;
-                height: 30vh;
+                align-items: center;
+                justify-content: center;
+                height: 40vh;
                 width: 40vw;
-                padding-bottom: 20vh;
                 .logo {
                     img {
                         width: 30vw;

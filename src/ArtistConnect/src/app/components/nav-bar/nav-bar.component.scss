@@ -9,6 +9,7 @@
     position: fixed;
     height: 100%;
     background-color: var(--color-secondary);
+    z-index: 100;
 
     .nav-bar-item {
         display: flex;

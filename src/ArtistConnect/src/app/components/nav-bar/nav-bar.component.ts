@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faHome, faEnvelope, faMusic, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faEnvelope, faMusic, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class NavBarComponent implements OnInit {
   faEnvelope = faEnvelope;
   faMusic = faMusic;
   faUser = faUser;
+  faSignOutAlt = faSignOutAlt
 
   constructor(public firebase: FirebaseService) { }
 
