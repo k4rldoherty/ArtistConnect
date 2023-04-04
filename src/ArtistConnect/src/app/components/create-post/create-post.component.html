@@ -49,6 +49,22 @@
             <button mat-raised-button color="secondary" (click)="onTmSearch()">Search</button>
           </mat-card-actions>
         </div>
+        <div *ngIf="organiser === 'eb'">
+          <mat-form-field>
+            <input matInput placeholder="Event URL" [(ngModel)]="ebSearch">
+          </mat-form-field>
+          <!-- <div *ngIf="tmResults">
+            <mat-list style="max-height: 120px; overflow-y: auto; background-color: lightgrey; flex-grow: 1;">
+        <mat-list-item *ngFor="let event of tmResults">
+          <mat-radio-button (change)="onTmEventSelection(event)" [value]="event">{{event.name}} - {{event.date}} - {{event.city}}</mat-radio-button>
+        </mat-list-item>
+      </mat-list>
+          </div> -->
+          <br><mat-label *ngIf="ebEvent">{{ this.ebEvent.name }} - {{ this.ebEvent.city }}</mat-label>
+          <mat-card-actions>
+            <button mat-raised-button color="secondary" (click)="getEbEvent()">Get</button>
+          </mat-card-actions>
+        </div>
         <div *ngIf="organiser === 'other'">
           <mat-form-field>
             <input matInput placeholder="Event Name" [(ngModel)]="eventName">

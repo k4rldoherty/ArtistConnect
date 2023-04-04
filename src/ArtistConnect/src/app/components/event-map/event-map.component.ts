@@ -16,7 +16,7 @@ export class EventMapComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    const venueValue = this.data.venue.replace(/\s/g, "%20");
+    const venueValue = this.data.venue.replace(/\s/g, "%20").replace(/&/g, "%26");
     const cityValue = this.data.city.replace(/\s/g, "%20");
     const locationTerms = `${venueValue}%20${cityValue}`;
     //Google Maps API Key: AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM

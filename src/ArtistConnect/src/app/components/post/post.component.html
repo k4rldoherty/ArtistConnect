@@ -70,7 +70,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="postData.type === 'event' && postData.organiser === 'Ticketmaster'">
+<ng-container *ngIf="postData.type === 'event'">
   <div class="post-container">
     <div class="post">
       <div class="post-header">
@@ -97,7 +97,7 @@
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
         <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
-        <button class="post-media-btn play-btn"(click)="buyTickets()" >Buy Tickets <br></button>
+        <button class="post-media-btn play-btn"(click)="buyTickets()" >Buy Tickets</button>
       </div>
     </div>
   </div>

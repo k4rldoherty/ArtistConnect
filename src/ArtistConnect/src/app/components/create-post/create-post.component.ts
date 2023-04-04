@@ -10,7 +10,7 @@ import { of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { MatOptionSelectionChange } from '@angular/material/core';
 
-  interface tmEvent{
+  interface acEvent{
     id : string,
     name : string,
     venue : string,
@@ -39,12 +39,15 @@ export class CreatePostComponent implements OnInit{
   desc: string;
   source: string;
   tmSearch!: string;
-  tmResults!: tmEvent[];
-  tmSelection!: tmEvent;
+  tmResults!: acEvent[];
+  tmSelection!: acEvent;
+  ebSearch!: string;
+  ebId!: string;
+  ebEvent!: acEvent;
   
-
   selectedOption = 'song';
   organiser = '';
+
   constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>, 
     private http: HttpClient) {
     this.artist = '';
@@ -55,8 +58,7 @@ export class CreatePostComponent implements OnInit{
     this.desc = '';
     this.source = '';
     }
-  //npm install @agm/core --legacy-peer-deps 
-  //AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM
+
   ngOnInit(){}
 
   onTmSearch(){
@@ -72,7 +74,7 @@ export class CreatePostComponent implements OnInit{
         const timeParts = time.split(":");
         const timeFormatted = `${timeParts[0]}:${timeParts[1]}`
         console.log(dateFormatted, timeFormatted);
-        const item: tmEvent = {
+        const item: acEvent = {
           id : event.id,
           name :  event.name,
           url : event.url,
@@ -90,8 +92,46 @@ export class CreatePostComponent implements OnInit{
       console.log(this.tmResults);
     })
   }
+  //MKAX6LVE5RUGQTXLYORX
+  getEbEvent(){
+    let url = this.ebSearch;
+    const regex = /tickets-(\d+)/;
+    const match = url.match(regex);
 
-  onTmEventSelection(selection: tmEvent){
+    if (match) {
+      const longNumberString = match[1];
+      console.log(longNumberString);
+      this.ebId = longNumberString
+      this.ebSearch = '';
+    } else {
+      console.log('URL not recognised or does not contain ID');
+    }
+    
+    this.http.get(`https://www.eventbriteapi.com/v3/events/${this.ebId}/?expand=venue`, {
+      headers: {
+        'Authorization': 'Bearer MKAX6LVE5RUGQTXLYORX',
+      }
+    }).subscribe((data: any) => {
+      let start = data.start.local.split('T');
+      let date = start[0];
+      let time = start[1];
+      this.ebEvent = {
+        id : this.ebId,
+        name : data.name.text,
+        url : data.url,
+        venue : data.venue.name,
+        city : data.venue.address.city,
+        country : data.venue.address.country,
+        lat : data.venue.address.latitude,
+        long : data.venue.address.longitude,
+        time : time,
+        date : date,
+        image : data.logo.url
+      }
+    });
+  }
+
+  onTmEventSelection(selection: acEvent){
     this.tmSelection = selection;
   }
 
@@ -121,7 +161,7 @@ export class CreatePostComponent implements OnInit{
           });
         }
         else if (this.selectedOption == 'event') {
-          if (this.organiser = 'tm'){
+          if (this.organiser == 'tm'){
             this.fstore.collection('posts').add({
               timestamp: ts,
               type: this.selectedOption,
@@ -129,8 +169,17 @@ export class CreatePostComponent implements OnInit{
               organiser : 'Ticketmaster',
               desc: this.desc,
               eventDetails : this.tmSelection
-              //When option is selected on search, I would like to add the entire object 
             });
+          }
+          else if (this.organiser == 'eb') {
+            this.fstore.collection('posts').add({
+              timestamp: ts,
+              type: this.selectedOption,
+              uid: user.uid,
+              organiser : 'Eventbrite',
+              desc: this.desc,
+              eventDetails : this.ebEvent
+            });            
           }
         }
       }
