@@ -48,6 +48,7 @@ export class UserProfileComponent implements OnInit {
   getPosts(uid: string) {
     this.firestore.collection('posts', ref => ref
       .where('uid', '==', uid)
+      .orderBy('timestamp', 'desc')
       .limit(10),
     )
       .snapshotChanges()

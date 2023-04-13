@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
   getPosts(uid: string) {
     this.firestore.collection('posts', ref => ref
       .where('uid', '==', uid)
-      .limit(10),
+      .orderBy('timestamp', 'desc')
     )
       .snapshotChanges()
       .pipe(

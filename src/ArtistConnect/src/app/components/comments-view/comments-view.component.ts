@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 interface Comment {
   userId: string;
@@ -21,8 +22,10 @@ export class CommentsViewComponent implements OnInit {
   commentInput: string;
   commentsCollection: AngularFirestoreCollection<Comment>;
   comments: Observable<Comment[]>;
+  commenter: any;
 
-  constructor(private firestore: AngularFirestore, @Inject(MAT_DIALOG_DATA) public data: any, private afAuth: AngularFireAuth) {
+  constructor(private firestore: AngularFirestore, @Inject(MAT_DIALOG_DATA) public data: any, private afAuth: AngularFireAuth,
+  public fbase: FirebaseService,) {
     this.commentInput = '';
     this.commentsCollection = this.firestore.collection<Comment>(`posts/${this.data.postID}/comments`);
     this.comments = this.commentsCollection.valueChanges({ idField: 'id' });
@@ -35,15 +38,18 @@ export class CommentsViewComponent implements OnInit {
     let ts = firebase.firestore.FieldValue.serverTimestamp();
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        const comment: Comment = {
-          userId: user.uid, 
-          name: this.data.username,
-          timestamp: ts,
-          input: this.commentInput
-        };
-        this.commentsCollection.add(comment);
-        this.commentInput = '';
-        this.comments = this.commentsCollection.valueChanges({ idField: 'id' });
+        this.fbase.getUser(user.uid).subscribe(name => {
+          this.commenter = name; 
+          const comment: Comment = {
+            userId: user.uid, 
+            name: this.commenter.displayName,
+            timestamp: ts,
+            input: this.commentInput
+          };
+          this.commentsCollection.add(comment);
+          this.commentInput = '';
+          this.comments = this.commentsCollection.valueChanges({ idField: 'id' });
+      });
       }
     });
   }

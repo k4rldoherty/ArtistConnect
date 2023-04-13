@@ -1,0 +1,29 @@
+<div class="home-container">
+    <app-header></app-header>
+    <div class="content-container">
+      <app-nav-bar></app-nav-bar>
+      
+      <div class="post-feed">
+        <div class="filter-container">
+            <mat-form-field class="distance-filter">
+              <mat-label>Distance</mat-label>
+              <mat-select [(value)]="distanceFilter">
+                <mat-option value=1>less than 1km</mat-option>
+                <mat-option value=2>less than 2km</mat-option>
+                <mat-option value=3>less than 5km</mat-option>
+                <mat-option value=10>less than 10km</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="country-filter">
+              <mat-label>Country</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="getPosts()">Find</button>
+          </mat-card-actions>
+        <app-post *ngFor="let post of filteredPosts" [postData]="post"></app-post>
+      </div>
+    </div>
+  </div>
+  

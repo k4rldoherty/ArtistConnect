@@ -85,12 +85,13 @@
       </div>
       <div class="post-body">
         <div class="post-info">
-          <p>Event:{{ postData.eventDetails.name }}</p>
-          <p>Venue: <button (click)="openMap()">{{ postData.eventDetails.venue }}</button></p>
+          <p><b>Event:</b>{{ postData.eventDetails.name }}</p>
+          <p><b>Location:</b> <button style="cursor: pointer" (click)="openMap()">{{ postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button></p>
+          <!-- <p><b>When:</b><br>{{ postData.eventDetails.time }}<br>{{ postData.eventDetails.date }}</p> -->
         </div>
         <div class="song-art">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
-            <img [src]="postData.eventDetails.image" alt="Ticketmaster Artwork">
+            <img [src]="postData.eventDetails.image" alt="Artwork">
           </a>
         </div>
       </div>

@@ -7,6 +7,8 @@ import { MessengeCenterComponent } from './components/messenge-center/messenge-c
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
+import { EventFinderComponent } from './components/event-finder/event-finder.component';
 
 
 const routes: Routes = [
@@ -35,6 +37,14 @@ const routes: Routes = [
   },
   {
     path: 'message-centre/:conversationId', component: ConversationComponent
+  },
+  {
+    path: 'recommend',
+    component: SongRecommenderComponent
+  },
+  {
+    path: 'finder',
+    component: EventFinderComponent
   }
 ];
 

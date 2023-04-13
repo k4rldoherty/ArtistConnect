@@ -31,13 +31,20 @@ import { MatOptionSelectionChange } from '@angular/material/core';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit{
-  artist: string;
-  songName: string;
-  songUrl: string;
-  eventName: string;
-  eventUrl: string;
-  desc: string;
-  source: string;
+  artist!: string;
+  songName!: string;
+  songUrl!: string;
+
+  eventName!: string;
+  eventUrl!: string;
+  eventVenue!: string;
+  eventCity!: string;
+  eventCountry!: string;
+  eventTime!: string;
+  eventDate!: string;
+  
+  
+  source!: string;
   tmSearch!: string;
   tmResults!: acEvent[];
   tmSelection!: acEvent;
@@ -45,6 +52,7 @@ export class CreatePostComponent implements OnInit{
   ebId!: string;
   ebEvent!: acEvent;
   
+  desc!: string;
   selectedOption = 'song';
   organiser = '';
 
@@ -70,10 +78,12 @@ export class CreatePostComponent implements OnInit{
         const date = event.dates.start.localDate;
         const dateParts = date.split("-");
         const dateFormatted = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-        const time = event.dates.start.localTime; 
+        let time = event.dates.start.localTime;
+        if (time){ 
         const timeParts = time.split(":");
-        const timeFormatted = `${timeParts[0]}:${timeParts[1]}`
-        console.log(dateFormatted, timeFormatted);
+        time = `${timeParts[0]}:${timeParts[1]}`
+        };
+        console.log(dateFormatted, time);
         const item: acEvent = {
           id : event.id,
           name :  event.name,
@@ -83,7 +93,7 @@ export class CreatePostComponent implements OnInit{
           country : event._embedded.venues[0].country.name,
           lat : event._embedded.venues[0].location.latitude,
           long : event._embedded.venues[0].location.longitude,
-          time : timeFormatted,
+          time : time,
           date : dateFormatted,
           image : event.images[6].url
           };
@@ -161,26 +171,40 @@ export class CreatePostComponent implements OnInit{
           });
         }
         else if (this.selectedOption == 'event') {
+          let organiser = '';
+          let eventDetails = this.tmSelection
           if (this.organiser == 'tm'){
-            this.fstore.collection('posts').add({
-              timestamp: ts,
-              type: this.selectedOption,
-              uid: user.uid,
-              organiser : 'Ticketmaster',
-              desc: this.desc,
-              eventDetails : this.tmSelection
-            });
+           organiser = 'Ticketmaster';
+           eventDetails = this.tmSelection
           }
           else if (this.organiser == 'eb') {
-            this.fstore.collection('posts').add({
-              timestamp: ts,
-              type: this.selectedOption,
-              uid: user.uid,
-              organiser : 'Eventbrite',
-              desc: this.desc,
-              eventDetails : this.ebEvent
-            });            
+            organiser = 'Eventbrite';
+            eventDetails = this.ebEvent
           }
+          else {
+            organiser = 'Other';
+            eventDetails = {
+              id : '',
+              name : this.eventName,
+              url : this.eventUrl,
+              venue : this.eventVenue,
+              city : this.eventCity,
+              country : this.eventCountry,
+              time : this.eventTime,
+              date : this.eventDate,
+              lat : '',
+              long : '',
+              image : ''
+            }
+          }
+          this.fstore.collection('posts').add({
+            timestamp: ts,
+            type: this.selectedOption,
+            uid: user.uid,
+            organiser : organiser,
+            desc: this.desc,
+            eventDetails : eventDetails
+          });
         }
       }
     });

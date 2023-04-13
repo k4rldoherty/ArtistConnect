@@ -53,13 +53,6 @@
           <mat-form-field>
             <input matInput placeholder="Event URL" [(ngModel)]="ebSearch">
           </mat-form-field>
-          <!-- <div *ngIf="tmResults">
-            <mat-list style="max-height: 120px; overflow-y: auto; background-color: lightgrey; flex-grow: 1;">
-        <mat-list-item *ngFor="let event of tmResults">
-          <mat-radio-button (change)="onTmEventSelection(event)" [value]="event">{{event.name}} - {{event.date}} - {{event.city}}</mat-radio-button>
-        </mat-list-item>
-      </mat-list>
-          </div> -->
           <br><mat-label *ngIf="ebEvent">{{ this.ebEvent.name }} - {{ this.ebEvent.city }}</mat-label>
           <mat-card-actions>
             <button mat-raised-button color="secondary" (click)="getEbEvent()">Get</button>
@@ -68,6 +61,21 @@
         <div *ngIf="organiser === 'other'">
           <mat-form-field>
             <input matInput placeholder="Event Name" [(ngModel)]="eventName">
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="Venue Name"[(ngModel)]="eventVenue">
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="City"[(ngModel)]="eventCity">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country"[(ngModel)]="eventCountry">
+          </mat-form-field><br>
+          <mat-form-field>
+            <input matInput placeholder="Start Time"[(ngModel)]="eventTime">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Date"[(ngModel)]="eventDate">
           </mat-form-field><br>
           <mat-form-field>
             <input matInput placeholder="Link to event"[(ngModel)]="eventUrl">
