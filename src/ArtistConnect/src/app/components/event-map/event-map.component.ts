@@ -22,7 +22,6 @@ export class EventMapComponent implements OnInit {
     //Google Maps API Key: AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM
     let url = `https://www.google.com/maps/embed/v1/place?q=${locationTerms}&key=AIzaSyCkzjjQv5IUTC0yz1HTYDtP8KFvx2xuWwM`;
     this.link = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    console.log(this.link);
   }
 
 }

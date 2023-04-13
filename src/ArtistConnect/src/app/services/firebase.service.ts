@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { normalUser } from '../models/users';
-import { Conversation, Message } from '../models/messenger';
+import { Message } from '../models/messenger';
+import firebase from 'firebase/compat/app';
 
 
 @Injectable({
@@ -166,7 +167,8 @@ export class FirebaseService {
   createConversation(user1: string, user2: string) {
     const conversationId = `${user1}_${user2}`;
     const conversationRef = this.firestore.collection('conversations').doc(conversationId);
-    const messagesRef = conversationRef.collection('messages');
+    const user1Ref = this.firestore.collection('users').doc(user1);
+    const user2Ref = this.firestore.collection('users').doc(user2);
 
     const conversation = {
       user1: user1,
@@ -195,7 +197,12 @@ export class FirebaseService {
                 // create new conversation
                 return conversationRef.set(conversation)
                   .then(() => {
-                    // messagesRef.add(firstMessage);
+                    user1Ref.update({
+                      conversations: firebase.firestore.FieldValue.arrayUnion(conversationId)
+                    })
+                    user2Ref.update({
+                      conversations: firebase.firestore.FieldValue.arrayUnion(conversationId)
+                    });
                     this.router.navigate([`/message-centre/${conversationId}`]);
                   });
               }
@@ -215,7 +222,7 @@ export class FirebaseService {
             observer.next(followingData.exists); // return true if followingData exists
           })
             .catch(error => {
-              console.log('Error getting following data:', error);
+              alert('Error getting following data: ' + error);
               observer.next(false);
             });
         } else {

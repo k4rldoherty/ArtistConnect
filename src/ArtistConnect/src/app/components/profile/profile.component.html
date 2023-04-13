@@ -9,7 +9,7 @@
                 <input #inputfield type="file" hidden>
             </div>
             <h1 *ngIf="firebase.userData">{{ firebase.userData.displayName }}</h1>
-            <p>{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
+            <p *ngIf="firebase.userData">{{ firebase.userData.county }}, {{ firebase.userData.country }}</p>
             <button mat-stroked-button color="primary" (click)="openDialog()">Edit Your Profile</button>
             <div class="followers-following">
                 <div class="posts">
@@ -29,7 +29,3 @@
         </div>
     </div>
 </div>
-
-
-
-<!-- (change)="uploadImage($event)" IN INPUT ABOVE -->

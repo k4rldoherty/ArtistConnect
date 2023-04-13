@@ -4,9 +4,10 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { PostData } from '../home/home.component';
-import { finalize, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -21,18 +22,33 @@ export class ProfileComponent implements OnInit {
   posts: number = 0;
   followers: number = 0;
   following: number = 0;
+  uid!: string;
 
-
-  constructor(public firebase: FirebaseService, public firestore: AngularFirestore, public dialog: MatDialog, public auth: AngularFireAuth, public storage: AngularFireStorage) {
-  }
+  constructor(
+    public firebase: FirebaseService,
+    public firestore: AngularFirestore,
+    public dialog: MatDialog,
+    public auth: AngularFireAuth,
+    public storage: AngularFireStorage,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.getPosts(this.firebase.userData.uid);
-    this.firebase.getFollowersCount(this.firebase.userData.uid).subscribe((followers) => {
-      this.followers = followers;
-    });
-    this.firebase.getFollowingCount(this.firebase.userData.uid).subscribe((following) => {
-      this.following = following;
+    this.onReload();
+  }
+
+  onReload() {
+    this.auth.authState.subscribe((user) => {
+      if (user) {
+        this.uid = user.uid;
+        this.getPosts(this.uid);
+        this.firebase.getFollowersCount(this.uid).subscribe((followers) => {
+          this.followers = followers;
+        });
+        this.firebase.getFollowingCount(this.uid).subscribe((following) => {
+          this.following = following;
+        });
+      }
     });
   }
 

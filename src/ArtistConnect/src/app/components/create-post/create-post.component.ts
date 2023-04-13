@@ -99,7 +99,6 @@ export class CreatePostComponent implements OnInit{
           };
         this.tmResults.push(item)
         }
-      console.log(this.tmResults);
     })
   }
   //MKAX6LVE5RUGQTXLYORX
@@ -110,11 +109,10 @@ export class CreatePostComponent implements OnInit{
 
     if (match) {
       const longNumberString = match[1];
-      console.log(longNumberString);
       this.ebId = longNumberString
       this.ebSearch = '';
     } else {
-      console.log('URL not recognised or does not contain ID');
+      alert("URL is not valid");
     }
     
     this.http.get(`https://www.eventbriteapi.com/v3/events/${this.ebId}/?expand=venue`, {
