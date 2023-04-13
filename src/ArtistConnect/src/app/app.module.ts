@@ -46,6 +46,8 @@ import { CommentsViewComponent } from './components/comments-view/comments-view.
 import { MessengeCenterComponent } from './components/messenge-center/messenge-center.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { EventMapComponent } from './components/event-map/event-map.component';
+import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
+import { EventFinderComponent } from './components/event-finder/event-finder.component';
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { EventMapComponent } from './components/event-map/event-map.component';
     CommentsViewComponent,
     MessengeCenterComponent,
     ConversationComponent,
-    EventMapComponent
+    EventMapComponent,
+    SongRecommenderComponent,
+    EventFinderComponent
   ],
   imports: [
     BrowserModule,
