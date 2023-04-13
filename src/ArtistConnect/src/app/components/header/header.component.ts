@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { faUser, faIdBadge, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faIdBadge, faCog, faSignOutAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   faIdBadge = faIdBadge;
   faCog = faCog;
   faSignOutAlt = faSignOutAlt;
-  loggedInEmail = '';
+  faSearch = faSearch
   constructor(public firebase: FirebaseService) { }
 
   ngOnInit(): void {

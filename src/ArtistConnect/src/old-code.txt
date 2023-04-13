@@ -26,7 +26,6 @@ export class ConversationComponent implements OnInit {
   ngOnInit(): void {
     // this.firebase.getMessages(this.conversationID).subscribe((messages) => {
     //   this.messages$ = messages;
-    //   console.log(this.messages$);
     // });
 
     this.firestore.collection(`conversations/${this.conversationID}/messages`, ref => ref.orderBy('timeStamp')).onSnapshot((querySnapshot) => {
@@ -35,13 +34,11 @@ export class ConversationComponent implements OnInit {
         messages.push({ id: doc.id, ...doc.data() });
       });
       this.messages$ = messages;
-      console.log(this.messages$);
     });
     
   }
 
   sendMessage() {
-    console.log(this.value);
     const newMessage = {
       content: this.value,
       senderID: this.firebase.userData.uid,

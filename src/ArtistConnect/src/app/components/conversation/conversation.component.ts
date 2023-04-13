@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService } from '../../services/firebase.service'
-import { map, Observable } from 'rxjs';
 import { Message } from 'src/app/models/messenger';
 import firebase from 'firebase/compat/app';
 
@@ -21,7 +20,12 @@ export class ConversationComponent implements OnInit {
   user1: string = this.router.url.split('/')[2].split('_')[0]
   user2: string = this.router.url.split('/')[2].split('_')[1]
 
-  constructor(private route: ActivatedRoute, public router: Router, private firestore: AngularFirestore, public firebase: FirebaseService) { }
+  constructor(
+    private route: ActivatedRoute,
+    public router: Router,
+    private firestore: AngularFirestore,
+    public firebase: FirebaseService
+    ) { }
 
   ngOnInit(): void {
     this.firebase.getMessages(this.conversationID).subscribe((messages: Message[]) => {
@@ -30,7 +34,6 @@ export class ConversationComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.value);
     const newMessage = {
       content: this.value,
       senderId: this.firebase.userData.uid,

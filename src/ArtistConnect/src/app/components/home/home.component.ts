@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 
 export interface PostData {
@@ -30,10 +31,15 @@ export interface PostData {
 export class HomeComponent implements OnInit {
   user = localStorage.getItem('user');
   feedPosts: PostData [] = [];
-  constructor(public firebase: FirebaseService, private dialog: MatDialog, private firestore: AngularFirestore) { }
+  constructor(public firebase: FirebaseService, private dialog: MatDialog, private firestore: AngularFirestore, public auth: AngularFireAuth) { }
   
   ngOnInit(): void {
-    this.getPosts();
+    this.auth.authState.subscribe((user: any) => {
+      if (user) {
+        this.user = user.uid;
+        this.getPosts();
+      }
+    })
   }
 
 

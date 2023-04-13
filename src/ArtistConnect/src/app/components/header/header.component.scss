@@ -27,11 +27,22 @@
         align-items: center;
 
         input {
-            width: 100%;
+            width: 90%;
             height: 3.5vh;
             background-color: var(--color-tertiary);
             border: none;
-            border-radius: 0.5vh;
+            border-top-left-radius: 0.5vh;
+            border-bottom-left-radius: 0.5vh;
+            padding: 0.1vh 0.5vw;
+        }
+
+        button {
+            width: 10%;
+            height: 3.75vh;
+            background-color: var(--color-tertiary);
+            border: none;
+            border-top-right-radius: 0.5vh;
+            border-bottom-right-radius: 0.5vh;
             padding: 0.1vh 0.5vw;
         }
     }
@@ -51,11 +62,14 @@
         }
 
         /* Media query to adjust button size when container is too small */
-        @media screen and (max-width: 999px) {
+        @media screen and (max-width: 1199px) {
             .profile-bubble {
                 .profile-button {
-                    height: 2em;
-                    width: 3em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 1.5em;
+                    width: 1em;
 
                     .text {
                         display: none;
@@ -64,7 +78,7 @@
             }
         }
 
-        @media screen and (min-width: 1000px) {
+        @media screen and (min-width: 1200px) {
             .profile-bubble {
                 .profile-button {
                     height: 3em;

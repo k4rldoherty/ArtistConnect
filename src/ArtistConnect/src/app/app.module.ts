@@ -49,7 +49,6 @@ import { EventMapComponent } from './components/event-map/event-map.component';
 import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
 import { EventFinderComponent } from './components/event-finder/event-finder.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,8 +76,10 @@ import { EventFinderComponent } from './components/event-finder/event-finder.com
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence({synchronizeTabs:true}),
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireFunctionsModule,
     MatDialogModule,
     MatIconModule,
     MatCardModule,
@@ -88,18 +89,17 @@ import { EventFinderComponent } from './components/event-finder/event-finder.com
     MatOptionModule,
     MatButtonModule,
     MatMenuModule,
-    BrowserAnimationsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
+    MatListModule,
+    MatAutocompleteModule,
+    MatRadioModule,
+    BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,
-    AngularFireFunctionsModule,
-    MatTabsModule,
     FontAwesomeModule,
-    MatListModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatRadioModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

@@ -3,12 +3,24 @@
   <div class="post-container">
     <div class="post">
       <div class="post-header">
-        <span *ngIf="creator">
-          {{ creator?.displayName }}
-        </span>
-        <p class="shared">shared a song</p>
-        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName"
-          routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <div class="left">
+          <span *ngIf="creator">
+            {{ creator?.displayName }}
+          </span>
+          <p class="shared">shared a song</p>
+          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile"
+            *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+            <fa-icon [icon]="faEllipsisH"></fa-icon>
+          </button>
+        </div>
+        <div class="right">
+          <mat-menu #postMenu>
+            <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
+              Profile</button>
+            <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
+            <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+          </mat-menu>
+        </div>
       </div>
       <div class="description">
         <p>"{{ postData.desc }}"</p>
@@ -26,15 +38,9 @@
       </div>
 
       <div class="post-actions">
-        <button class="like-btn" (click)="likePost(postData.did)">
-          <p>Like {{ count }}</p>
-        </button>
-        <button class="post-action-btn comment-btn" (click)="onCommentClick()">
-          <p>Comment</p>
-        </button>
-        <button class="play-btn" (click)="onPlayClick()">
-          <p>Play</p>
-        </button>
+        <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
+        <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
       </div>
     </div>
   </div>
@@ -45,12 +51,24 @@
   <div class="post-container">
     <div class="post">
       <div class="post-header">
-        <span *ngIf="creator">
-          {{ creator?.displayName }}
-        </span>
-        <p class="shared">shared a song</p>
-        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName"
-          routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <div class="left">
+          <span *ngIf="creator">
+            {{ creator?.displayName }}
+          </span>
+          <p class="shared">shared a song</p>
+          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile"
+            *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+            <fa-icon [icon]="faEllipsisH"></fa-icon>
+          </button>
+        </div>
+        <div class="right">
+          <mat-menu #postMenu>
+            <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
+              Profile</button>
+            <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
+            <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+          </mat-menu>
+        </div>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>
@@ -63,7 +81,7 @@
       </div>
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn"(click)="onCommentClick()">Comment</button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
         <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
       </div>
     </div>
@@ -74,11 +92,24 @@
   <div class="post-container">
     <div class="post">
       <div class="post-header">
-        <span *ngIf="creator">
-          {{ creator?.displayName }}
-        </span>
-        <p class="shared">shared an event</p>
-        <button class="view-profile" *ngIf="creator && creator.displayName !== firebase.userData.displayName" routerLink="/user/{{ postData.uid }}">View Profile</button>
+        <div class="left">
+          <span *ngIf="creator">
+            {{ creator?.displayName }}
+          </span>
+          <p class="shared">shared an event</p>
+          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile"
+            *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+            <fa-icon [icon]="faEllipsisH"></fa-icon>
+          </button>
+        </div>
+        <div class="right">
+          <mat-menu #postMenu>
+            <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
+              Profile</button>
+            <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
+            <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+          </mat-menu>
+        </div>
       </div>
       <div class="description">
         <p>{{ postData.desc }}</p>
@@ -98,7 +129,7 @@
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
         <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
-        <button class="post-media-btn play-btn"(click)="buyTickets()" >Buy Tickets</button>
+        <button class="post-media-btn play-btn" (click)="buyTickets()">Buy Tickets</button>
       </div>
     </div>
   </div>

@@ -36,12 +36,10 @@ export class UserProfileComponent implements OnInit {
 
     this.firebase.getFollowersCount(this.uid).subscribe((followers) => {
       this.followers = followers;
-      console.log(this.followers);
     });
     
     this.firebase.getFollowingCount(this.uid).subscribe((following) => {
       this.following = following;
-      console.log(this.following);
     });
   }
 
