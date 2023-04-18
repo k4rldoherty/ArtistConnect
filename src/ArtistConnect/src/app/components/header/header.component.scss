@@ -31,20 +31,19 @@
             height: 3.5vh;
             background-color: var(--color-tertiary);
             border: none;
-            border-top-left-radius: 0.5vh;
-            border-bottom-left-radius: 0.5vh;
+            border-radius: 0.5vh;
             padding: 0.1vh 0.5vw;
         }
 
-        button {
-            width: 10%;
-            height: 3.75vh;
-            background-color: var(--color-tertiary);
-            border: none;
-            border-top-right-radius: 0.5vh;
-            border-bottom-right-radius: 0.5vh;
-            padding: 0.1vh 0.5vw;
-        }
+        // button {
+        //     width: 10%;
+        //     height: 3.75vh;
+        //     background-color: var(--color-tertiary);
+        //     border: none;
+        //     border-top-right-radius: 0.5vh;
+        //     border-bottom-right-radius: 0.5vh;
+        //     padding: 0.1vh 0.5vw;
+        // }
     }
     .profile {
         display: flex;

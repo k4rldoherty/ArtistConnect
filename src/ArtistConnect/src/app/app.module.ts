@@ -68,7 +68,7 @@ import { EventFinderComponent } from './components/event-finder/event-finder.com
     ConversationComponent,
     EventMapComponent,
     SongRecommenderComponent,
-    EventFinderComponent
+    EventFinderComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,6 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
 import { EventFinderComponent } from './components/event-finder/event-finder.component';
 
-
 const routes: Routes = [
   {
     path: '',

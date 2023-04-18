@@ -1,5 +1,5 @@
 <div class="nav-bar">
-    <div class="nav-bar-item" routerLink="/home">
+    <div class="nav-bar-item" routerLink="/home" (click)="firebase.searchPressed$.next(false)">
         <h4><fa-icon [icon]="faHome"></fa-icon></h4>
         <p class="nav-bar-text">Home</p>
     </div>

@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
-import { map,take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { IPlayerComponent } from '../i-player/i-player.component';
 import { CommentsViewComponent } from '../comments-view/comments-view.component';
@@ -46,10 +46,10 @@ export class PostComponent implements OnInit {
 
 
   constructor(
-    private firestore: AngularFirestore, 
+    private firestore: AngularFirestore,
     public firebase: FirebaseService,
     private fauth: AngularFireAuth,
-    private http: HttpClient, 
+    private http: HttpClient,
     private functions: AngularFireFunctions,
     private dialog: MatDialog,
     public router: Router
@@ -58,8 +58,8 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.getName();
     this.getLikeCount();
-    if (this.postData.source == 'Spotify'){
-    this.getSpotifyArt();
+    if (this.postData.source == 'Spotify') {
+      this.getSpotifyArt();
     }
   }
 
@@ -75,19 +75,19 @@ export class PostComponent implements OnInit {
     });
   }
 
-  getLikeCount(){
+  getLikeCount() {
     const postId = this.postData.did
     this.firestore
-    .collection(`posts/${postId}/likes`)
-    .valueChanges()
-    .subscribe((querySnapshot) => {
-    this.count = querySnapshot.length;
-    });
+      .collection(`posts/${postId}/likes`)
+      .valueChanges()
+      .subscribe((querySnapshot) => {
+        this.count = querySnapshot.length;
+      });
   }
 
-  getUrlSource(){
+  // getUrlSource() {
 
-  }
+  // }
 
   //Function pulls Track artwork from Spotify Api
   async getSpotifyArt() {
@@ -139,11 +139,11 @@ export class PostComponent implements OnInit {
   }
 
   //Function for 
-  onPlayClick(){
+  onPlayClick() {
     let source = this.postData.source;
     if (source == "Soundcloud") {
       window.open(this.postData.songUrl, "_blank");
-    } 
+    }
     else if (source == "Spotify") {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.data = {
@@ -152,18 +152,18 @@ export class PostComponent implements OnInit {
         trackId: this.getTrackIdFromUrl(this.postData.songUrl)
 
       };
-    
+
       this.dialog.open(IPlayerComponent, dialogConfig);
     }
   }
 
-  onCommentClick(){
+  onCommentClick() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       postID: this.postData.did,
       username: this.creator.displayName
     };
-  
+
     this.dialog.open(CommentsViewComponent, dialogConfig);
   }
 
@@ -178,7 +178,7 @@ export class PostComponent implements OnInit {
     });
   }
 
-  buyTickets(){
+  buyTickets() {
     window.open(this.postData.eventDetails.url, "_blank")
   }
 

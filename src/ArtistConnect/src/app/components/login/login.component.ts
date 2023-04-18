@@ -12,10 +12,10 @@ export class LoginComponent implements OnInit {
   password!: string;
   isSignedIn: boolean = false;
 
-  constructor( private firebase: FirebaseService ) { }
+  constructor(private firebase: FirebaseService) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('user') !== null) {
+    if (localStorage.getItem('user') !== null) {
       this.isSignedIn = true;
     } else {
       this.isSignedIn = false;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     await this.firebase.login(this.email, this.password, "");
-    if(this.firebase.isLoggedIn) {
+    if (this.firebase.isLoggedIn) {
       this.isSignedIn = true;
     }
     this.email = '';

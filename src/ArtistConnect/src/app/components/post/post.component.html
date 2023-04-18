@@ -18,7 +18,6 @@
             <button mat-menu-item (click)="recommend()"><fa-icon [icon]="faMusic"></fa-icon> Recommend</button>
             <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
               Profile</button>
-            <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
             <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
           </mat-menu>
         </div>
@@ -67,7 +66,6 @@
             <button (click)="recommend()" mat-menu-item><fa-icon [icon]="faMusic"></fa-icon> Reccommend</button>
             <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
               Profile</button>
-            <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
             <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
           </mat-menu>
         </div>
@@ -108,7 +106,6 @@
           <mat-menu #postMenu>
             <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
               Profile</button>
-            <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
             <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
           </mat-menu>
         </div>
@@ -120,7 +117,6 @@
         <div class="post-info">
           <p><b>Event:</b>{{ postData.eventDetails.name }}</p>
           <p><b>Location:</b> <button style="cursor: pointer" (click)="openMap()">{{ postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button></p>
-          <!-- <p><b>When:</b><br>{{ postData.eventDetails.time }}<br>{{ postData.eventDetails.date }}</p> -->
         </div>
         <div class="song-art">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
