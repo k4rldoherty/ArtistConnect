@@ -5,6 +5,7 @@
         <div class="post-feed" *ngIf="!searchMode">
             <app-post *ngFor="let post of feedPosts" [postData]="post"></app-post>
         </div>
+        <button mat-fab (click)="createPostClick()" id="post-button"><mat-icon>add</mat-icon></button>
         <div class="search-results" *ngIf="searchMode">
             <div class="users-feed">
                 <div class="title">
@@ -29,6 +30,5 @@
                     <app-post [postData]="post"></app-post>
                 </div>
             </div>
-        <button mat-fab (click)="createPostClick()" id="post-button"><mat-icon>add</mat-icon></button>
     </div>
 </div>

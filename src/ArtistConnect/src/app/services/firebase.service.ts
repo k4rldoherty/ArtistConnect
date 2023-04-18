@@ -33,7 +33,6 @@ export class FirebaseService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
-
         this.getUser(this.userData.uid).subscribe(user => {
           this.userData = user;
         });
@@ -245,7 +244,6 @@ export class FirebaseService {
   }
 
   getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
-    console.log('getFilteredSearchResultsPost() called with searchValue:', searchValue);
     let id = this.userData.uid;
     return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
       .pipe(
@@ -259,7 +257,6 @@ export class FirebaseService {
             .snapshotChanges()
             .pipe(
               map(actions => {
-                console.log('snapshotChanges() returned:', actions);
                 return actions.map(a => {
                   const data = a.payload.doc.data() as PostData;
                   const did = a.payload.doc.id;

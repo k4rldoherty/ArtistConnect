@@ -46,7 +46,6 @@
                 background-color: var(--color-secondary);
                 border-radius: 0.3125em;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                // border: 0.0625em solid red;
                 .signup-form {
                     display: flex;
                     flex-direction: row;
@@ -75,7 +74,6 @@
                     flex-direction: column;
                     height: 10vh;
                     width: 30vw;
-                    // align-items: center;
                     justify-content: center;
                     text-align: center;
                     .signup-button {
@@ -92,7 +90,6 @@
                     display: flex;
                     height: 10vh;
                     width: 30vw;
-                    // align-items: center;
                     justify-content: center;
                     text-align: center;
                     p {

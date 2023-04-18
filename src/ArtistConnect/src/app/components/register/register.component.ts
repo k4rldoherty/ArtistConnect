@@ -28,6 +28,6 @@ export class RegisterComponent implements OnInit {
       alert("Please enter valid data into all fields to successfully complete profile registration")
       return;
     }
-    this.firebase.register(this.newUserData.email, this.password, this.newUserData.displayName, this.newUserData.dob, this.newUserData.country, this.newUserData.county);
+    this.firebase.register(this.newUserData.email, this.password, this.newUserData.displayName.toLowerCase(), this.newUserData.dob, this.newUserData.country, this.newUserData.county);
   }
 }

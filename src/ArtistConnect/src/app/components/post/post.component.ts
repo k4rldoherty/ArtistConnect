@@ -85,10 +85,6 @@ export class PostComponent implements OnInit {
       });
   }
 
-  // getUrlSource() {
-
-  // }
-
   //Function pulls Track artwork from Spotify Api
   async getSpotifyArt() {
     const base64 = (value: string) => {
