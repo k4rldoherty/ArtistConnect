@@ -75,15 +75,14 @@ export class CreatePostComponent implements OnInit{
     .subscribe((data: any) => {
       this.tmResults = [];
       for (const event of data._embedded.events){
-        const date = event.dates.start.localDate;
-        const dateParts = date.split("-");
-        const dateFormatted = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+        // const date = event.dates.start.localDate;
+        // const dateParts = date.split("-");
+        // const dateFormatted = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
         let time = event.dates.start.localTime;
         if (time){ 
         const timeParts = time.split(":");
         time = `${timeParts[0]}:${timeParts[1]}`
         };
-        console.log(dateFormatted, time);
         const item: acEvent = {
           id : event.id,
           name :  event.name,
@@ -94,7 +93,7 @@ export class CreatePostComponent implements OnInit{
           lat : event._embedded.venues[0].location.latitude,
           long : event._embedded.venues[0].location.longitude,
           time : time,
-          date : dateFormatted,
+          date : event.dates.start.localDate,
           image : event.images[6].url
           };
         this.tmResults.push(item)

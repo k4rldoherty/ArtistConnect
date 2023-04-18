@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-song-recommender',
@@ -8,18 +9,30 @@ import axios from 'axios';
   styleUrls: ['./song-recommender.component.scss']
 })
 export class SongRecommenderComponent implements OnInit {
-  @Input() trackId: string = '';
+  @Input() trackUrl: string = '';
   @Input() energy: number = 0;
   @Input() speechiness: number = 0;
   @Input() instrumentalness: number = 0;
+  inputVal!: any;
+  trackId!: string;
   recommendedSongs: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.inputVal = params['inputVal'];
+      this.trackUrl = this.inputVal;
+      this.onGenerateRecommendations();
+    });
   }
   
   async onGenerateRecommendations() {
+    const regex = /\/track\/(\w+)(?:\W|$)/;
+    const match = regex.exec(this.trackUrl);
+    if (match){
+      this.trackId = match[1]
+    }
     const base64 = (value: string) => {
       return btoa(value);
     }

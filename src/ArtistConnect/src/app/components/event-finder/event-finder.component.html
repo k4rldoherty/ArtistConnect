@@ -1,29 +1,71 @@
 <div class="home-container">
-    <app-header></app-header>
-    <div class="content-container">
-      <app-nav-bar></app-nav-bar>
-      
-      <div class="post-feed">
-        <div class="filter-container">
-            <mat-form-field class="distance-filter">
-              <mat-label>Distance</mat-label>
-              <mat-select [(value)]="distanceFilter">
-                <mat-option value=1>less than 1km</mat-option>
-                <mat-option value=2>less than 2km</mat-option>
-                <mat-option value=3>less than 5km</mat-option>
-                <mat-option value=10>less than 10km</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="country-filter">
-              <mat-label>Country</mat-label>
-              <input matInput>
-            </mat-form-field>
-          </div>
-          <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="getPosts()">Find</button>
-          </mat-card-actions>
-        <app-post *ngFor="let post of filteredPosts" [postData]="post"></app-post>
+  <app-header></app-header>
+  <div class="content-container">
+    <app-nav-bar></app-nav-bar>
+
+    <div class="post-feed">
+      <div class="filter-container">
+        <h4>Where?:</h4>
+        <mat-form-field class="where-filter">
+          <mat-label>Where</mat-label>
+          <mat-select [(value)]="whereFilter">
+            <mat-option value="distance">Distance</mat-option>
+            <mat-option value="location">Location</mat-option>
+            <mat-option value="none">None</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="whereFilter === 'distance'">
+          <mat-form-field class="distance-filter">
+            <mat-label>Distance</mat-label>
+            <mat-select [(value)]="distanceFilter">
+              <mat-option value=1>less than 1km</mat-option>
+              <mat-option value=2>less than 2km</mat-option>
+              <mat-option value=3>less than 5km</mat-option>
+              <mat-option value=100>less than 10km</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="whereFilter === 'location'">
+          <mat-form-field class="location-filter">
+            <mat-label>Country</mat-label>
+            <input matInput [(ngModel)]="countrySelect">
+          </mat-form-field>
+          <mat-form-field class="location-filter">
+            <mat-label>City</mat-label>
+            <input matInput [(ngModel)]="citySelect">
+          </mat-form-field>
+        </ng-container>
+        <h4>When?:</h4>
+        <mat-form-field class="when-filter">
+          <mat-label>When</mat-label>
+          <mat-select [(value)]="whenFilter">
+            <mat-option value="exactDate">Exact Date</mat-option>
+            <mat-option value="timeframe">Timeframe</mat-option>
+            <mat-option value="none">None</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="whenFilter === 'timeframe'">
+          <mat-form-field class="timeframe-filter">
+            <mat-label>Timeframe</mat-label>
+            <mat-select [(value)]="timeframeFilter">
+              <mat-option value=1>this week</mat-option>
+              <mat-option value=2>next 2 weeks</mat-option>
+              <mat-option value=3>this month</mat-option>
+              <mat-option value=4>next 3 months</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="whenFilter === 'exactDate'">
+          <mat-form-field class="date-filter">
+            <mat-label>Specific Date</mat-label>
+            <input matInput [(ngModel)]="specificDate">
+          </mat-form-field>
+        </ng-container>
       </div>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="getPosts()">Find</button>
+      </mat-card-actions>
+      <app-post *ngFor="let post of filteredPosts" [postData]="post"></app-post>
     </div>
   </div>
-  
+</div>

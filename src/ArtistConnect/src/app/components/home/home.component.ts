@@ -3,7 +3,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { MatDialog } from '@angular/material/dialog'
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 
@@ -57,7 +57,8 @@ export class HomeComponent implements OnInit {
     let id = this.firebase.userData.uid;
     this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
       .pipe(
-        map((users) => users.map((user: any) => user.uid))
+        map((users) => users.map((user: any) => user.uid)),
+        take(1)
       ).subscribe((uids) => {
         this.firestore.collection('posts', ref => ref
         .where('uid', 'in', uids)
@@ -69,14 +70,13 @@ export class HomeComponent implements OnInit {
           const data = a.payload.doc.data() as PostData;
           const did = a.payload.doc.id;
           return { ...data, did };
-        }))
+        })),
+        take(1)
       )
       .subscribe(postsData => {
         this.feedPosts = postsData;
       });
     });
-
-    console.log(userIds);
   }
 
 }

@@ -15,6 +15,7 @@
         </div>
         <div class="right">
           <mat-menu #postMenu>
+            <button mat-menu-item (click)="recommend()"><fa-icon [icon]="faMusic"></fa-icon> Recommend</button>
             <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
               Profile</button>
             <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
@@ -63,6 +64,7 @@
         </div>
         <div class="right">
           <mat-menu #postMenu>
+            <button (click)="recommend()" mat-menu-item><fa-icon [icon]="faMusic"></fa-icon> Reccommend</button>
             <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
               Profile</button>
             <!-- <button mat-menu-item><fa-icon [icon]="faTrash"></fa-icon> Delete</button> -->
