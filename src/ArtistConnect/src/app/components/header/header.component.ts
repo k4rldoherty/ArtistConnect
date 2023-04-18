@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { faUser, faIdBadge, faCog, faSignOutAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,9 @@ export class HeaderComponent implements OnInit {
   faCog = faCog;
   faSignOutAlt = faSignOutAlt;
   faSearch = faSearch
-  constructor(public firebase: FirebaseService) { }
+  searchTerm!: string;
+  
+  constructor(public firebase: FirebaseService, public router: Router) { }
 
   ngOnInit(): void {
   }
@@ -23,5 +26,9 @@ export class HeaderComponent implements OnInit {
     this.firebase.logout();
   }
 
+  onSubmitSearchButton() {
+    this.firebase.setSearchValue(this.searchTerm);
+    this.firebase.searchPressed$.next(true);
+  }
 }
 

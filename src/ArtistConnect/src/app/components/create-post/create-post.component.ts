@@ -10,19 +10,19 @@ import { of } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { MatOptionSelectionChange } from '@angular/material/core';
 
-  interface acEvent{
-    id : string,
-    name : string,
-    venue : string,
-    city : string,
-    country : string,
-    lat : string,
-    long : string,
-    time : string,
-    date : string,
-    url : string,
-    image: string
-  }
+interface acEvent {
+  id: string,
+  name: string,
+  venue: string,
+  city: string,
+  country: string,
+  lat: string,
+  long: string,
+  time: string,
+  date: string,
+  url: string,
+  image: string
+}
 
 
 @Component({
@@ -30,7 +30,7 @@ import { MatOptionSelectionChange } from '@angular/material/core';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss']
 })
-export class CreatePostComponent implements OnInit{
+export class CreatePostComponent implements OnInit {
   artist!: string;
   songName!: string;
   songUrl!: string;
@@ -42,8 +42,8 @@ export class CreatePostComponent implements OnInit{
   eventCountry!: string;
   eventTime!: string;
   eventDate!: string;
-  
-  
+
+
   source!: string;
   tmSearch!: string;
   tmResults!: acEvent[];
@@ -51,12 +51,12 @@ export class CreatePostComponent implements OnInit{
   ebSearch!: string;
   ebId!: string;
   ebEvent!: acEvent;
-  
+
   desc!: string;
   selectedOption = 'song';
   organiser = '';
 
-  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>, 
+  constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>,
     private http: HttpClient) {
     this.artist = '';
     this.songName = '';
@@ -65,11 +65,11 @@ export class CreatePostComponent implements OnInit{
     this.eventUrl = '';
     this.desc = '';
     this.source = '';
-    }
+  }
 
-  ngOnInit(){}
+  ngOnInit() { }
 
-  onTmSearch(){
+  onTmSearch() {
     const keyword = this.tmSearch.replace(/\s/g, "%20");
     this.http.get(`https://app.ticketmaster.com/discovery/v2/events?apikey=qtjQbp4GkppxptLA4y1LUmBG0tRAE4IH&keyword=${keyword}&locale=*`)
     .subscribe((data: any) => {
@@ -96,12 +96,12 @@ export class CreatePostComponent implements OnInit{
           date : event.dates.start.localDate,
           image : event.images[6].url
           };
-        this.tmResults.push(item)
+          this.tmResults.push(item)
         }
-    })
+      })
   }
   //MKAX6LVE5RUGQTXLYORX
-  getEbEvent(){
+  getEbEvent() {
     let url = this.ebSearch;
     const regex = /tickets-(\d+)/;
     const match = url.match(regex);
@@ -113,7 +113,7 @@ export class CreatePostComponent implements OnInit{
     } else {
       alert("URL is not valid");
     }
-    
+
     this.http.get(`https://www.eventbriteapi.com/v3/events/${this.ebId}/?expand=venue`, {
       headers: {
         'Authorization': 'Bearer MKAX6LVE5RUGQTXLYORX',
@@ -123,22 +123,22 @@ export class CreatePostComponent implements OnInit{
       let date = start[0];
       let time = start[1];
       this.ebEvent = {
-        id : this.ebId,
-        name : data.name.text,
-        url : data.url,
-        venue : data.venue.name,
-        city : data.venue.address.city,
-        country : data.venue.address.country,
-        lat : data.venue.address.latitude,
-        long : data.venue.address.longitude,
-        time : time,
-        date : date,
-        image : data.logo.url
+        id: this.ebId,
+        name: data.name.text,
+        url: data.url,
+        venue: data.venue.name,
+        city: data.venue.address.city,
+        country: data.venue.address.country,
+        lat: data.venue.address.latitude,
+        long: data.venue.address.longitude,
+        time: time,
+        date: date,
+        image: data.logo.url
       }
     });
   }
 
-  onTmEventSelection(selection: acEvent){
+  onTmEventSelection(selection: acEvent) {
     this.tmSelection = selection;
   }
 
@@ -146,14 +146,14 @@ export class CreatePostComponent implements OnInit{
     let ts = firebase.firestore.FieldValue.serverTimestamp();
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        if (this.selectedOption == 'song'){
-          if (this.songUrl.includes('spotify.com')){
-            var source =  "Spotify"
+        if (this.selectedOption == 'song') {
+          if (this.songUrl.includes('spotify.com')) {
+            var source = "Spotify"
           }
           else if (this.songUrl.includes('soundcloud.com')) {
             source = "Soundcloud"
           }
-          else{
+          else {
             source = 'unknown'
           }
           this.fstore.collection('posts').add({
@@ -170,9 +170,9 @@ export class CreatePostComponent implements OnInit{
         else if (this.selectedOption == 'event') {
           let organiser = '';
           let eventDetails = this.tmSelection
-          if (this.organiser == 'tm'){
-           organiser = 'Ticketmaster';
-           eventDetails = this.tmSelection
+          if (this.organiser == 'tm') {
+            organiser = 'Ticketmaster';
+            eventDetails = this.tmSelection
           }
           else if (this.organiser == 'eb') {
             organiser = 'Eventbrite';
@@ -181,26 +181,26 @@ export class CreatePostComponent implements OnInit{
           else {
             organiser = 'Other';
             eventDetails = {
-              id : '',
-              name : this.eventName,
-              url : this.eventUrl,
-              venue : this.eventVenue,
-              city : this.eventCity,
-              country : this.eventCountry,
-              time : this.eventTime,
-              date : this.eventDate,
-              lat : '',
-              long : '',
-              image : ''
+              id: '',
+              name: this.eventName,
+              url: this.eventUrl,
+              venue: this.eventVenue,
+              city: this.eventCity,
+              country: this.eventCountry,
+              time: this.eventTime,
+              date: this.eventDate,
+              lat: '',
+              long: '',
+              image: ''
             }
           }
           this.fstore.collection('posts').add({
             timestamp: ts,
             type: this.selectedOption,
             uid: user.uid,
-            organiser : organiser,
+            organiser: organiser,
             desc: this.desc,
-            eventDetails : eventDetails
+            eventDetails: eventDetails
           });
         }
       }

@@ -3,10 +3,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject, switchMap } from 'rxjs';
 import { normalUser } from '../models/users';
 import { Message } from '../models/messenger';
 import firebase from 'firebase/compat/app';
+import { PostData } from '../components/home/home.component';
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class FirebaseService {
   isLoggedIn: boolean = false;
   userData: any;
   users!: any[];
-
+  searchValue$ = new Subject<string>();
+  searchPressed$ = new Subject<boolean>();
 
   constructor(
     public firebaseAuth: AngularFireAuth,
@@ -31,7 +33,6 @@ export class FirebaseService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
-
         this.getUser(this.userData.uid).subscribe(user => {
           this.userData = user;
         });
@@ -238,5 +239,50 @@ export class FirebaseService {
     return messageRef.valueChanges({ idField: 'id' });
   }
 
+  setSearchValue(searchValue: string) {
+    this.searchValue$.next(searchValue);
+  }
+
+  getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
+    let id = this.userData.uid;
+    return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
+      .pipe(
+        map((users) => users.map((user: any) => user.uid)),
+        switchMap(() => {
+          return this.firestore.collection('posts', ref => ref
+            .where('desc', '>=', searchValue)
+            .where('desc', '<=', searchValue + '\uf8ff')
+            .orderBy('desc')
+          )
+            .snapshotChanges()
+            .pipe(
+              map(actions => {
+                return actions.map(a => {
+                  const data = a.payload.doc.data() as PostData;
+                  const did = a.payload.doc.id;
+                  return { ...data, did };
+                });
+              })
+            );
+        })
+      );
+  }
+
+  getFilteredSearchResultsUser(searchValue: string): Observable<normalUser[]> {
+    return this.firestore.collection('users', ref => {
+      return ref
+        .orderBy('displayName')
+        .startAt(searchValue)
+        .endAt(searchValue + '\uf8ff')
+    }).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as normalUser;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
 }
 
