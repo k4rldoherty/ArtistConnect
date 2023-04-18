@@ -12,7 +12,7 @@ import { IPlayerComponent } from '../i-player/i-player.component';
 import { CommentsViewComponent } from '../comments-view/comments-view.component';
 import { Router } from '@angular/router';
 import { EventMapComponent } from '../event-map/event-map.component';
-import { faEllipsisH, faTrash, faFlag, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faTrash, faFlag, faUser, faMusic } from '@fortawesome/free-solid-svg-icons';
 
 export interface UserData {
   displayName: string;
@@ -42,6 +42,7 @@ export class PostComponent implements OnInit {
   faTrash = faTrash;
   faFlag = faFlag;
   faUser = faUser;
+  faMusic = faMusic;
 
 
   constructor(
@@ -60,6 +61,11 @@ export class PostComponent implements OnInit {
     if (this.postData.source == 'Spotify'){
     this.getSpotifyArt();
     }
+  }
+
+  recommend(){
+    const inputVal = this.postData.songUrl;
+    this.router.navigate(['/recommend'], { queryParams: { inputVal: inputVal } });
   }
 
   getName() {
