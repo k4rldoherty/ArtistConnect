@@ -18,7 +18,7 @@ build:
     - npm install -g @angular/cli
     - npm install
   script:
-    - ng build --prod --aot --base-href /${CI_PROJECT_NAME}/
+     - ng build --configuration=production --aot --base-href /${CI_PROJECT_NAME}/
   artifacts:
     paths:
       - dist/
