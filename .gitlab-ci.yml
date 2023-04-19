@@ -14,7 +14,6 @@ build:
   stage: build
   image: node:latest
   before_script:
-    - cd 2023-ca400-doherk27-chupahy2
     - cd src/ArtistConnect
     - npm install -g @angular/cli
     - npm install
@@ -30,7 +29,6 @@ test:
   stage: test
   image: node:latest
   before_script:
-    - cd 2023-ca400-doherk27-chupahy2
     - cd src/ArtistConnect
     - npm install -g @angular/cli
     - npm install
