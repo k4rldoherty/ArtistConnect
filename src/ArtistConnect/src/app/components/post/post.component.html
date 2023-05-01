@@ -23,16 +23,17 @@
         </div>
       </div>
       <div class="description">
-        <p>"{{ postData.desc }}"</p>
+        <p>{{ postData.desc }}</p>
       </div>
       <div class="post-body">
         <div class="post-info">
-          <p>Song: {{ postData.songName }}</p>
-          <p>Artist: {{ postData.artist }}</p>
+          <p><b>Song:</b> {{ postData.songName }}</p>
+          <p><b>Artist:</b> {{ postData.artist }}</p>
+          <button style="cursor: pointer" (click)="recommend()"><fa-icon [icon]="faMusic"></fa-icon> Recommend</button>
         </div>
         <div class="song-art">
           <a [href]="postData.songUrl" target="_blank" class="post-song-url">
-            <img [src]="artwork" alt="Spotify Artwork">
+            <img [src]="postData.image" alt="Spotify Artwork">
           </a>
         </div>
       </div>
@@ -46,7 +47,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="postData.type === 'song' && postData.source === 'Soundcloud'">
+<ng-container *ngIf="postData.type === 'song' && postData.source === 'uknown'">
 
   <div class="post-container">
     <div class="post">
@@ -75,8 +76,8 @@
       </div>
       <div class="post-body">
         <div class="post-info">
-          <p>Song:{{ postData.songName }}</p>
-          <p>Artist: {{ postData.artist }}</p>
+          <p><b>Song:</b> {{ postData.songName }}</p>
+          <p><b>Artist:</b> {{ postData.artist }}</p>
         </div>
       </div>
       <div class="post-actions">
@@ -107,6 +108,7 @@
             <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
               Profile</button>
             <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+            <button mat-menu-item (click)="viewLikes()"><fa-icon [icon]="faHeart"></fa-icon> View Likes</button>
           </mat-menu>
         </div>
       </div>
@@ -116,7 +118,8 @@
       <div class="post-body">
         <div class="post-info">
           <p><b>Event:</b>{{ postData.eventDetails.name }}</p>
-          <p><b>Location:</b> <button style="cursor: pointer" (click)="openMap()">{{ postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button></p>
+          <p><b>Date:</b> <br> {{postData.eventDetails.date}} {{postData.eventDetails.time}}</p>
+          <button style="cursor: pointer" (click)="openMap()"><fa-icon [icon]="faMapMarker"></fa-icon> {{postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button>
         </div>
         <div class="song-art">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">

@@ -21,6 +21,8 @@ export interface PostData {
   source: string
   eventDetails: any
   organiser: string
+  image: string
+  id: string
 }
 
 @Component({

@@ -185,21 +185,21 @@ export class EventFinderComponent implements OnInit {
     let today = new Date();
     if (this.timeframeFilter == '1') {
       const nextWeek = today.getTime() + 7 * 24 * 60 * 60 * 1000; // add 7 days in milliseconds
-      return evDate.getTime() <= nextWeek;
+      return evDate.getTime() <= nextWeek && evDate.getTime() >= today.getTime();
     }
     else if (this.timeframeFilter == '2') {
       const twoWeeksFromNow = today.getTime() + 14 * 24 * 60 * 60 * 1000; // add 14 days in milliseconds
-      return evDate.getTime() <= twoWeeksFromNow;
+      return evDate.getTime() <= twoWeeksFromNow && evDate.getTime() >= today.getTime();
     }
     else if (this.timeframeFilter == '3') {
       const nextMonth = new Date(today);
       nextMonth.setMonth(today.getMonth() + 1);
-      return evDate <= nextMonth;
+      return evDate <= nextMonth && evDate >= today;
     }
     else if (this.timeframeFilter == '4') {
       const nextMonth = new Date(today);
       nextMonth.setMonth(today.getMonth() + 3);
-      return evDate <= nextMonth;
+      return evDate <= nextMonth && evDate >= today;
     }
     return false;
   }

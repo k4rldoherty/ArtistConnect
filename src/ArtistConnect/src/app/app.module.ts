@@ -48,6 +48,7 @@ import { ConversationComponent } from './components/conversation/conversation.co
 import { EventMapComponent } from './components/event-map/event-map.component';
 import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
 import { EventFinderComponent } from './components/event-finder/event-finder.component';
+import { LikeViewComponent } from './components/like-view/like-view.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { EventFinderComponent } from './components/event-finder/event-finder.com
     EventMapComponent,
     SongRecommenderComponent,
     EventFinderComponent,
+    LikeViewComponent,
   ],
   imports: [
     BrowserModule,
