@@ -73,7 +73,6 @@ export class HomeComponent implements OnInit {
     this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
       .pipe(
         map((users) => users.map((user: any) => user.uid)),
-        take(1)
       ).subscribe((uids) => {
         this.firestore.collection('posts', ref => ref
           .where('uid', 'in', uids)
@@ -86,7 +85,6 @@ export class HomeComponent implements OnInit {
           const did = a.payload.doc.id;
           return { ...data, did };
         })),
-        take(1)
       )
       .subscribe(postsData => {
         this.feedPosts = postsData;
