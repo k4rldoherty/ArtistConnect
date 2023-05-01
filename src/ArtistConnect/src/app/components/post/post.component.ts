@@ -14,6 +14,9 @@ import { Router } from '@angular/router';
 import { EventMapComponent } from '../event-map/event-map.component';
 import { faEllipsisH, faTrash, faFlag, faUser, faMusic, faMapMarker, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { LikeViewComponent } from '../like-view/like-view.component';
+import firebase from 'firebase/compat/app';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 export interface UserData {
   displayName: string;
@@ -55,12 +58,45 @@ export class PostComponent implements OnInit {
     private http: HttpClient,
     private functions: AngularFireFunctions,
     private dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.getName();
     this.getLikeCount();
+  }
+
+  onReport(){
+    //ACkarlyury0026
+    let ts = firebase.firestore.FieldValue.serverTimestamp();
+    
+    this.fauth.authState.subscribe(user => {
+      if (user) {
+        this.firestore.collection('reports').add({
+          timestamp: ts,
+          reported_by: user.uid,
+          post: this.postData.did,
+          investigated: false
+        });
+      }
+    });
+    this.snackBar.open('Your report has been received and will be investigated', 'Close', {
+      duration: 5000
+    });
+  }
+
+  onDelete(){
+    const snackBarRef = this.snackBar.open('Are you sure you want to delete this post?', 'Delete', {
+      duration: 5000
+    });
+    
+    snackBarRef.onAction().subscribe(() => {
+      this.firestore.collection('posts').doc(this.postData.did).delete();
+      this.snackBar.open('Post Deleted', 'Close', {
+        duration: 5000
+      });
+    });
   }
 
   recommend() {

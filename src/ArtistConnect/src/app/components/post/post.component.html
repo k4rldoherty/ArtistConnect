@@ -8,17 +8,21 @@
             {{ creator?.displayName }}
           </span>
           <p class="shared">shared a song</p>
-          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile"
-            *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile">
             <fa-icon [icon]="faEllipsisH"></fa-icon>
           </button>
         </div>
         <div class="right">
           <mat-menu #postMenu>
-            <button mat-menu-item (click)="recommend()"><fa-icon [icon]="faMusic"></fa-icon> Recommend</button>
-            <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
-              Profile</button>
-            <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+            <div *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+              <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
+                Profile</button>
+              <button mat-menu-item (click)="onReport()"><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+            </div>
+            <div *ngIf="creator && creator.displayName === firebase.userData.displayName">
+              <button mat-menu-item (click)="viewLikes()"><fa-icon [icon]="faHeart"></fa-icon> View Likes</button>
+              <button mat-menu-item (click)="onDelete()"><fa-icon [icon]="faTrash"></fa-icon> Delete</button>
+            </div>
           </mat-menu>
         </div>
       </div>
@@ -57,17 +61,21 @@
             {{ creator?.displayName }}
           </span>
           <p class="shared">shared a song</p>
-          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile"
-            *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile">
             <fa-icon [icon]="faEllipsisH"></fa-icon>
           </button>
         </div>
         <div class="right">
           <mat-menu #postMenu>
-            <button (click)="recommend()" mat-menu-item><fa-icon [icon]="faMusic"></fa-icon> Reccommend</button>
-            <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
-              Profile</button>
-            <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+            <div *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+              <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
+                Profile</button>
+              <button mat-menu-item (click)="onReport()"><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+            </div>
+            <div *ngIf="creator && creator.displayName === firebase.userData.displayName">
+              <button mat-menu-item (click)="viewLikes()"><fa-icon [icon]="faHeart"></fa-icon> View Likes</button>
+              <button mat-menu-item (click)="onDelete()"><fa-icon [icon]="faTrash"></fa-icon> Delete</button>
+            </div>
           </mat-menu>
         </div>
       </div>
@@ -98,17 +106,21 @@
             {{ creator?.displayName }}
           </span>
           <p class="shared">shared an event</p>
-          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile"
-            *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+          <button mat-button [matMenuTriggerFor]="postMenu" class="view-profile">
             <fa-icon [icon]="faEllipsisH"></fa-icon>
           </button>
         </div>
         <div class="right">
           <mat-menu #postMenu>
-            <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
-              Profile</button>
-            <button mat-menu-item><fa-icon [icon]="faFlag"></fa-icon> Report</button>
-            <button mat-menu-item (click)="viewLikes()"><fa-icon [icon]="faHeart"></fa-icon> View Likes</button>
+            <div *ngIf="creator && creator.displayName !== firebase.userData.displayName">
+              <button routerLink="/user/{{ postData.uid }}" mat-menu-item><fa-icon [icon]="faUser"></fa-icon> View
+                Profile</button>
+              <button mat-menu-item (click)="onReport()"><fa-icon [icon]="faFlag"></fa-icon> Report</button>
+            </div>
+            <div *ngIf="creator && creator.displayName === firebase.userData.displayName">
+              <button mat-menu-item (click)="viewLikes()"><fa-icon [icon]="faHeart"></fa-icon> View Likes</button>
+              <button mat-menu-item (click)="onDelete()"><fa-icon [icon]="faTrash"></fa-icon> Delete</button>
+            </div>
           </mat-menu>
         </div>
       </div>
@@ -119,7 +131,8 @@
         <div class="post-info">
           <p><b>Event:</b>{{ postData.eventDetails.name }}</p>
           <p><b>Date:</b> <br> {{postData.eventDetails.date}} {{postData.eventDetails.time}}</p>
-          <button style="cursor: pointer" (click)="openMap()"><fa-icon [icon]="faMapMarker"></fa-icon> {{postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button>
+          <button style="cursor: pointer" (click)="openMap()"><fa-icon [icon]="faMapMarker"></fa-icon>
+            {{postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button>
         </div>
         <div class="song-art">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
