@@ -1,0 +1,52 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  NG_CLI_ANALYTICS: "false"
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  image: node:latest
+  before_script:
+    - cd src/ArtistConnect
+    - npm install -g @angular/cli
+    - npm install
+  script:
+     - ng build --configuration=production --aot --base-href /${CI_PROJECT_NAME}/
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - master
+
+test:
+  stage: test
+  image: node:latest
+  before_script:
+    - cd src/ArtistConnect
+    - npm install -g @angular/cli
+    - npm install
+  script:
+    - ng test --browsers=ChromeHeadless --watch=false
+  only:
+    - merge_requests
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+  script:
+    - scp -r dist/* user@server:/path/to/project
+  only:
+    - master
