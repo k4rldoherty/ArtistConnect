@@ -1,17 +1,17 @@
-<div>
+<div class="comment-section">
   <mat-list>
-    <mat-list-item *ngFor="let comment of comments | async">
-      <h3 matLine><strong>{{ comment.name }}</strong></h3>
-      <p matLine>{{ comment.input }}</p>
+    <mat-list-item *ngFor="let comment of comments | async" class="comment">
+      <h3 class="comment-author"><strong>{{ comment.name }}</strong></h3>
+      <p class="comment-content">{{ comment.input }}</p>
     </mat-list-item>
   </mat-list>
 </div>
 <hr>
-<div>
+<div class="add-comment">
   <mat-form-field>
     <input matInput placeholder="Add Comment" [(ngModel)]="commentInput">
   </mat-form-field>
   <mat-card-actions>
-    <button type="button" (click)="addComment()">Send</button>
+    <button type="button" mat-raised-button color="primary" (click)="addComment()">Send</button>
   </mat-card-actions>
 </div>

@@ -35,7 +35,7 @@
           <p><b>Artist:</b> {{ postData.artist }}</p>
           <button style="cursor: pointer" (click)="recommend()"><fa-icon [icon]="faMusic"></fa-icon> Recommend</button>
         </div>
-        <div class="song-art">
+        <div class="song-art song">
           <a [href]="postData.songUrl" target="_blank" class="post-song-url">
             <img [src]="postData.image" alt="Spotify Artwork">
           </a>
@@ -43,9 +43,12 @@
       </div>
 
       <div class="post-actions">
-        <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
-        <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
+        <button class="post-action-btn like-btn" (click)="likePost(postData.did)"><fa-icon [icon]="faHeart"></fa-icon>
+          Like {{ count }} </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()"><fa-icon [icon]="faCommentAlt"></fa-icon>
+          Comment</button>
+        <button class="post-media-btn-spotify-song" (click)="onPlayClick()"><fa-icon [icon]="faPlayCircle"></fa-icon>
+          Play <br></button>
       </div>
     </div>
   </div>
@@ -91,7 +94,7 @@
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
         <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
-        <button class="post-media-btn play-btn" (click)="onPlayClick()">Play <br></button>
+        <button class="post-media-btn-unknown-song" (click)="onPlayClick()">Play <br></button>
       </div>
     </div>
   </div>
@@ -129,21 +132,28 @@
       </div>
       <div class="post-body">
         <div class="post-info">
-          <p><b>Event:</b>{{ postData.eventDetails.name }}</p>
-          <p><b>Date:</b> <br> {{postData.eventDetails.date}} {{postData.eventDetails.time}}</p>
+          <p><b>Event:</b> {{ postData.eventDetails.name }}</p>
+          <p><b>Date:</b><br> {{postData.eventDetails.date}} {{postData.eventDetails.time}}</p>
           <button style="cursor: pointer" (click)="openMap()"><fa-icon [icon]="faMapMarker"></fa-icon>
             {{postData.eventDetails.venue }}, {{ postData.eventDetails.city }}</button>
         </div>
-        <div class="song-art">
+        <div class="song-art event">
           <a [href]="postData.eventDetails.url" target="_blank" class="post-song-url">
             <img [src]="postData.eventDetails.image" alt="Artwork">
           </a>
         </div>
       </div>
       <div class="post-actions">
-        <button class="post-action-btn like-btn" (click)="likePost(postData.did)">Like {{ count }} </button>
-        <button class="post-action-btn comment-btn" (click)="onCommentClick()">Comment</button>
-        <button class="post-media-btn play-btn" (click)="buyTickets()">Buy Tickets</button>
+        <button class="post-action-btn like-btn" (click)="likePost(postData.did)"><fa-icon [icon]="faHeart"></fa-icon>
+          Like {{ count }} </button>
+        <button class="post-action-btn comment-btn" (click)="onCommentClick()"><fa-icon [icon]="faCommentAlt"></fa-icon>
+          Comment</button>
+        <button class="post-media-btn-tm-event" (click)="buyTickets()"
+          *ngIf="postData.organiser == 'Ticketmaster'"><fa-icon [icon]="faTicketAlt"></fa-icon> Buy
+          Tickets</button>
+        <button class="post-media-btn-eb-event" (click)="buyTickets()"
+          *ngIf="postData.organiser == 'Eventbrite'"><fa-icon [icon]="faTicketAlt"></fa-icon> Buy
+          Tickets</button>
       </div>
     </div>
   </div>

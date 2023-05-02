@@ -12,7 +12,7 @@ import { IPlayerComponent } from '../i-player/i-player.component';
 import { CommentsViewComponent } from '../comments-view/comments-view.component';
 import { Router } from '@angular/router';
 import { EventMapComponent } from '../event-map/event-map.component';
-import { faEllipsisH, faTrash, faFlag, faUser, faMusic, faMapMarker, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faTrash, faFlag, faUser, faMusic, faMapMarker, faHeart, faCommentAlt, faPlayCircle, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
 import { LikeViewComponent } from '../like-view/like-view.component';
 import firebase from 'firebase/compat/app';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -49,6 +49,9 @@ export class PostComponent implements OnInit {
   faMusic = faMusic;
   faMapMarker = faMapMarker;
   faHeart = faHeart;
+  faCommentAlt = faCommentAlt;
+  faPlayCircle = faPlayCircle;
+  faTicketAlt = faTicketAlt;
 
 
   constructor(
