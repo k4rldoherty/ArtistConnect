@@ -239,43 +239,51 @@ export class FirebaseService {
     return messageRef.valueChanges({ idField: 'id' });
   }
 
-  setSearchValue(searchValue: string | null) {
-    if (searchValue) {
-      this.searchValue$.next(searchValue);
-    }
-    console.log("The search value is: ", searchValue)
-  }
-  
+  // getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
+  //   let id = this.userData.uid;
+  //   return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
+  //     .pipe(
+  //       map((users) => users.map((user: any) => user.uid)),
+  //       switchMap(() => {
+  //         return this.firestore.collection('posts', ref => ref
+  //           .where('desc', '>=', searchValue)
+  //           .where('desc', '<=', searchValue + '\uf8ff')
+  //           .orderBy('desc')
+  //         )
+  //           .snapshotChanges()
+  //           .pipe(
+  //             map(actions => {
+  //               return actions.map(a => {
+  //                 const data = a.payload.doc.data() as PostData;
+  //                 const did = a.payload.doc.id;
+  //                 console.log('Post search results:', data);
+  //                 return { ...data, did };
+  //               });
+  //             })
+  //           );
+  //       })
+  //     );
+  // }
 
   getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
-    let id = this.userData.uid;
-    // console.log('Executing query for post search:', searchValue);
-    return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
-      .pipe(
-        map((users) => users.map((user: any) => user.uid)),
-        switchMap(() => {
-          return this.firestore.collection('posts', ref => ref
-            .where('desc', '>=', searchValue)
-            .where('desc', '<=', searchValue + '\uf8ff')
-            .orderBy('desc')
-          )
-            .snapshotChanges()
-            .pipe(
-              map(actions => {
-                return actions.map(a => {
-                  const data = a.payload.doc.data() as PostData;
-                  const did = a.payload.doc.id;
-                  // console.log('Post search results:', data);
-                  return { ...data, did };
-                });
-              })
-            );
-        })
-      );
+    return this.firestore.collection('posts', ref => ref
+      .where('searchTerms', 'array-contains', searchValue.toLowerCase())
+      .orderBy('desc')
+    )
+    .snapshotChanges()
+    .pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as PostData;
+          const did = a.payload.doc.id;
+          console.log('Post search results:', data);
+          return { ...data, did };
+        });
+      })
+    );
   }
 
   getFilteredSearchResultsUser(searchValue: string): Observable<normalUser[]> {
-    // console.log('Executing query for user search:', searchValue);
     return this.firestore.collection('users', ref => {
       return ref
         .orderBy('displayName')
@@ -286,7 +294,7 @@ export class FirebaseService {
         return actions.map(a => {
           const data = a.payload.doc.data() as normalUser;
           const id = a.payload.doc.id;
-          // console.log('User search results:', data);
+          console.log('User search results:', data);
           return { id, ...data };
         });
       })

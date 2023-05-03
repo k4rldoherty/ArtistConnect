@@ -9,14 +9,15 @@
                 </div>
                 <div class="result-feed" *ngFor="let user of searchResultsUsers">
                     <div class="user-card" routerLink="/user/{{user.uid}}">
-                      <img class="user-avatar" src="../../../assets/ArtistConnect Images/placeholder-user-image.png" alt="User Profile Image">
-                      <div class="user-details">
-                        <p class="user-name">{{ user.displayName }}</p>
-                        <p class="user-location">{{ user.county }}, {{ user.country }}</p>
-                        <p class="user-birthday">Birthday: {{ user.dob }}</p>
-                      </div>
+                        <img class="user-avatar" src="../../../assets/ArtistConnect Images/placeholder-user-image.png"
+                            alt="User Profile Image">
+                        <div class="user-details">
+                            <p class="user-name">{{ user.displayName }}</p>
+                            <p class="user-location">{{ user.county }}, {{ user.country }}</p>
+                            <p class="user-birthday">Birthday: {{ user.dob }}</p>
+                        </div>
                     </div>
-                  </div>
+                </div>
             </div>
             <div class="posts-feed">
                 <div class="title">
@@ -26,5 +27,5 @@
                     <app-post [postData]="post"></app-post>
                 </div>
             </div>
+        </div>
     </div>
-</div>

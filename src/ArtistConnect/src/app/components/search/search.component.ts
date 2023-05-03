@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   searchMode: boolean = false;
   searchResultsPosts: PostData[] = [];
   searchResultsUsers: normalUser[] = [];
+  userIndex: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -21,7 +22,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe((params) => {
-      const searchQuery = params.get('q');
+      const searchQuery = params.get('q')?.toLowerCase();
       console.log("SearchQuery", searchQuery);
       if (searchQuery) {
         this.firebase.getFilteredSearchResultsUser(searchQuery).subscribe((searchResultsUsers: any) => {
@@ -51,6 +52,4 @@ export class SearchComponent implements OnInit {
       this.searchResultsPosts = searchResultsPosts;
     });
   }
-  
-
 }
