@@ -13,17 +13,6 @@
         margin-top: 8vh;
         min-height: 91.9vh;
 
-        .post-feed {
-            width: 65vw;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--color-secondary);
-        }
-
         .search-results {
             width: 65vw;
             margin-left: auto;
@@ -36,21 +25,18 @@
             .users-feed {
                 gap: 1vh;
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 min-height: 25vh;
                 width: 65vw;
-                .title {
-                    position: absolute;
-                    left: 17em;
-                    top: 5em;
-                }
 
                 .result-feed {
                     display: flex;
-                    flex-wrap: wrap;
+                    flex-wrap: nowrap;
                     gap: 20px;
+                    overflow-x: auto;
+                    padding-bottom: 20px;
                 }
 
                 .user-card {
@@ -84,22 +70,17 @@
                 .user-birthday {
                     font-style: italic;
                 }
-
             }
 
             .posts-feed {
+                display: flex;
+                flex-direction: column;
                 .title {
-                    position: absolute;
-                    left: 17em;
-                    top: 16em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
-        }
-
-        #post-button {
-            position: fixed;
-            bottom: 2em;
-            right: 2em;
         }
     }
 }

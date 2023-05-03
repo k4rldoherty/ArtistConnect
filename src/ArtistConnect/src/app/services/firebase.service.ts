@@ -239,12 +239,17 @@ export class FirebaseService {
     return messageRef.valueChanges({ idField: 'id' });
   }
 
-  setSearchValue(searchValue: string) {
-    this.searchValue$.next(searchValue);
+  setSearchValue(searchValue: string | null) {
+    if (searchValue) {
+      this.searchValue$.next(searchValue);
+    }
+    console.log("The search value is: ", searchValue)
   }
+  
 
   getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
     let id = this.userData.uid;
+    // console.log('Executing query for post search:', searchValue);
     return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
       .pipe(
         map((users) => users.map((user: any) => user.uid)),
@@ -260,6 +265,7 @@ export class FirebaseService {
                 return actions.map(a => {
                   const data = a.payload.doc.data() as PostData;
                   const did = a.payload.doc.id;
+                  // console.log('Post search results:', data);
                   return { ...data, did };
                 });
               })
@@ -269,6 +275,7 @@ export class FirebaseService {
   }
 
   getFilteredSearchResultsUser(searchValue: string): Observable<normalUser[]> {
+    // console.log('Executing query for user search:', searchValue);
     return this.firestore.collection('users', ref => {
       return ref
         .orderBy('displayName')
@@ -279,6 +286,7 @@ export class FirebaseService {
         return actions.map(a => {
           const data = a.payload.doc.data() as normalUser;
           const id = a.payload.doc.id;
+          // console.log('User search results:', data);
           return { id, ...data };
         });
       })

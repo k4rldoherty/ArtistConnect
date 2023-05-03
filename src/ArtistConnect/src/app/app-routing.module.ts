@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
 import { EventFinderComponent } from './components/event-finder/event-finder.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: 'finder',
     component: EventFinderComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   }
 ];
 

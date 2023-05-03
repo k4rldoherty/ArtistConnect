@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { faUser, faIdBadge, faCog, faSignOutAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -27,8 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onSubmitSearchButton() {
-    this.firebase.setSearchValue(this.searchTerm);
-    this.firebase.searchPressed$.next(true);
+    this.router.navigate(['/search'], { queryParams: { q: this.searchTerm } });
   }
 }
 

@@ -33,22 +33,9 @@ export interface PostData {
 
 export class HomeComponent implements OnInit {
   user = localStorage.getItem('user');
-  searchMode: boolean = false;
   feedPosts: PostData[] = [];
-  searchResultsPosts: PostData[] = [];
-  searchResultsUsers: normalUser[] = [];
+  searchMode: boolean = false;
   constructor(public firebase: FirebaseService, private dialog: MatDialog, private firestore: AngularFirestore, public auth: AngularFireAuth) {
-    this.firebase.searchPressed$.subscribe(value => {
-      this.searchMode = value;
-    });
-    this.firebase.searchValue$.subscribe((value: string) => {
-      this.firebase.getFilteredSearchResultsUser(value).subscribe((searchResultsUsers: any) => {
-        this.searchResultsUsers = searchResultsUsers;
-      });
-      this.firebase.getFilteredSearchResultsPost(value).subscribe((searchResultsPosts: any) => {
-        this.searchResultsPosts = searchResultsPosts;
-      });
-    })
   }
 
   ngOnInit(): void {
