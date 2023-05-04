@@ -5,7 +5,6 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, take } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { normalUser } from 'src/app/models/users';
 
 export interface PostData {
   uid: string

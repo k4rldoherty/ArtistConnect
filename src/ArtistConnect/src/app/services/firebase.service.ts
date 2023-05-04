@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { map, Observable, Subject, switchMap } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { normalUser } from '../models/users';
 import { Message } from '../models/messenger';
 import firebase from 'firebase/compat/app';

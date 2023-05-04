@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FirebaseService } from '../../services/firebase.service'
 import { Message } from 'src/app/models/messenger';
@@ -22,7 +22,6 @@ export class ConversationComponent implements OnInit {
   conversationDisplayName!: string;
 
   constructor(
-    private route: ActivatedRoute,
     public router: Router,
     private firestore: AngularFirestore,
     public firebase: FirebaseService,
@@ -33,9 +32,15 @@ export class ConversationComponent implements OnInit {
       this.messages$ = messages;
     });
 
-    this.firebase.getDisplayName(this.user2).subscribe((displayName: any) => {
-      this.conversationDisplayName = displayName;
-    })
+    if (this.user1 == this.firebase.userData.uid) {
+      this.firebase.getDisplayName(this.user2).subscribe((displayName: any) => {
+        this.conversationDisplayName = displayName;
+      })
+    } else {
+      this.firebase.getDisplayName(this.user1).subscribe((displayName: any) => {
+        this.conversationDisplayName = displayName;
+      })
+    }
   }
 
   sendMessage() {
