@@ -239,48 +239,21 @@ export class FirebaseService {
     return messageRef.valueChanges({ idField: 'id' });
   }
 
-  // getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
-  //   let id = this.userData.uid;
-  //   return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
-  //     .pipe(
-  //       map((users) => users.map((user: any) => user.uid)),
-  //       switchMap(() => {
-  //         return this.firestore.collection('posts', ref => ref
-  //           .where('desc', '>=', searchValue)
-  //           .where('desc', '<=', searchValue + '\uf8ff')
-  //           .orderBy('desc')
-  //         )
-  //           .snapshotChanges()
-  //           .pipe(
-  //             map(actions => {
-  //               return actions.map(a => {
-  //                 const data = a.payload.doc.data() as PostData;
-  //                 const did = a.payload.doc.id;
-  //                 console.log('Post search results:', data);
-  //                 return { ...data, did };
-  //               });
-  //             })
-  //           );
-  //       })
-  //     );
-  // }
-
   getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
     return this.firestore.collection('posts', ref => ref
       .where('searchTerms', 'array-contains', searchValue.toLowerCase())
       .orderBy('desc')
     )
-    .snapshotChanges()
-    .pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as PostData;
-          const did = a.payload.doc.id;
-          console.log('Post search results:', data);
-          return { ...data, did };
-        });
-      })
-    );
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as PostData;
+            const did = a.payload.doc.id;
+            return { ...data, did };
+          });
+        })
+      );
   }
 
   getFilteredSearchResultsUser(searchValue: string): Observable<normalUser[]> {
@@ -294,11 +267,17 @@ export class FirebaseService {
         return actions.map(a => {
           const data = a.payload.doc.data() as normalUser;
           const id = a.payload.doc.id;
-          console.log('User search results:', data);
           return { id, ...data };
         });
       })
     );
+  }
+
+  getDisplayName(uid: string): Observable<string> {
+    const userRef = this.firestore.collection('users').doc(uid);
+    return userRef.valueChanges().pipe(map(
+      (user: any) => user.displayName || ''
+    ));
   }
 }
 

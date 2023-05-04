@@ -19,7 +19,7 @@ export class ConversationComponent implements OnInit {
   conversationID = this.router.url.split('/')[2];
   user1: string = this.router.url.split('/')[2].split('_')[0]
   user2: string = this.router.url.split('/')[2].split('_')[1]
-  @ViewChild('scroll', { static: true }) scroll: any;
+  conversationDisplayName!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,10 +32,10 @@ export class ConversationComponent implements OnInit {
     this.firebase.getMessages(this.conversationID).subscribe((messages: Message[]) => {
       this.messages$ = messages;
     });
-  }
 
-  ngAfterViewInit() {
-    this.scroll.nativeElement.scrollTo(0, this.scroll.nativeElement.scrollHeight);
+    this.firebase.getDisplayName(this.user2).subscribe((displayName: any) => {
+      this.conversationDisplayName = displayName;
+    })
   }
 
   sendMessage() {
@@ -56,9 +56,6 @@ export class ConversationComponent implements OnInit {
       this.firebase.getMessages(this.conversationID).subscribe((messages: Message[]) => {
         this.messages$ = messages;
       });
-      setTimeout(() => {
-        this.scroll.nativeElement.scrollTo(0, this.scroll.nativeElement.scrollHeight);
-      }, 0);
     }
   }
 

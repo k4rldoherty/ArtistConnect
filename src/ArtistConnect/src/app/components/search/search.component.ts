@@ -23,7 +23,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe((params) => {
       const searchQuery = params.get('q')?.toLowerCase();
-      console.log("SearchQuery", searchQuery);
       if (searchQuery) {
         this.firebase.getFilteredSearchResultsUser(searchQuery).subscribe((searchResultsUsers: any) => {
           this.searchResultsUsers = searchResultsUsers;
@@ -39,7 +38,6 @@ export class SearchComponent implements OnInit {
     const searchQueryChange = changes['searchQuery'];
     if (searchQueryChange && !searchQueryChange.firstChange) {
       const searchQuery = searchQueryChange.currentValue;
-      console.log("Updated SearchQuery", searchQuery);
       this.updateSearchResults(searchQuery);
     }
   }

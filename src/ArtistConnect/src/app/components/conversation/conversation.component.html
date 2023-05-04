@@ -3,6 +3,9 @@
     <div class="content-container">
         <app-nav-bar></app-nav-bar>
         <div class="conversation-container">
+            <div class="title">
+                <h4>{{ conversationDisplayName }}</h4>
+            </div>
             <div class="conversation" #scroll>
                 <div *ngFor="let message of messages$">
                   <div [class.left]="message.senderId !== firebase.userData.uid" [class.right]="message.senderId === firebase.userData.uid">
