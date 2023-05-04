@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   user = localStorage.getItem('user');
   feedPosts: PostData[] = [];
   searchMode: boolean = false;
+  currentFilter: string = 'all';
   constructor(public firebase: FirebaseService, private dialog: MatDialog, private firestore: AngularFirestore, public auth: AngularFireAuth) {
   }
 
@@ -42,7 +43,7 @@ export class HomeComponent implements OnInit {
     this.auth.authState.subscribe((user: any) => {
       if (user) {
         this.user = user.uid;
-        this.getPosts();
+        this.getAllPosts();
       }
     })
   }
@@ -57,7 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  getPosts() {
+  getAllPosts() {
     let id = this.firebase.userData.uid;
     this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
       .pipe(
@@ -79,6 +80,54 @@ export class HomeComponent implements OnInit {
         this.feedPosts = postsData;
       });
     });
+  }
+
+  getPosts(filter: string) {
+    let id = this.firebase.userData.uid;
+    this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
+      .pipe(
+        map((users) => users.map((user: any) => user.uid)),
+        take(1)
+      ).subscribe((uids) => {
+        this.firestore.collection('posts', ref => ref
+          .where('uid', 'in', uids)
+          .where('type', '==', filter)
+          .orderBy('timestamp', 'desc')
+        )
+        .snapshotChanges()
+        .pipe(
+         map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as PostData;
+          const did = a.payload.doc.id;
+          return { ...data, did };
+        })),
+        take(1)
+      )
+      .subscribe(postsData => {
+        this.feedPosts = postsData;
+      });
+    });
+  }
+
+  changeFilter(type: string) {
+    console.log(type);
+    switch(type) {
+      case 'songs': {
+        this.currentFilter = 'songs';
+        break;
+      }
+      case 'events': {
+        this.currentFilter = 'events';
+        break;
+      }
+      case 'all': {
+        this.currentFilter = 'all';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 
 }

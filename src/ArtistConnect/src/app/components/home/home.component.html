@@ -3,6 +3,11 @@
     <div class="content-container">
         <app-nav-bar></app-nav-bar>
         <div class="post-feed">
+            <div class="filter-headers">
+                <div class="header" (click)="getAllPosts()" [ngClass]="{ active: currentFilter === 'all' }" (click)="changeFilter('all')">All</div>
+                <div class="header" (click)="getPosts('song')" [ngClass]="{ active: currentFilter === 'songs' }" (click)="changeFilter('songs')">Songs</div>
+                <div class="header" (click)="getPosts('event')" [ngClass]="{ active: currentFilter === 'events' }" (click)="changeFilter('events')">Events</div>
+            </div>
             <app-post *ngFor="let post of feedPosts" [postData]="post"></app-post>
         </div>
         <button mat-fab (click)="createPostClick()" id="post-button"><mat-icon>add</mat-icon></button>

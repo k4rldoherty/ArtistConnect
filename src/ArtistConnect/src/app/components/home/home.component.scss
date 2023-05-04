@@ -22,6 +22,39 @@
             align-items: center;
             justify-content: center;
             background-color: var(--color-secondary);
+
+            .filter-headers {
+                display: flex;
+                justify-content: space-evenly;
+                width: 63vw;
+                align-items: center;
+                gap: 1rem;
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin: 1vh 1vw;
+
+                .header {
+                    display: flex;
+                    cursor: pointer;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0.5rem 1rem;
+                    transition: background-color 0.3s ease;
+                    width: 100%;
+                    border-radius: 0.5em;
+                    &:hover {
+                        background-color: var(--color-tertiary);
+                    }
+
+                    &.active {
+                        background: #8000ff;
+                        background: linear-gradient(120deg, #8000ff 0%, #00f0ff 80%);
+                        background: -webkit-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
+                        background: -moz-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
+                        color: var(--color-secondary);
+                    }
+                }
+            }
         }
 
         .search-results {
@@ -41,6 +74,7 @@
                 justify-content: center;
                 min-height: 25vh;
                 width: 65vw;
+
                 .title {
                     position: absolute;
                     left: 17em;

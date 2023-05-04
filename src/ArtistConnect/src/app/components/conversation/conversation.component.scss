@@ -26,14 +26,28 @@
       justify-content: center;
       align-items: center;
       gap: 2vh;
+      margin-top: 6vh;
 
       .title {
         display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
+        position: fixed;
+        top: 8vh;
         width: 100%;
         padding: 1vh 1vw;
         background-color: var(--color-tertiary);
+        gap: 1vw;
+
+        img {
+          height: 2em;
+          width: 2em;
+          border-radius: 100%;
+          border: 0.0625em solid var(--main-color);
+          object-fit: cover;
+          object-position: center;
+        }
       }
 
       .conversation {
