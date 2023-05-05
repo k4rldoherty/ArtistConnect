@@ -3,10 +3,16 @@
     <div class="content-container">
         <app-nav-bar></app-nav-bar>
         <div class="conversation-container">
-            <div class="conversation" #scrollMe>
+            <div class="title">
+                <img src="../../../assets/ArtistConnect Images/placeholder-user-image.png" alt="profile picture">
+                <h4>{{ conversationDisplayName }}</h4>
+            </div>
+            <div class="conversation" #scroll>
                 <div *ngFor="let message of messages$">
-                  <div [class.left]="message.senderId !== firebase.userData.uid" [class.right]="message.senderId === firebase.userData.uid" class="content">
-                    {{ message.content }}
+                  <div [class.left]="message.senderId !== firebase.userData.uid" [class.right]="message.senderId === firebase.userData.uid">
+                    <div class="content">
+                        <p>{{ message.content }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -14,7 +20,7 @@
                 <div class="text-box">
                     <mat-form-field class="send-field">
                         <mat-label>Send a message</mat-label>
-                        <input matInput type="text" [(ngModel)]="value">
+                        <input matInput type="text" [(ngModel)]="value" (keydown)="onKeyDown($event)">
                     </mat-form-field>
                 </div>
                 <div class="send-btn">

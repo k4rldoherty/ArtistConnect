@@ -13,50 +13,6 @@
         margin-top: 8vh;
         min-height: 91.9vh;
 
-        .post-feed {
-            width: 65vw;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--color-secondary);
-
-            .filter-headers {
-                display: flex;
-                justify-content: space-evenly;
-                width: 63vw;
-                align-items: center;
-                gap: 1rem;
-                font-size: 1.2rem;
-                font-weight: 600;
-                margin: 1vh 1vw;
-
-                .header {
-                    display: flex;
-                    cursor: pointer;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 0.5rem 1rem;
-                    transition: background-color 0.3s ease;
-                    width: 100%;
-                    border-radius: 0.5em;
-                    &:hover {
-                        background-color: var(--color-tertiary);
-                    }
-
-                    &.active {
-                        background: #8000ff;
-                        background: linear-gradient(120deg, #8000ff 0%, #00f0ff 80%);
-                        background: -webkit-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
-                        background: -moz-linear-gradient(37deg, #8000ff 0%, #00f0ff 80%);
-                        color: var(--color-secondary);
-                    }
-                }
-            }
-        }
-
         .search-results {
             width: 65vw;
             margin-left: auto;
@@ -69,22 +25,24 @@
             .users-feed {
                 gap: 1vh;
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 min-height: 25vh;
                 width: 65vw;
-
+                margin-top: 5vh;
                 .title {
+                    display: flex;
                     position: absolute;
-                    left: 17em;
-                    top: 5em;
+                    top: 8vh;
                 }
 
                 .result-feed {
                     display: flex;
-                    flex-wrap: wrap;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
                     gap: 20px;
+                    overflow: auto;
                 }
 
                 .user-card {
@@ -118,22 +76,17 @@
                 .user-birthday {
                     font-style: italic;
                 }
-
             }
 
             .posts-feed {
+                display: flex;
+                flex-direction: column;
                 .title {
-                    position: absolute;
-                    left: 17em;
-                    top: 16em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
-        }
-
-        #post-button {
-            position: fixed;
-            bottom: 2em;
-            right: 2em;
         }
     }
 }

@@ -11,6 +11,7 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./messenge-center.component.scss']
 })
 export class MessengeCenterComponent implements OnInit {
+  
   conversations$!: Observable<any[]>;
   conversationsIDs$!: Observable<string[]>
 

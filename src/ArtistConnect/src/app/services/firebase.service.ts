@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { map, Observable, Subject, switchMap } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { normalUser } from '../models/users';
 import { Message } from '../models/messenger';
 import firebase from 'firebase/compat/app';
@@ -239,31 +239,19 @@ export class FirebaseService {
     return messageRef.valueChanges({ idField: 'id' });
   }
 
-  setSearchValue(searchValue: string) {
-    this.searchValue$.next(searchValue);
-  }
-
   getFilteredSearchResultsPost(searchValue: string): Observable<PostData[]> {
-    let id = this.userData.uid;
-    return this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
+    return this.firestore.collection('posts', ref => ref
+      .where('searchTerms', 'array-contains', searchValue.toLowerCase())
+      .orderBy('desc')
+    )
+      .snapshotChanges()
       .pipe(
-        map((users) => users.map((user: any) => user.uid)),
-        switchMap(() => {
-          return this.firestore.collection('posts', ref => ref
-            .where('desc', '>=', searchValue)
-            .where('desc', '<=', searchValue + '\uf8ff')
-            .orderBy('desc')
-          )
-            .snapshotChanges()
-            .pipe(
-              map(actions => {
-                return actions.map(a => {
-                  const data = a.payload.doc.data() as PostData;
-                  const did = a.payload.doc.id;
-                  return { ...data, did };
-                });
-              })
-            );
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as PostData;
+            const did = a.payload.doc.id;
+            return { ...data, did };
+          });
         })
       );
   }
@@ -283,6 +271,13 @@ export class FirebaseService {
         });
       })
     );
+  }
+
+  getDisplayName(uid: string): Observable<string> {
+    const userRef = this.firestore.collection('users').doc(uid);
+    return userRef.valueChanges().pipe(map(
+      (user: any) => user.displayName || ''
+    ));
   }
 }
 

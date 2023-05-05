@@ -22,6 +22,14 @@ interface acEvent {
   time: string,
   date: string,
   url: string,
+  image: string,
+}
+
+interface spotifySong {
+  id: string
+  name: string,
+  artist: string,
+  url: string,
   image: string
 }
 
@@ -223,8 +231,11 @@ export class CreatePostComponent implements OnInit {
             songUrl: this.songUrl,
             desc: this.desc,
             source: source,
-            image : image,
-            id : id
+            searchTerms: [
+              ...this.songName.toLowerCase().split(' '),
+              ...this.artist.toLowerCase().split(' '),
+              ...this.desc.toLowerCase().split(' ')
+            ]
           });
         }
         else if (this.selectedOption == 'event') {
@@ -260,7 +271,12 @@ export class CreatePostComponent implements OnInit {
             uid: user.uid,
             organiser: organiser,
             desc: this.desc,
-            eventDetails: eventDetails
+            eventDetails: eventDetails,
+            searchTerms: [
+              ...this.organiser.toLowerCase().split(' '),
+              ...this.desc.toLowerCase().split(' '),
+              ...this.selectedOption.toLowerCase().split(' ')
+          ]
           });
         }
       }

@@ -1,0 +1,31 @@
+<div class="home-container">
+    <app-header></app-header>
+    <div class="content-container">
+        <app-nav-bar></app-nav-bar>
+        <div class="search-results">
+            <div class="users-feed">
+                <div class="title">
+                    <h2>Accounts</h2>
+                </div>
+                <div class="result-feed" *ngFor="let user of searchResultsUsers">
+                    <div class="user-card" routerLink="/user/{{user.uid}}">
+                        <img class="user-avatar" src="../../../assets/ArtistConnect Images/placeholder-user-image.png"
+                            alt="User Profile Image">
+                        <div class="user-details">
+                            <p class="user-name">{{ user.displayName }}</p>
+                            <p class="user-location">{{ user.county }}, {{ user.country }}</p>
+                            <p class="user-birthday">Birthday: {{ user.dob }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="posts-feed">
+                <div class="title">
+                    <h2>Posts</h2>
+                </div>
+                <div class="result-feed" *ngFor="let post of searchResultsPosts">
+                    <app-post [postData]="post"></app-post>
+                </div>
+            </div>
+        </div>
+    </div>

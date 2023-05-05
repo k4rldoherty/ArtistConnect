@@ -50,6 +50,7 @@ import { EventMapComponent } from './components/event-map/event-map.component';
 import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
 import { EventFinderComponent } from './components/event-finder/event-finder.component';
 import { LikeViewComponent } from './components/like-view/like-view.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { LikeViewComponent } from './components/like-view/like-view.component';
     SongRecommenderComponent,
     EventFinderComponent,
     LikeViewComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
