@@ -4,7 +4,7 @@
     <div class="post">
       <div class="post-header">
         <div class="left">
-          <span *ngIf="creator">
+          <span *ngIf="creator" class="creator-name" >
             {{ creator?.displayName }}
           </span>
           <p class="shared">shared a song</p>
@@ -44,7 +44,7 @@
 
       <div class="post-actions">
         <button class="post-action-btn like-btn" (click)="likePost(postData.did)"><fa-icon [icon]="faHeart"></fa-icon>
-          Like {{ count }} </button>
+          Like <span class="like-count">{{ count }}</span> </button>
         <button class="post-action-btn comment-btn" (click)="onCommentClick()"><fa-icon [icon]="faCommentAlt"></fa-icon>
           Comment</button>
         <button class="post-media-btn-spotify-song" (click)="onPlayClick()"><fa-icon [icon]="faPlayCircle"></fa-icon>
