@@ -57,26 +57,27 @@ export class HomeComponent implements OnInit {
   }
 
 
+  // Define function to get all posts
   getAllPosts() {
-    let id = this.firebase.userData.uid;
-    this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges()
+    let id = this.firebase.userData.uid; // Get the user ID from Firebase service
+    this.firestore.collection('users', (ref) => ref.where('uid', '!=', id)).valueChanges() // Get all users except the current user
       .pipe(
-        map((users) => users.map((user: any) => user.uid)),
+        map((users) => users.map((user: any) => user.uid)), // Map the user objects to their IDs
       ).subscribe((uids) => {
         this.firestore.collection('posts', ref => ref
-          .where('uid', 'in', uids)
-          .orderBy('timestamp', 'desc')
+          .where('uid', 'in', uids) // Get all posts from users in the uids array
+          .orderBy('timestamp', 'desc') // Order by timestamp in descending order
         )
         .snapshotChanges()
         .pipe(
          map(actions => actions.map(a => {
-          const data = a.payload.doc.data() as PostData;
-          const did = a.payload.doc.id;
+          const data = a.payload.doc.data() as PostData; // Get post data from snapshot
+          const did = a.payload.doc.id; // Get the document ID
           return { ...data, did };
         })),
       )
       .subscribe(postsData => {
-        this.feedPosts = postsData;
+        this.feedPosts = postsData; // Update feed posts array with new data
       });
     });
   }
