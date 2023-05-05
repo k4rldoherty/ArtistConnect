@@ -25,7 +25,7 @@ export class MessengeCenterComponent implements OnInit {
     });
   }
 
-  getConversations(uid: string) {
+  getConversations(uid: string): Observable<any[]> {
     // get list of conversation id from users/uid/conversations
     const userDocRef = this.firestore.collection('users').doc(uid);
     const conversationsIDs$ = userDocRef.get().pipe(
@@ -36,15 +36,21 @@ export class MessengeCenterComponent implements OnInit {
     // display conversations that match the elements in the list
     const conversationsCollection$ = conversationsIDs$.pipe(
       switchMap(conversationsIDs => {
+        // retrieve conversations collection
         const conversationsCollection: AngularFirestoreCollection<any> = this.firestore.collection('conversations', ref => {
           return ref.where(firebase.firestore.FieldPath.documentId(), 'in', conversationsIDs);
         });
+
+        // retrieve conversations data
         return conversationsCollection.snapshotChanges().pipe(
           mergeMap(actions => {
+            // for each conversation, retrieve the corresponding user data
             const conversations = actions.map((a: any) => {
               const conversationData = a.payload.doc.data();
               const otherUserId = conversationData.user1 === uid ? conversationData.user2 : conversationData.user1;
               const userDocRef = this.firestore.collection('users').doc(otherUserId);
+
+              // map conversation data to an object with the other user's display name
               return userDocRef.get().pipe(
                 map((doc: any) => ({
                   id: a.payload.doc.id,
@@ -53,6 +59,8 @@ export class MessengeCenterComponent implements OnInit {
                 }))
               );
             });
+
+            // combine all observables into one array
             return forkJoin(conversations);
           })
         );
