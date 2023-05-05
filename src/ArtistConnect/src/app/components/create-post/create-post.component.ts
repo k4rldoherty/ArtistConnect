@@ -193,6 +193,7 @@ export class CreatePostComponent implements OnInit {
           image: track.album.images[0].url,
         };
         this.spResults.push(item);
+        console.log(item.image)
       }
     });
   }
@@ -223,6 +224,8 @@ export class CreatePostComponent implements OnInit {
             source = 'unknown'
           }
           this.fstore.collection('posts').add({
+            id: id,
+            image: image,
             timestamp: ts,
             type: this.selectedOption,
             uid: user.uid,
