@@ -1,7 +1,8 @@
 <div class="home-container">
-    <app-header></app-header>
-    <div class="content-container">
-      <app-nav-bar></app-nav-bar>
+  <app-header></app-header>
+  <div class="content-container">
+    <app-nav-bar></app-nav-bar>
+    <div class="post-feed">
       <div class="form-container">
         <div class="form-group">
           <label for="trackId">Track Url:</label>
@@ -13,16 +14,18 @@
         </div>
         <div class="form-group">
           <label for="speechiness">Vocals:</label>
-          <input type="range" [(ngModel)]="speechiness" id="speechiness" name="speechiness" min="0" max="1" step="0.01" />
+          <input type="range" [(ngModel)]="speechiness" id="speechiness" name="speechiness" min="0" max="1"
+            step="0.01" />
         </div>
         <div class="form-group">
           <label for="instrumentalness">Instrumental:</label>
-          <input type="range" [(ngModel)]="instrumentalness" id="instrumentalness" name="instrumentalness" min="0" max="1" step="0.01" />
+          <input type="range" [(ngModel)]="instrumentalness" id="instrumentalness" name="instrumentalness" min="0"
+            max="1" step="0.01" />
         </div>
         <br>
         <button (click)="onGenerateRecommendations()" class="generate-btn">Generate Recommendations</button>
       </div>
-  
+
       <div class="song-container">
         <div *ngFor="let song of recommendedSongs" class="song-item">
           <div class="album-art">
@@ -37,3 +40,4 @@
       </div>
     </div>
   </div>
+</div>

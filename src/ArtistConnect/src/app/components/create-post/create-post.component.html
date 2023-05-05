@@ -1,19 +1,42 @@
 <mat-card>
-    <mat-card-title>Create Post</mat-card-title>
-    <mat-card-content>
-      <mat-form-field>
-        <mat-label>Select an option</mat-label>
-        <mat-select [(value)]="selectedOption">
-          <mat-option value="song">Song</mat-option>
-          <mat-option value="event">Event</mat-option>
-        </mat-select>  
-      </mat-form-field>
-      <div>
+  <mat-card-title>Create Post</mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-label>Select an option</mat-label>
+      <mat-select [(value)]="selectedOption">
+        <mat-option value="song">Song</mat-option>
+        <mat-option value="event">Event</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
       <mat-form-field>
         <textarea matInput placeholder="Description" [(ngModel)]="desc"></textarea>
       </mat-form-field>
+    </div>
+    <div *ngIf="selectedOption === 'song'">
+      <mat-form-field>
+        <mat-label>Select Song Platform</mat-label>
+        <mat-select [(value)]="platform">
+          <mat-option value="spotify">Spotify</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="platform === 'spotify'">
+        <mat-form-field>
+          <input matInput placeholder="Search for song" [(ngModel)]="spSearch">
+        </mat-form-field>
+        <div *ngIf="spResults">
+          <mat-list style="max-height: 9.375em; overflow-y: auto; background-color: lightgrey;">
+            <mat-list-item *ngFor="let song of spResults">
+              <mat-radio-button (change)="onSpotifySelection(song)" [value]="song"><b>{{song.artist}}</b> - {{song.name}}</mat-radio-button>
+            </mat-list-item>
+          </mat-list>
+        </div>
+        <mat-card-actions>
+          <button mat-raised-button color="secondary" (click)="onSpSearch()">Search</button>
+        </mat-card-actions>
       </div>
-      <div *ngIf="selectedOption === 'song'">
+      <div *ngIf="platform === 'other'">
         <mat-form-field>
           <input matInput placeholder="Artist" [(ngModel)]="artist">
         </mat-form-field>
@@ -21,69 +44,71 @@
           <input matInput placeholder="Song Name" [(ngModel)]="songName">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Link to song"[(ngModel)]="songUrl">
+          <input matInput placeholder="Link to song" [(ngModel)]="songUrl">
         </mat-form-field>
       </div>
-      <div *ngIf="selectedOption === 'event'">
+    </div>
+    <div *ngIf="selectedOption === 'event'">
+      <mat-form-field>
+        <mat-label>Select organiser</mat-label>
+        <mat-select [(value)]="organiser">
+          <mat-option value="tm">Ticketmaster</mat-option>
+          <mat-option value="eb">Eventbrite</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="organiser === 'tm'">
         <mat-form-field>
-          <mat-label>Select organiser</mat-label>
-          <mat-select [(value)]="organiser">
-            <mat-option value="tm">Ticketmaster</mat-option>
-            <mat-option value="eb">Eventbrite</mat-option>
-            <mat-option value="other">Other</mat-option>
-          </mat-select>
-        </mat-form-field> 
-        <div *ngIf="organiser === 'tm'">
-          <mat-form-field>
-            <input matInput placeholder="Search Event" [(ngModel)]="tmSearch">
-          </mat-form-field>
-          <div *ngIf="tmResults">
-            <mat-list style="max-height: 9.375em; overflow-y: auto; background-color: lightgrey;">
-        <mat-list-item *ngFor="let event of tmResults">
-          <!-- (change)="onEventSelection($event)" -->
-          <mat-radio-button (change)="onTmEventSelection(event)" [value]="event">{{event.name}} - {{event.date}} - {{event.city}}</mat-radio-button>
-        </mat-list-item>
-      </mat-list>
-          </div>
-          <mat-card-actions>
-            <button mat-raised-button color="secondary" (click)="onTmSearch()">Search</button>
-          </mat-card-actions>
+          <input matInput placeholder="Search Event" [(ngModel)]="tmSearch">
+        </mat-form-field>
+        <div *ngIf="tmResults">
+          <mat-list style="max-height: 9.375em; overflow-y: auto; background-color: lightgrey;">
+            <mat-list-item *ngFor="let event of tmResults">
+              <!-- (change)="onEventSelection($event)" -->
+              <mat-radio-button (change)="onTmEventSelection(event)" [value]="event">{{event.name}} - {{event.date}} -
+                {{event.city}}</mat-radio-button>
+            </mat-list-item>
+          </mat-list>
         </div>
-        <div *ngIf="organiser === 'eb'">
-          <mat-form-field>
-            <input matInput placeholder="Event URL" [(ngModel)]="ebSearch">
-          </mat-form-field>
-          <br><mat-label *ngIf="ebEvent">{{ this.ebEvent.name }} - {{ this.ebEvent.city }}</mat-label>
-          <mat-card-actions>
-            <button mat-raised-button color="secondary" (click)="getEbEvent()">Get</button>
-          </mat-card-actions>
-        </div>
-        <div *ngIf="organiser === 'other'">
-          <mat-form-field>
-            <input matInput placeholder="Event Name" [(ngModel)]="eventName">
-          </mat-form-field><br>
-          <mat-form-field>
-            <input matInput placeholder="Venue Name"[(ngModel)]="eventVenue">
-          </mat-form-field><br>
-          <mat-form-field>
-            <input matInput placeholder="City"[(ngModel)]="eventCity">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Country"[(ngModel)]="eventCountry">
-          </mat-form-field><br>
-          <mat-form-field>
-            <input matInput placeholder="Start Time"[(ngModel)]="eventTime">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Date"[(ngModel)]="eventDate">
-          </mat-form-field><br>
-          <mat-form-field>
-            <input matInput placeholder="Link to event"[(ngModel)]="eventUrl">
-          </mat-form-field>
-        </div>
+        <mat-card-actions>
+          <button mat-raised-button color="secondary" (click)="onTmSearch()">Search</button>
+        </mat-card-actions>
       </div>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onPost()">Post</button>
-      </mat-card-actions>
-    </mat-card-content>
-  </mat-card>
+      <div *ngIf="organiser === 'eb'">
+        <mat-form-field>
+          <input matInput placeholder="Event URL" [(ngModel)]="ebSearch">
+        </mat-form-field>
+        <br><mat-label *ngIf="ebEvent">{{ this.ebEvent.name }} - {{ this.ebEvent.city }}</mat-label>
+        <mat-card-actions>
+          <button mat-raised-button color="secondary" (click)="getEbEvent()">Get</button>
+        </mat-card-actions>
+      </div>
+      <div *ngIf="organiser === 'other'">
+        <mat-form-field>
+          <input matInput placeholder="Event Name" [(ngModel)]="eventName">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="Venue Name" [(ngModel)]="eventVenue">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="City" [(ngModel)]="eventCity">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Country" [(ngModel)]="eventCountry">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="Start Time" [(ngModel)]="eventTime">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Date" [(ngModel)]="eventDate">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="Link to event" [(ngModel)]="eventUrl">
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="onPost()">Post</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>

@@ -27,7 +27,7 @@ export class CommentsViewComponent implements OnInit {
   constructor(private firestore: AngularFirestore, @Inject(MAT_DIALOG_DATA) public data: any, private afAuth: AngularFireAuth,
   public fbase: FirebaseService,) {
     this.commentInput = '';
-    this.commentsCollection = this.firestore.collection<Comment>(`posts/${this.data.postID}/comments`);
+    this.commentsCollection = this.firestore.collection<Comment>(`posts/${this.data.postID}/comments`, ref => ref.orderBy('timestamp', 'desc'));;
     this.comments = this.commentsCollection.valueChanges({ idField: 'id' });
   }
 

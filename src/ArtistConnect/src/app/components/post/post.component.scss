@@ -1,133 +1,177 @@
 .post-container {
   display: flex;
-  height: 50vh;
-  width: 75vw;
+  height: auto;
+  width: 100%;
+  max-width: 640px;
   margin-bottom: 0.9375em;
+  margin-top: 0.9375em;
   align-items: center;
   justify-content: center;
+}
 
-  .post {
+.post {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  max-width: 640px;
+  border: 0.0625em solid #ddd;
+  border-radius: 0.4375em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+}
+
+.post-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  padding: 0.5em;
+  background-color: var(--main-color);
+  color: var(--color-secondary);
+
+  .left {
     display: flex;
+    align-items: center;
+
+    .shared {
+      margin-left: 0.5em;
+    }
+  }
+
+  .view-profile {
+    background-color: transparent;
+    color: var(--color-secondary);
+  }
+}
+
+.description {
+  max-width: 400px;
+  padding: 1em;
+}
+
+.post-body {
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+
+  .post-info {
+    max-width: 8vw;
+    flex-grow: 1;
+    margin-right: 1em;
+  }
+
+  .song-art {
+    flex-shrink: 0;
+    border-radius: 0.25em;
+    overflow: hidden;
+  }
+
+  .song-art.song {
+    width: 150px;
+    height: 150px;
+  }
+
+  .song-art.event {
+    width: 300px;
+    height: 150px;
+  }
+
+  .song-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1em;
+  
+
+  .post-action-btn {
+    width: 32%; 
+    background-color: transparent;
+    border-color: var(--main-color);
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: color 0.2s;
+    padding: 0.5em 0.2em;
+    border-radius: 0.25em;
+
+    &:hover {
+      color: var(--main-color);
+    }
+  }
+
+  .post-media-btn-spotify-song {
+    width: 32%;
+    background-color: #1DB954;
+    border-color: #1DB954;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--color-secondary);
+    padding: 0.5em 0.2em;
+    border-radius: 0.25em;
+    
+
+    &:hover {
+      background-color: white;
+      color: #1DB954;
+    }
+  }
+  .post-media-btn-tm-event {
+    width: 32%;
+    background-color: #008CFF;
+    border-color: #008CFF;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--color-secondary);
+    padding: 0.5em 0.2em;
+    border-radius: 0.25em;
+
+    &:hover {
+      background-color: white;
+      color: #008CFF;
+    }
+  }
+  .post-media-btn-eb-event {
+    width: 32%;
+    background-color: #ff8000;
+    border-color: #ff8000;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--color-secondary);
+    padding: 0.5em 0.2em;
+    border-radius: 0.25em;
+    // transition: background-color 0.2s;
+
+    &:hover {
+      background-color: white;
+      color: #ff8000;
+    }
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .post-body {
     flex-direction: column;
-    height: 45vh;
-    width: 35vw;
-    border: 0.0625em solid black;
-    border-radius: 0.4375em;
-    box-shadow: 10px 10px 29px 10px rgba(0, 0, 0, 0.32);
-    -webkit-box-shadow: 10px 10px 29px 10px rgba(0, 0, 0, 0.32);
-    -moz-box-shadow: 10px 10px 29px 10px rgba(0, 0, 0, 0.32);
+  }
 
-    .post-header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      border-top-right-radius: 0.3125em;
-      border-top-left-radius: 0.3125em;      
-      height: 6vh;
-      padding-left: 0.3125em;
-      background-color: var(--main-color);
-      color: var(--color-secondary);
-      .left {
-        display: flex;
-        align-items: center;
-        flex-direction: row;        
-        gap: 0.3125em;
-        .shared {
-          color: var(--color-tertiary);
-        }
-      }
+  .song-art.song {
+    width: 100%;
+    height: 100px;
+  }
 
-      .right {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        .view-profile {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 2em;
-          width: 1em;
-          border: none;
-          border-radius: 0.3125em;
-          padding: 0.125em 0.125em;
-          background-color: var(--color-tertiary);
-          background-color: transparent;
-          color: var(--color-tertiary);
-        }
-      }
-
-
-
-      border-bottom: 0.0625em solid black;
-    }
-
-    .post-body {
-      display: flex;
-      flex-direction: row;
-      height: 37vh;
-      padding: 1vh 1vw;
-      justify-content: center;
-      align-items: center;
-
-      .post-info {
-        display: flex;
-        flex-direction: column;
-        width: 13.5vw;
-        gap: 1rem;
-        justify-content: space-between;
-      }
-
-      .song-art {
-        width: 10vw;
-        height: 17.5vh;
-        border-radius: 0.3125em;
-        img {
-          display: block;
-          max-width: 100%;
-          max-height: 100%;
-        }
-      }
-    }
-
-    .description {
-      height: 4vh;
-      display: flex;
-      align-items: center;
-      padding: 1vh 1vw;
-      justify-content: center;
-      color: var(--text-color);
-    }
-
-    .post-actions {
-      display: flex;
-      flex-direction: row;
-      height: 5vh;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.5rem 1rem;
-
-      button {
-        width: 10vw;
-        height: 4vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        border-radius: 0.3125em;
-        padding: 0.3125em 0.625em;
-        cursor: pointer;
-        background-color: var(--color-tertiary);
-        color: var(--text-color);
-        transition: all 0.3s ease;
-        overflow: auto;
-
-        &:hover {
-          background-color: #00f0ff;
-          color: var(--color-text);
-        }
-      }
-    }
+  .song-art.event {
+    width: 100%;
+    height: 150px;
   }
 }

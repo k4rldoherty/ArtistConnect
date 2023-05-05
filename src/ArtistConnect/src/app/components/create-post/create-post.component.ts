@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 //
 import firebase from 'firebase/compat/app';
 import { MatOptionSelectionChange } from '@angular/material/core';
+import axios from 'axios';
 
 interface acEvent {
   id: string,
@@ -20,6 +21,14 @@ interface acEvent {
   long: string,
   time: string,
   date: string,
+  url: string,
+  image: string
+}
+
+interface spotifySong {
+  id: string
+  name: string,
+  artist: string,
   url: string,
   image: string
 }
@@ -51,10 +60,15 @@ export class CreatePostComponent implements OnInit {
   ebSearch!: string;
   ebId!: string;
   ebEvent!: acEvent;
+  spSearch!: string;
+  spResults!: spotifySong[];
+
 
   desc!: string;
   selectedOption = 'song';
   organiser = '';
+  platform = '';
+  spSelection!: spotifySong;
 
   constructor(private fstore: AngularFirestore, private afAuth: AngularFireAuth, private dialogRef: MatDialogRef<CreatePostComponent>,
     private http: HttpClient) {
@@ -72,29 +86,29 @@ export class CreatePostComponent implements OnInit {
   onTmSearch() {
     const keyword = this.tmSearch.replace(/\s/g, "%20");
     this.http.get(`https://app.ticketmaster.com/discovery/v2/events?apikey=qtjQbp4GkppxptLA4y1LUmBG0tRAE4IH&keyword=${keyword}&locale=*`)
-    .subscribe((data: any) => {
-      this.tmResults = [];
-      for (const event of data._embedded.events){
-        // const date = event.dates.start.localDate;
-        // const dateParts = date.split("-");
-        // const dateFormatted = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-        let time = event.dates.start.localTime;
-        if (time){ 
-        const timeParts = time.split(":");
-        time = `${timeParts[0]}:${timeParts[1]}`
-        };
-        const item: acEvent = {
-          id : event.id,
-          name :  event.name,
-          url : event.url,
-          venue : event._embedded.venues[0].name,
-          city : event._embedded.venues[0].city.name,
-          country : event._embedded.venues[0].country.name,
-          lat : event._embedded.venues[0].location.latitude,
-          long : event._embedded.venues[0].location.longitude,
-          time : time,
-          date : event.dates.start.localDate,
-          image : event.images[6].url
+      .subscribe((data: any) => {
+        this.tmResults = [];
+        for (const event of data._embedded.events) {
+          // const date = event.dates.start.localDate;
+          // const dateParts = date.split("-");
+          // const dateFormatted = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+          let time = event.dates.start.localTime;
+          if (time) {
+            const timeParts = time.split(":");
+            time = `${timeParts[0]}:${timeParts[1]}`
+          };
+          const item: acEvent = {
+            id: event.id,
+            name: event.name,
+            url: event.url,
+            venue: event._embedded.venues[0].name,
+            city: event._embedded.venues[0].city.name,
+            country: event._embedded.venues[0].country.name,
+            lat: event._embedded.venues[0].location.latitude,
+            long: event._embedded.venues[0].location.longitude,
+            time: time,
+            date: event.dates.start.localDate,
+            image: event.images[6].url
           };
           this.tmResults.push(item)
         }
@@ -138,6 +152,46 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
+  async onSpSearch() {
+    this.spResults = [];
+    const base64 = (value: string) => {
+      return btoa(value);
+    }
+    //Generates OAuth token for api
+    const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
+    const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    const formattedQuery = this.spSearch.replace(/\s/g, '%20');
+    let authtoken = response.data.access_token;
+    this.http.get(`https://api.spotify.com/v1/search?q=${formattedQuery}&type=track&limit=10`, {
+      headers: {
+        Authorization: `Bearer ${authtoken}`
+      }
+    }).subscribe((data: any) => {
+      const tracks = data.tracks.items;
+      const songTitles = tracks.map((track: any) => track.name);
+      this.spResults = [];
+      for (const track of data.tracks.items) {
+        const item: spotifySong = {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          url: track.external_urls.spotify,
+          image: track.album.images[0].url,
+        };
+        this.spResults.push(item);
+      }
+    });
+  }
+  onSpotifySelection(selection: spotifySong) {
+    this.spSelection = selection;
+  }
+
   onTmEventSelection(selection: acEvent) {
     this.tmSelection = selection;
   }
@@ -146,12 +200,16 @@ export class CreatePostComponent implements OnInit {
     let ts = firebase.firestore.FieldValue.serverTimestamp();
     this.afAuth.authState.subscribe(user => {
       if (user) {
+        let image = '';
+        let id = '';
         if (this.selectedOption == 'song') {
-          if (this.songUrl.includes('spotify.com')) {
+          if (this.platform == 'spotify') {
+            this.songName = this.spSelection.name;
+            this.artist = this.spSelection.artist;
+            this.songUrl = this.spSelection.url;
+            image = this.spSelection.image
+            id = this.spSelection.id
             var source = "Spotify"
-          }
-          else if (this.songUrl.includes('soundcloud.com')) {
-            source = "Soundcloud"
           }
           else {
             source = 'unknown'
@@ -164,7 +222,9 @@ export class CreatePostComponent implements OnInit {
             artist: this.artist,
             songUrl: this.songUrl,
             desc: this.desc,
-            source: source
+            source: source,
+            image : image,
+            id : id
           });
         }
         else if (this.selectedOption == 'event') {

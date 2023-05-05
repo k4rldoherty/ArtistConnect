@@ -12,7 +12,11 @@ import { IPlayerComponent } from '../i-player/i-player.component';
 import { CommentsViewComponent } from '../comments-view/comments-view.component';
 import { Router } from '@angular/router';
 import { EventMapComponent } from '../event-map/event-map.component';
-import { faEllipsisH, faTrash, faFlag, faUser, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH, faTrash, faFlag, faUser, faMusic, faMapMarker, faHeart, faCommentAlt, faPlayCircle, faTicketAlt } from '@fortawesome/free-solid-svg-icons';
+import { LikeViewComponent } from '../like-view/like-view.component';
+import firebase from 'firebase/compat/app';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 export interface UserData {
   displayName: string;
@@ -43,6 +47,11 @@ export class PostComponent implements OnInit {
   faFlag = faFlag;
   faUser = faUser;
   faMusic = faMusic;
+  faMapMarker = faMapMarker;
+  faHeart = faHeart;
+  faCommentAlt = faCommentAlt;
+  faPlayCircle = faPlayCircle;
+  faTicketAlt = faTicketAlt;
 
 
   constructor(
@@ -52,18 +61,48 @@ export class PostComponent implements OnInit {
     private http: HttpClient,
     private functions: AngularFireFunctions,
     private dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.getName();
     this.getLikeCount();
-    if (this.postData.source == 'Spotify') {
-      this.getSpotifyArt();
-    }
   }
 
-  recommend(){
+  onReport(){
+    //ACkarlyury0026
+    let ts = firebase.firestore.FieldValue.serverTimestamp();
+    
+    this.fauth.authState.subscribe(user => {
+      if (user) {
+        this.firestore.collection('reports').add({
+          timestamp: ts,
+          reported_by: user.uid,
+          post: this.postData.did,
+          investigated: false
+        });
+      }
+    });
+    this.snackBar.open('Your report has been received and will be investigated', 'Close', {
+      duration: 5000
+    });
+  }
+
+  onDelete(){
+    const snackBarRef = this.snackBar.open('Are you sure you want to delete this post?', 'Delete', {
+      duration: 5000
+    });
+    
+    snackBarRef.onAction().subscribe(() => {
+      this.firestore.collection('posts').doc(this.postData.did).delete();
+      this.snackBar.open('Post Deleted', 'Close', {
+        duration: 5000
+      });
+    });
+  }
+
+  recommend() {
     const inputVal = this.postData.songUrl;
     this.router.navigate(['/recommend'], { queryParams: { inputVal: inputVal } });
   }
@@ -83,35 +122,6 @@ export class PostComponent implements OnInit {
       .subscribe((querySnapshot) => {
         this.count = querySnapshot.length;
       });
-  }
-
-  //Function pulls Track artwork from Spotify Api
-  async getSpotifyArt() {
-    const base64 = (value: string) => {
-      return btoa(value);
-    }
-    //Generates OAuth token for api
-    const auth = base64('b6ccc6a683614eb49896a4fa30ed0815:a04caf9a809e49178a70755e84e29c4f');
-    const response = await axios.post("https://accounts.spotify.com/api/token", "grant_type=client_credentials", {
-      headers: {
-        Authorization: `Basic ${auth}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
-
-    this.authtoken = response.data.access_token;
-    this.http.get(`https://api.spotify.com/v1/tracks/${this.getTrackIdFromUrl(this.postData.songUrl)}`, {
-      headers: {
-        'Authorization': `Bearer ${this.authtoken}`,
-      }
-    }).subscribe((data: any) => {
-      this.artwork = data.album.images[0].url;
-    });
-  }
-
-  getTrackIdFromUrl(url: string) {
-    this.trackId = url.split('/').pop();
-    return this.trackId;
   }
 
   //Function for when like button is clicked
@@ -137,7 +147,7 @@ export class PostComponent implements OnInit {
   //Function for 
   onPlayClick() {
     let source = this.postData.source;
-    if (source == "Soundcloud") {
+    if (source == "uknown") {
       window.open(this.postData.songUrl, "_blank");
     }
     else if (source == "Spotify") {
@@ -145,7 +155,7 @@ export class PostComponent implements OnInit {
       dialogConfig.data = {
         songUrl: this.postData.songUrl,
         token: this.authtoken,
-        trackId: this.getTrackIdFromUrl(this.postData.songUrl)
+        trackId: this.postData.id
 
       };
 
@@ -161,6 +171,15 @@ export class PostComponent implements OnInit {
     };
 
     this.dialog.open(CommentsViewComponent, dialogConfig);
+  }
+
+  viewLikes(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      postID: this.postData.did,
+    };
+
+    this.dialog.open(LikeViewComponent, dialogConfig);
   }
 
 

@@ -1,0 +1,6 @@
+<mat-list *ngIf="likes.length > 0">
+    <mat-list-item *ngFor="let like of likes">
+      <h3 matLine><strong><fa-icon [icon]="faHeart"></fa-icon> {{ like }}</strong></h3>
+    </mat-list-item>
+  </mat-list>
+<h3 matLine *ngIf="likes.length == 0"><strong>No likes yet!</strong></h3>

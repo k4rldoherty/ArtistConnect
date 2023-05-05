@@ -16,7 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -48,6 +49,7 @@ import { ConversationComponent } from './components/conversation/conversation.co
 import { EventMapComponent } from './components/event-map/event-map.component';
 import { SongRecommenderComponent } from './components/song-recommender/song-recommender.component';
 import { EventFinderComponent } from './components/event-finder/event-finder.component';
+import { LikeViewComponent } from './components/like-view/like-view.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { EventFinderComponent } from './components/event-finder/event-finder.com
     EventMapComponent,
     SongRecommenderComponent,
     EventFinderComponent,
+    LikeViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +103,7 @@ import { EventFinderComponent } from './components/event-finder/event-finder.com
     HttpClientModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},

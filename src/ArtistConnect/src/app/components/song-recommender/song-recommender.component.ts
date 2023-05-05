@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { IPlayerComponent } from '../i-player/i-player.component';
 
 @Component({
   selector: 'app-song-recommender',
@@ -17,7 +19,10 @@ export class SongRecommenderComponent implements OnInit {
   trackId!: string;
   recommendedSongs: any[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient,
+    private route: ActivatedRoute,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -26,11 +31,11 @@ export class SongRecommenderComponent implements OnInit {
       this.onGenerateRecommendations();
     });
   }
-  
+
   async onGenerateRecommendations() {
     const regex = /\/track\/(\w+)(?:\W|$)/;
     const match = regex.exec(this.trackUrl);
-    if (match){
+    if (match) {
       this.trackId = match[1]
     }
     const base64 = (value: string) => {
@@ -63,9 +68,16 @@ export class SongRecommenderComponent implements OnInit {
     });
   }
 
+
   onPlaySong(songId: string) {
-    // Logic to play the song with the given songId
-    // (You can implement this logic based on your project requirements)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      trackId: songId
+
+    };
+
+    this.dialog.open(IPlayerComponent, dialogConfig);
   }
 }
+
 
