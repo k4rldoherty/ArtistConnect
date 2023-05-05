@@ -2,11 +2,9 @@ Make conversations load in from the most recent message instead of the first mes
 
 Make messages load in when you scroll up to the top of the page 
 
-Add name to top of conversation
-
 
 Improvements:
     More time -> design database in python / c#
     Firebase Storage not working due to import type we used
     More impressive css given more time
-    
+    more empty data handling when posting etc

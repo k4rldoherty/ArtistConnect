@@ -43,6 +43,8 @@ export class SearchComponent implements OnInit {
   }
 
   updateSearchResults(searchQuery: string) {
+    this.searchResultsPosts = [];
+    this.searchResultsUsers = [];
     this.firebase.getFilteredSearchResultsUser(searchQuery).subscribe((searchResultsUsers: any) => {
       this.searchResultsUsers = searchResultsUsers;
     });

@@ -30,6 +30,12 @@
                 justify-content: center;
                 min-height: 25vh;
                 width: 65vw;
+                margin-top: 5vh;
+                .title {
+                    display: flex;
+                    position: absolute;
+                    top: 8vh;
+                }
 
                 .result-feed {
                     display: flex;
