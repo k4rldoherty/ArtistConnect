@@ -110,7 +110,6 @@ export class HomeComponent implements OnInit {
   }
 
   changeFilter(type: string) {
-    console.log(type);
     switch(type) {
       case 'songs': {
         this.currentFilter = 'songs';

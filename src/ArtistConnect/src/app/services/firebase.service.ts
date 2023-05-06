@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { normalUser } from '../models/users';
 import { Message } from '../models/messenger';
 import firebase from 'firebase/compat/app';
@@ -95,7 +95,8 @@ export class FirebaseService {
       displayName: displayName,
       dob: dob,
       county: county,
-      country: country
+      country: country,
+      searchTerms: [displayName.toLowerCase(), county, country]
     };
     return userRef.set(userData, {
       merge: true,
@@ -260,8 +261,8 @@ export class FirebaseService {
     return this.firestore.collection('users', ref => {
       return ref
         .orderBy('displayName')
-        .startAt(searchValue)
-        .endAt(searchValue + '\uf8ff')
+        .where('displayName', '>=', searchValue)
+        .where('displayName', '<', searchValue + '\uf8ff')
     }).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -269,7 +270,7 @@ export class FirebaseService {
           const id = a.payload.doc.id;
           return { id, ...data };
         });
-      })
+      }),
     );
   }
 

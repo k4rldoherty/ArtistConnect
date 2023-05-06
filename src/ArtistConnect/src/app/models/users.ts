@@ -5,5 +5,6 @@ export interface normalUser {
     dob: string,
     country: string,
     county: string
-    conversations?: string[]
+    conversations?: string[],
+    searchTerms?: string[]
 }

@@ -13,7 +13,6 @@ export class SearchComponent implements OnInit {
   searchMode: boolean = false;
   searchResultsPosts: PostData[] = [];
   searchResultsUsers: normalUser[] = [];
-  userIndex: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,7 +32,7 @@ export class SearchComponent implements OnInit {
       }
     });
   }
-
+  
   ngOnChanges(changes: SimpleChanges) {
     const searchQueryChange = changes['searchQuery'];
     if (searchQueryChange && !searchQueryChange.firstChange) {
@@ -41,7 +40,7 @@ export class SearchComponent implements OnInit {
       this.updateSearchResults(searchQuery);
     }
   }
-
+  
   updateSearchResults(searchQuery: string) {
     this.searchResultsPosts = [];
     this.searchResultsUsers = [];

@@ -193,7 +193,6 @@ export class CreatePostComponent implements OnInit {
           image: track.album.images[0].url,
         };
         this.spResults.push(item);
-        console.log(item.image)
       }
     });
   }
@@ -237,7 +236,7 @@ export class CreatePostComponent implements OnInit {
             searchTerms: [
               ...this.songName.toLowerCase().split(' '),
               ...this.artist.toLowerCase().split(' '),
-              ...this.desc.toLowerCase().split(' ')
+              ...this.desc.toLowerCase().split(' '),
             ]
           });
         }
