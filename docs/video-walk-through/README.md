@@ -11,3 +11,5 @@ Instructions:
 5. Using incognito mode on your browser, verify that the video is indeed accessible to anybody with the link.
 
 Remember that **your video duration is limited to an maximum of 5 minutes.**   
+**VIDEO LINK**
+**https://drive.google.com/file/d/12VU4h_pIyIG0MI6tbYxv3894zox11UTF/view?usp=share_link**
